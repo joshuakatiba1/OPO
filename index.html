@@ -2,14 +2,314 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Opondo's Family</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3ead8;
+            color: #263b2b;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            padding: 35px 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        h1 {
+            color: #315c3b;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #315c3b;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #25482e;
+        }
+
+        .switch {
+            margin-top: 20px;
+            color: #315c3b;
+            cursor: pointer;
+        }
+
+        #registerForm {
+            display: none;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: #b33;
+        }
+    </style>
 </head>
 
-<body style="background:beige; font-family:Arial; text-align:center; padding:50px;">
+<body>
 
-    <h1 style="color:green;">Opondo's Family</h1>
+<div class="container">
 
-    <p>If you can see this, GitHub Pages is working correctly.</p>
+    <div class="card">
+
+        <h1>Opondo's Family</h1>
+
+        <p class="subtitle">
+            Our family. Our memories. Our home.
+        </p>
+
+        <!-- LOGIN -->
+
+        <div id="loginForm">
+
+            <h2>Welcome Back</h2>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email address"
+            >
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+            >
+
+            <button onclick="login()">
+                Login
+            </button>
+
+            <p class="switch" onclick="showRegister()">
+                Don't have an account? Create one
+            </p>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div id="registerForm">
+
+            <h2>Join the Family</h2>
+
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Full name"
+            >
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="Email address"
+            >
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Password"
+            >
+
+            <button onclick="register()">
+                Create Account
+            </button>
+
+            <p class="switch" onclick="showLogin()">
+                Already have an account? Login
+            </p>
+
+        </div>
+
+        <p id="message"></p>
+
+    </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://udbkgjgomhxclgasbfmz.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+function showRegister() {
+
+    document.getElementById("loginForm").style.display = "none";
+
+    document.getElementById("registerForm").style.display = "block";
+
+    document.getElementById("message").textContent = "";
+}
+
+
+function showLogin() {
+
+    document.getElementById("registerForm").style.display = "none";
+
+    document.getElementById("loginForm").style.display = "block";
+
+    document.getElementById("message").textContent = "";
+}
+
+
+async function register() {
+
+    const name =
+        document.getElementById("registerName").value;
+
+    const email =
+        document.getElementById("registerEmail").value;
+
+    const password =
+        document.getElementById("registerPassword").value;
+
+
+    if (!name || !email || !password) {
+
+        document.getElementById("message").textContent =
+            "Please fill in all fields.";
+
+        return;
+    }
+
+
+    const { data, error } =
+        await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+                data: {
+                    full_name: name
+                }
+
+            }
+
+        });
+
+
+    if (error) {
+
+        document.getElementById("message").textContent =
+            error.message;
+
+        return;
+    }
+
+
+    document.getElementById("message").style.color = "green";
+
+    document.getElementById("message").textContent =
+        "Account created! Check your email to confirm your account.";
+
+}
+
+
+async function login() {
+
+    const email =
+        document.getElementById("loginEmail").value;
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+
+    if (!email || !password) {
+
+        document.getElementById("message").textContent =
+            "Please enter your email and password.";
+
+        return;
+    }
+
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+    if (error) {
+
+        document.getElementById("message").textContent =
+            error.message;
+
+        return;
+    }
+
+
+    document.getElementById("message").style.color = "green";
+
+    document.getElementById("message").textContent =
+        "Login successful!";
+
+}
+
+</script>
 
 </body>
 </html>
