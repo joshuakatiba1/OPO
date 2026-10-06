@@ -16,14 +16,14 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4efe4;
+      background: #f3efe6;
       color: #263b2b;
     }
 
     header {
       background: #244b2f;
       color: white;
-      padding: 20px;
+      padding: 22px 15px;
       text-align: center;
     }
 
@@ -34,20 +34,22 @@
 
     header p {
       margin: 6px 0 0;
+      opacity: 0.9;
     }
 
     .container {
-      max-width: 900px;
+      width: 100%;
+      max-width: 800px;
       margin: 25px auto;
-      padding: 0 15px;
+      padding: 0 12px;
     }
 
     .card {
       background: white;
       padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 14px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      margin-bottom: 18px;
+      border-radius: 16px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
     }
 
     input,
@@ -56,7 +58,7 @@
       width: 100%;
       padding: 12px;
       margin-top: 10px;
-      border-radius: 8px;
+      border-radius: 9px;
       border: 1px solid #ccc;
       font-size: 15px;
     }
@@ -82,71 +84,135 @@
       background: #777;
     }
 
+    .danger {
+      background: #b33a3a;
+    }
+
     .hidden {
       display: none;
     }
 
+    .section-title {
+      margin-top: 0;
+      color: #244b2f;
+    }
+
+    /* POST */
+
     .post {
-      border-top: 1px solid #ddd;
-      padding-top: 18px;
-      margin-top: 18px;
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
     }
 
     .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #2f6b3c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: bold;
-      margin-bottom: 8px;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .post-user {
+      font-weight: bold;
+      color: #243a2b;
     }
 
     .post-date {
       font-size: 12px;
-      color: #777;
+      color: #888;
+      margin-top: 3px;
+    }
+
+    .post-content {
+      margin: 15px 0;
+      white-space: pre-wrap;
+      line-height: 1.5;
     }
 
     .post img,
     .post video {
       width: 100%;
-      max-height: 500px;
+      max-height: 550px;
       object-fit: contain;
-      margin-top: 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #eee;
+      display: block;
     }
 
     .file-link {
-      display: block;
-      margin-top: 12px;
-      padding: 12px;
-      background: #eef4ed;
-      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      margin-top: 10px;
+      border-radius: 10px;
+      background: #edf4ed;
       color: #245530;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .actions {
+    .post-actions {
       display: flex;
       gap: 8px;
-      margin-top: 12px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #eee;
     }
 
-    .actions button {
-      width: auto;
-      flex: 1;
+    .action-btn {
+      background: #f4f4f4;
+      color: #333;
       margin: 0;
-      padding: 9px;
+      flex: 1;
+      padding: 10px;
+    }
+
+    .action-btn.liked {
+      background: #e8f3e9;
+      color: #216b2f;
+    }
+
+    .delete-btn {
+      background: #fff0f0;
+      color: #b33a3a;
+    }
+
+    .comment-section {
+      margin-top: 12px;
     }
 
     .comment {
       background: #f5f5f5;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 8px;
+      padding: 9px 11px;
+      border-radius: 9px;
+      margin-top: 7px;
       font-size: 14px;
+    }
+
+    .comment-name {
+      font-weight: bold;
+      color: #244b2f;
     }
 
     .comment-box {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       margin-top: 10px;
     }
 
@@ -156,23 +222,24 @@
     }
 
     .comment-box button {
-      width: 90px;
+      width: 75px;
       margin: 0;
     }
 
-    #status {
-      margin-top: 10px;
+    .status {
       font-weight: bold;
+      margin-top: 10px;
     }
 
     .welcome {
       font-size: 18px;
-      margin-bottom: 10px;
+      font-weight: bold;
     }
 
-    .section-title {
-      color: #244b2f;
-      margin-top: 0;
+    .empty {
+      text-align: center;
+      color: #777;
+      padding: 25px 10px;
     }
   </style>
 </head>
@@ -215,35 +282,48 @@
       placeholder="Relationship e.g. Son, Daughter, Uncle"
     >
 
-    <button onclick="register()">Create Account</button>
+    <button onclick="register()">
+      Create Account
+    </button>
 
-    <button onclick="login()">Login</button>
+    <button onclick="login()">
+      Login
+    </button>
 
     <p id="authMessage"></p>
 
   </div>
 
 
-  <!-- FAMILY PAGE -->
+  <!-- FAMILY AREA -->
   <div id="familySection" class="hidden">
 
     <div class="card">
+
       <div class="welcome">
         Welcome, <span id="userName"></span> 👋
       </div>
 
-      <button class="secondary" onclick="logout()">Logout</button>
+      <button
+        class="secondary"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
     </div>
 
 
     <!-- CREATE POST -->
     <div class="card">
 
-      <h2 class="section-title">📤 Share With The Family</h2>
+      <h2 class="section-title">
+        📤 Share With The Family
+      </h2>
 
       <textarea
         id="postContent"
-        placeholder="What would you like to share with the family?"
+        placeholder="What's happening in the family?"
       ></textarea>
 
       <input
@@ -252,20 +332,28 @@
         accept="image/,video/,.pdf,.doc,.docx"
       >
 
-      <button onclick="createPost()">Share Post</button>
+      <button onclick="createPost()">
+        Share Post
+      </button>
 
-      <p id="postStatus"></p>
+      <p
+        id="postStatus"
+        class="status"
+      ></p>
 
     </div>
 
 
-    <!-- FAMILY FEED -->
-    <div class="card">
+    <!-- FEED -->
 
-      <h2 class="section-title">📰 Family Feed</h2>
+    <div>
+
+      <h2 class="section-title">
+        📰 Family Feed
+      </h2>
 
       <div id="feed">
-        Loading posts...
+        Loading family posts...
       </div>
 
     </div>
@@ -311,28 +399,31 @@ async function register() {
   const message =
     document.getElementById("authMessage");
 
+
   if (!email || !password || !fullName) {
 
     message.textContent =
-      "Please enter your email, password and name.";
+      "Please enter email, password and full name.";
 
     return;
   }
 
+
   message.textContent =
     "Creating account...";
 
-  const { data, error } =
+
+  const { error } =
     await supabaseClient.auth.signUp({
 
-      email: email,
+      email,
 
-      password: password,
+      password,
 
       options: {
         data: {
           full_name: fullName,
-          relationship: relationship
+          relationship
         }
       }
 
@@ -369,6 +460,7 @@ async function login() {
   const message =
     document.getElementById("authMessage");
 
+
   message.textContent =
     "Logging in...";
 
@@ -376,9 +468,9 @@ async function login() {
   const { data, error } =
     await supabaseClient.auth.signInWithPassword({
 
-      email: email,
+      email,
 
-      password: password
+      password
 
     });
 
@@ -392,7 +484,9 @@ async function login() {
   }
 
 
-  showFamilyPage(data.user);
+  showFamilyPage(
+    data.user
+  );
 
 }
 
@@ -454,7 +548,8 @@ async function showFamilyPage(user) {
 
   document
     .getElementById("userName")
-    .textContent = name;
+    .textContent =
+    name;
 
 
   loadFeed();
@@ -519,9 +614,7 @@ async function createPost() {
   let fileName = null;
 
 
-  /* =========================
-     UPLOAD FILE
-  ========================= */
+  /* UPLOAD FILE */
 
   if (file) {
 
@@ -546,7 +639,11 @@ async function createPost() {
       Math.random()
         .toString(36)
         .substring(2) +
-      (extension ? "." + extension : "");
+      (
+        extension
+          ? "." + extension
+          : ""
+      );
 
 
     const { error: uploadError } =
@@ -562,7 +659,9 @@ async function createPost() {
 
     if (uploadError) {
 
-      console.error(uploadError);
+      console.error(
+        uploadError
+      );
 
       status.textContent =
         "Upload failed: " +
@@ -574,11 +673,10 @@ async function createPost() {
   }
 
 
-  /* =========================
-     SAVE POST
-  ========================= */
+  /* SAVE POST */
 
   const { error } =
+
     await supabaseClient
       .from("posts")
       .insert({
@@ -624,13 +722,20 @@ async function createPost() {
     "Posted successfully! ❤️";
 
 
+  setTimeout(() => {
+
+    status.textContent = "";
+
+  }, 2500);
+
+
   loadFeed();
 
 }
 
 
 /* =========================
-   LOAD FAMILY FEED
+   LOAD FEED
 ========================= */
 
 async function loadFeed() {
@@ -638,11 +743,15 @@ async function loadFeed() {
   const feed =
     document.getElementById("feed");
 
+
   feed.innerHTML =
-    "Loading posts...";
+    "Loading family posts...";
 
 
-  const { data: posts, error } =
+  const {
+    data: posts,
+    error
+  } =
 
     await supabaseClient
       .from("posts")
@@ -665,10 +774,18 @@ async function loadFeed() {
   }
 
 
-  if (!posts || posts.length === 0) {
+  if (!posts?.length) {
 
-    feed.innerHTML =
-      "<p>No family posts yet. Be the first to share something! ❤️</p>";
+    feed.innerHTML = `
+
+      <div class="card empty">
+
+        No family posts yet. ❤️<br>
+        Be the first to share something!
+
+      </div>
+
+    `;
 
     return;
   }
@@ -693,18 +810,34 @@ async function loadFeed() {
    DISPLAY POST
 ========================= */
 
-async function displayPost(post, feed) {
+async function displayPost(
+  post,
+  feed
+) {
+
+  const {
+    data: { user }
+  } =
+    await supabaseClient.auth.getUser();
+
 
   let userName =
     "Family Member";
 
 
-  const { data: profile } =
+  const {
+    data: profile
+  } =
 
     await supabaseClient
       .from("profiles")
-      .select("full_name")
-      .eq("id", post.user_id)
+      .select(
+        "full_name, relationship"
+      )
+      .eq(
+        "id",
+        post.user_id
+      )
       .maybeSingle();
 
 
@@ -716,11 +849,10 @@ async function displayPost(post, feed) {
   }
 
 
-  const postElement =
-    document.createElement("div");
-
-  postElement.className =
-    "post";
+  const initial =
+    userName
+      .charAt(0)
+      .toUpperCase();
 
 
   const date =
@@ -729,35 +861,73 @@ async function displayPost(post, feed) {
     ).toLocaleString();
 
 
-  let html = `
+  const postElement =
+    document.createElement("div");
 
-    <div class="post-header">
-      ${escapeHtml(userName)}
+
+  postElement.className =
+    "post";
+
+
+  /* HEADER */
+
+  const header =
+    document.createElement("div");
+
+  header.className =
+    "post-header";
+
+
+  header.innerHTML = `
+
+    <div class="avatar">
+      ${escapeHtml(initial)}
     </div>
 
-    <div class="post-date">
-      ${date}
+    <div>
+
+      <div class="post-user">
+        ${escapeHtml(userName)}
+      </div>
+
+      <div class="post-date">
+        ${escapeHtml(date)}
+      </div>
+
     </div>
 
   `;
 
 
+  postElement.appendChild(
+    header
+  );
+
+
+  /* CONTENT */
+
   if (post.content) {
 
-    html += `
+    const content =
+      document.createElement("div");
 
-      <p>
-        ${escapeHtml(post.content)}
-      </p>
 
-    `;
+    content.className =
+      "post-content";
+
+
+    content.textContent =
+      post.content;
+
+
+    postElement.appendChild(
+      content
+    );
 
   }
 
 
-  /* =========================
-     ATTACHED FILE
-  ========================= */
+  /* MEDIA */
 
   if (post.image_url) {
 
@@ -775,60 +945,93 @@ async function displayPost(post, feed) {
         );
 
 
-    if (!signedError && signed?.signedUrl) {
+    if (
+      !signedError &&
+      signed?.signedUrl
+    ) {
 
       const url =
         signed.signedUrl;
 
 
       if (
-        post.file_type &&
-        post.file_type.startsWith("image/")
+        post.file_type?.startsWith(
+          "image/"
+        )
       ) {
 
-        html += `
+        const image =
+          document.createElement(
+            "img"
+          );
 
-          <img
-            src="${url}"
-            alt="Family photo"
-          >
+        image.src =
+          url;
 
-        `;
+        image.alt =
+          "Family photo";
+
+
+        postElement.appendChild(
+          image
+        );
 
       }
 
       else if (
-        post.file_type &&
-        post.file_type.startsWith("video/")
+        post.file_type?.startsWith(
+          "video/"
+        )
       ) {
 
-        html += `
+        const video =
+          document.createElement(
+            "video"
+          );
 
-          <video
-            controls
-            src="${url}"
-          ></video>
 
-        `;
+        video.controls =
+          true;
+
+        video.src =
+          url;
+
+
+        postElement.appendChild(
+          video
+        );
 
       }
 
       else {
 
-        html += `
+        const link =
+          document.createElement(
+            "a"
+          );
 
-          <a
-            class="file-link"
-            href="${url}"
-            target="_blank"
-          >
-            📄 ${escapeHtml(
-              post.file_name ||
-              "Open document"
-            )}
-          </a>
 
-        `;
+        link.href =
+          url;
+
+        link.target =
+          "_blank";
+
+        link.className =
+          "file-link";
+
+
+        link.innerHTML =
+          "📄 " +
+          escapeHtml(
+            post.file_name ||
+            "Open document"
+          );
+
+
+        postElement.appendChild(
+          link
+        );
 
       }
 
@@ -837,74 +1040,40 @@ async function displayPost(post, feed) {
   }
 
 
-  postElement.innerHTML =
-    html;
-
-
   /* =========================
-     ACTIONS
+     GET LIKES
   ========================= */
 
-  const actions =
-    document.createElement("div");
+  const {
+    data: likes
+  } =
 
-  actions.className =
-    "actions";
-
-
-  const likeButton =
-    document.createElement("button");
-
-  likeButton.textContent =
-    "❤️ Like";
-
-
-  likeButton.onclick =
-    () => likePost(post.id);
+    await supabaseClient
+      .from("post_likes")
+      .select("id,user_id")
+      .eq(
+        "post_id",
+        post.id
+      );
 
 
-  const commentButton =
-    document.createElement("button");
-
-  commentButton.textContent =
-    "💬 Comment";
+  const likeCount =
+    likes?.length || 0;
 
 
-  commentButton.onclick =
-    () => showCommentBox(
-      postElement,
-      post.id
+  const userLiked =
+    likes?.some(
+      like =>
+        like.user_id === user?.id
     );
 
 
-  actions.appendChild(
-    likeButton
-  );
-
-  actions.appendChild(
-    commentButton
-  );
-
-
-  postElement.appendChild(
-    actions
-  );
-
-
   /* =========================
-     COMMENTS
+     GET COMMENTS
   ========================= */
 
-  const comments =
-    document.createElement("div");
-
-
-  comments.className =
-    "comments";
-
-
   const {
-    data: commentData
+    data: comments
   } =
 
     await supabaseClient
@@ -922,18 +1091,165 @@ async function displayPost(post, feed) {
       );
 
 
-  if (commentData) {
+  const commentCount =
+    comments?.length || 0;
+
+
+  /* ACTIONS */
+
+  const actions =
+    document.createElement("div");
+
+  actions.className =
+    "post-actions";
+
+
+  const likeButton =
+    document.createElement("button");
+
+
+  likeButton.className =
+    "action-btn" +
+    (
+      userLiked
+        ? " liked"
+        : ""
+    );
+
+
+  likeButton.textContent =
+    ❤️ ${likeCount};
+
+
+  likeButton.onclick =
+    async () => {
+
+      await toggleLike(
+        post.id
+      );
+
+    };
+
+
+  const commentButton =
+    document.createElement("button");
+
+
+  commentButton.className =
+    "action-btn";
+
+
+  commentButton.textContent =
+    💬 ${commentCount};
+
+
+  commentButton.onclick =
+    () => {
+
+      const box =
+        postElement.querySelector(
+          ".comment-box"
+        );
+
+
+      if (box) {
+
+        box.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }
+
+    };
+
+
+  actions.appendChild(
+    likeButton
+  );
+
+  actions.appendChild(
+    commentButton
+  );
+
+
+  /* DELETE OWN POST */
+
+  if (
+    user &&
+    user.id === post.user_id
+  ) {
+
+    const deleteButton =
+      document.createElement(
+        "button"
+      );
+
+
+    deleteButton.className =
+      "action-btn delete-btn";
+
+
+    deleteButton.textContent =
+      "🗑️ Delete";
+
+
+    deleteButton.onclick =
+      async () => {
+
+        const confirmed =
+          confirm(
+            "Delete this post?"
+          );
+
+
+        if (!confirmed) return;
+
+
+        await deletePost(
+          post
+        );
+
+      };
+
+
+    actions.appendChild(
+      deleteButton
+    );
+
+  }
+
+
+  postElement.appendChild(
+    actions
+  );
+
+
+  /* COMMENTS */
+
+  const commentSection =
+    document.createElement(
+      "div"
+    );
+
+
+  commentSection.className =
+    "comment-section";
+
+
+  if (comments?.length) {
 
     for (
       const comment
-      of commentData
+      of comments
     ) {
 
       let commentName =
         "Family Member";
 
 
-      const { data: cp } =
+      const {
+        data: cp
+      } =
 
         await supabaseClient
           .from("profiles")
@@ -954,7 +1270,9 @@ async function displayPost(post, feed) {
 
 
       const commentElement =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       commentElement.className =
@@ -963,18 +1281,27 @@ async function displayPost(post, feed) {
 
       commentElement.innerHTML = `
 
-        <strong>
+        <span class="comment-name">
           ${escapeHtml(commentName)}
-        </strong>
+        </span>
 
         <br>
-
-        ${escapeHtml(comment.content)}
 
       `;
 
 
-      comments.appendChild(
+      const text =
+        document.createTextNode(
+          comment.content
+        );
+
+
+      commentElement.appendChild(
+        text
+      );
+
+
+      commentSection.appendChild(
         commentElement
       );
 
@@ -983,8 +1310,65 @@ async function displayPost(post, feed) {
   }
 
 
+  /* COMMENT INPUT */
+
+  const commentBox =
+    document.createElement(
+      "div"
+    );
+
+
+  commentBox.className =
+    "comment-box";
+
+
+  const input =
+    document.createElement(
+      "input"
+    );
+
+
+  input.placeholder =
+    "Write a comment...";
+
+
+  const send =
+    document.createElement(
+      "button"
+    );
+
+
+  send.textContent =
+    "Send";
+
+
+  send.onclick =
+    async () => {
+
+      await addComment(
+        post.id,
+        input.value
+      );
+
+    };
+
+
+  commentBox.appendChild(
+    input
+  );
+
+  commentBox.appendChild(
+    send
+  );
+
+
+  commentSection.appendChild(
+    commentBox
+  );
+
+
   postElement.appendChild(
-    comments
+    commentSection
   );
 
 
@@ -996,10 +1380,12 @@ async function displayPost(post, feed) {
 
 
 /* =========================
-   LIKE POST
+   LIKE / UNLIKE
 ========================= */
 
-async function likePost(postId) {
+async function toggleLike(
+  postId
+) {
 
   const {
     data: { user }
@@ -1010,7 +1396,9 @@ async function likePost(postId) {
   if (!user) return;
 
 
-  const { data: existing } =
+  const {
+    data: existing
+  } =
 
     await supabaseClient
       .from("post_likes")
@@ -1054,186 +1442,40 @@ async function likePost(postId) {
 
   }
 
+
+  loadFeed();
+
 }
 
 
 /* =========================
-   COMMENT BOX
+   ADD COMMENT
 ========================= */
 
-function showCommentBox(
-  postElement,
-  postId
+async function addComment(
+  postId,
+  text
 ) {
 
-  if (
-    postElement.querySelector(
-      ".comment-box"
-    )
-  ) {
-
-    return;
-
-  }
+  text =
+    text.trim();
 
 
-  const box =
-    document.createElement("div");
+  if (!text) return;
 
-
-  box.className =
-    "comment-box";
-
-
-  const input =
-    document.createElement("input");
-
-
-  input.placeholder =
-    "Write a comment...";
-
-
-  const button =
-    document.createElement("button");
-
-
-  button.textContent =
-    "Send";
-
-
-  button.onclick =
-    async () => {
-
-      const text =
-        input.value.trim();
-
-
-      if (!text) return;
-
-
-      const {
-        data: { user }
-      } =
-        await supabaseClient
-          .auth
-          .getUser();
-
-
-      if (!user) return;
-
-
-      const { error } =
-
-        await supabaseClient
-          .from("comments")
-          .insert({
-
-            post_id:
-              postId,
-
-            user_id:
-              user.id,
-
-            content:
-              text
-
-          });
-
-
-      if (error) {
-
-        alert(
-          "Comment failed: " +
-          error.message
-        );
-
-        return;
-      }
-
-
-      loadFeed();
-
-    };
-
-
-  box.appendChild(
-    input
-  );
-
-  box.appendChild(
-    button
-  );
-
-
-  postElement.appendChild(
-    box
-  );
-
-}
-
-
-/* =========================
-   SECURITY / HTML ESCAPE
-========================= */
-
-function escapeHtml(text) {
-
-  if (!text) return "";
-
-
-  return String(text)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-/* =========================
-   CHECK LOGIN ON LOAD
-========================= */
-
-async function checkUser() {
 
   const {
-    data: { session }
+    data: { user }
   } =
+    await supabaseClient.auth.getUser();
+
+
+  if (!user) return;
+
+
+  const {
+    error
+  } =
+
     await supabaseClient
-      .auth
-      .getSession();
-
-
-  if (session?.user) {
-
-    showFamilyPage(
-      session.user
-    );
-
-  }
-
-}
-
-
-checkUser();
-
-</script>
-
-</body>
-</html>
+      .fro
