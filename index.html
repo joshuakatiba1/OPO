@@ -1,171 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Opondo's Family</title>
+<title>Opondo's Family</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f3ead8;
-            color: #263b2b;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3ead8;
+    color: #263b2b;
+}
 
-        .container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+.container {
+    min-height: 100vh;
+    padding: 25px 15px;
+}
 
-        .card {
-            background: white;
-            width: 100%;
-            max-width: 420px;
-            padding: 35px 25px;
-            border-radius: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-            text-align: center;
-        }
+.card {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
 
-        h1 {
-            color: #315c3b;
-            margin-bottom: 5px;
-        }
+h1 {
+    color: #315c3b;
+    text-align: center;
+}
 
-        .subtitle {
-            color: #777;
-            margin-bottom: 25px;
-        }
+h2 {
+    color: #315c3b;
+}
 
-        input {
-            width: 100%;
-            padding: 13px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-        }
+.subtitle {
+    text-align: center;
+    color: #777;
+}
 
-        button {
-            width: 100%;
-            padding: 13px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #315c3b;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+input,
+textarea {
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
 
-        button:hover {
-            background: #25482e;
-        }
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #315c3b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        .switch {
-            margin-top: 20px;
-            color: #315c3b;
-            cursor: pointer;
-        }
+button:hover {
+    background: #25482e;
+}
 
-        #registerForm {
-            display: none;
-        }
+.secondary {
+    background: #8a7653;
+}
 
-        #message {
-            margin-top: 15px;
-            color: #b33;
-        }
-    </style>
+.logout {
+    background: #9b3d3d;
+}
+
+.switch {
+    margin-top: 20px;
+    text-align: center;
+    color: #315c3b;
+    cursor: pointer;
+}
+
+#registerForm,
+#familyPage {
+    display: none;
+}
+
+#message {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.upload-box {
+    background: #f7f1e5;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.file-input {
+    background: white;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.media-item {
+    background: #f7f1e5;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.media-item img,
+.media-item video {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.document {
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.document a {
+    color: #315c3b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.small {
+    font-size: 13px;
+    color: #777;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="card">
+<!-- LOGIN -->
 
-        <h1>Opondo's Family</h1>
+<div class="card" id="loginForm">
 
-        <p class="subtitle">
-            Our family. Our memories. Our home.
+    <h1>Opondo's Family</h1>
+
+    <p class="subtitle">
+        Our family. Our memories. Our home.
+    </p>
+
+    <h2>Welcome Back</h2>
+
+    <input
+        type="email"
+        id="loginEmail"
+        placeholder="Email address"
+    >
+
+    <input
+        type="password"
+        id="loginPassword"
+        placeholder="Password"
+    >
+
+    <button onclick="login()">Login</button>
+
+    <p class="switch" onclick="showRegister()">
+        Don't have an account? Create one
+    </p>
+
+    <p id="loginMessage"></p>
+
+</div>
+
+
+<!-- REGISTER -->
+
+<div class="card" id="registerForm">
+
+    <h1>Opondo's Family</h1>
+
+    <h2>Create Family Account</h2>
+
+    <input
+        type="text"
+        id="registerName"
+        placeholder="Full name"
+    >
+
+    <input
+        type="email"
+        id="registerEmail"
+        placeholder="Email address"
+    >
+
+    <input
+        type="password"
+        id="registerPassword"
+        placeholder="Password"
+    >
+
+    <button onclick="register()">
+        Create Account
+    </button>
+
+    <p class="switch" onclick="showLogin()">
+        Already have an account? Login
+    </p>
+
+    <p id="registerMessage"></p>
+
+</div>
+
+
+<!-- FAMILY PAGE -->
+
+<div class="card" id="familyPage">
+
+    <h1>Opondo's Family 🌿</h1>
+
+    <p id="welcomeText"></p>
+
+    <button class="logout" onclick="logout()">
+        Logout
+    </button>
+
+
+    <!-- UPLOAD -->
+
+    <div class="upload-box">
+
+        <h2>📤 Share With The Family</h2>
+
+        <p>
+            Upload photos, videos or important documents.
         </p>
 
-        <!-- LOGIN -->
+        <input
+            class="file-input"
+            type="file"
+            id="fileInput"
+            accept="image/,video/,.pdf,.doc,.docx"
+        >
 
-        <div id="loginForm">
+        <textarea
+            id="caption"
+            placeholder="Add a caption or description..."
+            rows="3"
+        ></textarea>
 
-            <h2>Welcome Back</h2>
+        <button onclick="uploadFile()">
+            Upload
+        </button>
 
-            <input
-                type="email"
-                id="loginEmail"
-                placeholder="Email address"
-            >
-
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Password"
-            >
-
-            <button onclick="login()">
-                Login
-            </button>
-
-            <p class="switch" onclick="showRegister()">
-                Don't have an account? Create one
-            </p>
-
-        </div>
-
-
-        <!-- REGISTER -->
-
-        <div id="registerForm">
-
-            <h2>Join the Family</h2>
-
-            <input
-                type="text"
-                id="registerName"
-                placeholder="Full name"
-            >
-
-            <input
-                type="email"
-                id="registerEmail"
-                placeholder="Email address"
-            >
-
-            <input
-                type="password"
-                id="registerPassword"
-                placeholder="Password"
-            >
-
-            <button onclick="register()">
-                Create Account
-            </button>
-
-            <p class="switch" onclick="showLogin()">
-                Already have an account? Login
-            </p>
-
-        </div>
-
-        <p id="message"></p>
+        <p id="uploadMessage"></p>
 
     </div>
+
+
+    <!-- FAMILY MEDIA -->
+
+    <h2>📸 Family Gallery</h2>
+
+    <div id="gallery" class="gallery"></div>
+
+
+    <!-- DOCUMENTS -->
+
+    <h2>📄 Family Documents</h2>
+
+    <div id="documents"></div>
+
+</div>
 
 </div>
 
@@ -189,33 +311,51 @@ supabase.createClient(
 );
 
 
+/* SHOW LOGIN */
+
+function showLogin() {
+
+    document.getElementById("loginForm").style.display = "block";
+
+    document.getElementById("registerForm").style.display = "none";
+
+    document.getElementById("familyPage").style.display = "none";
+}
+
+
+/* SHOW REGISTER */
+
 function showRegister() {
 
     document.getElementById("loginForm").style.display = "none";
 
     document.getElementById("registerForm").style.display = "block";
 
-    document.getElementById("message").textContent = "";
+    document.getElementById("familyPage").style.display = "none";
 }
 
 
-function showLogin() {
+/* SHOW FAMILY PAGE */
+
+function showFamily() {
+
+    document.getElementById("loginForm").style.display = "none";
 
     document.getElementById("registerForm").style.display = "none";
 
-    document.getElementById("loginForm").style.display = "block";
-
-    document.getElementById("message").textContent = "";
+    document.getElementById("familyPage").style.display = "block";
 }
 
+
+/* REGISTER */
 
 async function register() {
 
     const name =
-        document.getElementById("registerName").value;
+        document.getElementById("registerName").value.trim();
 
     const email =
-        document.getElementById("registerEmail").value;
+        document.getElementById("registerEmail").value.trim();
 
     const password =
         document.getElementById("registerPassword").value;
@@ -223,14 +363,14 @@ async function register() {
 
     if (!name || !email || !password) {
 
-        document.getElementById("message").textContent =
+        document.getElementById("registerMessage").textContent =
             "Please fill in all fields.";
 
         return;
     }
 
 
-    const { data, error } =
+    const { error } =
         await supabaseClient.auth.signUp({
 
             email: email,
@@ -250,37 +390,31 @@ async function register() {
 
     if (error) {
 
-        document.getElementById("message").textContent =
+        document.getElementById("registerMessage").textContent =
             error.message;
 
         return;
     }
 
 
-    document.getElementById("message").style.color = "green";
+    document.getElementById("registerMessage").style.color =
+        "green";
 
-    document.getElementById("message").textContent =
-        "Account created! Check your email to confirm your account.";
+    document.getElementById("registerMessage").textContent =
+        "Account created. Check your email to confirm your account.";
 
 }
 
 
+/* LOGIN */
+
 async function login() {
 
     const email =
-        document.getElementById("loginEmail").value;
+        document.getElementById("loginEmail").value.trim();
 
     const password =
         document.getElementById("loginPassword").value;
-
-
-    if (!email || !password) {
-
-        document.getElementById("message").textContent =
-            "Please enter your email and password.";
-
-        return;
-    }
 
 
     const { data, error } =
@@ -295,19 +429,298 @@ async function login() {
 
     if (error) {
 
-        document.getElementById("message").textContent =
+        document.getElementById("loginMessage").textContent =
             error.message;
 
         return;
     }
 
 
-    document.getElementById("message").style.color = "green";
+    showFamily();
 
-    document.getElementById("message").textContent =
-        "Login successful!";
+    document.getElementById("welcomeText").textContent =
+        "Welcome to our family space.";
+
+    loadFiles();
 
 }
+
+
+/* LOGOUT */
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    showLogin();
+
+}
+
+
+/* UPLOAD FILE */
+
+async function uploadFile() {
+
+    const file =
+        document.getElementById("fileInput").files[0];
+
+    const caption =
+        document.getElementById("caption").value.trim();
+
+    const message =
+        document.getElementById("uploadMessage");
+
+
+    if (!file) {
+
+        message.textContent =
+            "Please select a file first.";
+
+        return;
+    }
+
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+        message.textContent =
+            "Please log in first.";
+
+        return;
+    }
+
+
+    message.style.color = "#315c3b";
+
+    message.textContent =
+        "Uploading...";
+
+
+    const fileName =
+        Date.now() + "_" +
+        file.name.replace(/\s+/g, "_");
+
+
+    const filePath =
+        user.id + "/" + fileName;
+
+
+    const { error } =
+        await supabaseClient.storage
+        .from("family-media")
+        .upload(filePath, file);
+
+
+    if (error) {
+
+        message.style.color = "#b33";
+
+        message.textContent =
+            error.message;
+
+        return;
+    }
+
+
+    /*
+       Save information about the upload
+       in the database.
+    */
+
+    const { error: dbError } =
+        await supabaseClient
+        .from("gallery")
+        .insert({
+
+            user_id: user.id,
+
+            image_url: filePath,
+
+            caption: caption || file.name
+
+        });
+
+
+    if (dbError) {
+
+        message.textContent =
+            "File uploaded, but information could not be saved.";
+
+        return;
+    }
+
+
+    message.style.color = "green";
+
+    message.textContent =
+        "Uploaded successfully!";
+
+
+    document.getElementById("fileInput").value = "";
+
+    document.getElementById("caption").value = "";
+
+
+    loadFiles();
+
+}
+
+
+/* LOAD FILES */
+
+async function loadFiles() {
+
+    const { data: files, error } =
+        await supabaseClient
+        .from("gallery")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+
+    if (error) {
+
+        console.log(error);
+
+        return;
+    }
+
+
+    const gallery =
+        document.getElementById("gallery");
+
+    const documents =
+        document.getElementById("documents");
+
+
+    gallery.innerHTML = "";
+
+    documents.innerHTML = "";
+
+
+    for (const item of files) {
+
+        const { data: signedData } =
+            await supabaseClient.storage
+            .from("family-media")
+            .createSignedUrl(
+                item.image_url,
+                3600
+            );
+
+
+        if (!signedData) continue;
+
+
+        const url =
+            signedData.signedUrl;
+
+
+        const fileName =
+            item.image_url.split("/").pop();
+
+
+        const extension =
+            fileName.split(".").pop().toLowerCase();
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className = "media-item";
+
+
+        if (
+            ["jpg","jpeg","png","gif","webp"].includes(extension)
+        ) {
+
+            div.innerHTML = `
+
+                <img src="${url}">
+
+                <p>${item.caption || ""}</p>
+
+            `;
+
+            gallery.appendChild(div);
+
+        }
+
+
+        else if (
+            ["mp4","mov","webm"].includes(extension)
+        ) {
+
+            div.innerHTML = `
+
+                <video controls src="${url}"></video>
+
+                <p>${item.caption || ""}</p>
+
+            `;
+
+            gallery.appendChild(div);
+
+        }
+
+
+        else {
+
+            const documentDiv =
+                document.createElement("div");
+
+            documentDiv.className =
+                "document";
+
+            documentDiv.innerHTML = `
+
+                📄
+                <a href="${url}" target="_blank">
+                    ${item.caption || fileName}
+                </a>
+
+                <p class="small">
+                    ${fileName}
+                </p>
+
+            `;
+
+            documents.appendChild(documentDiv);
+
+        }
+
+    }
+
+}
+
+
+/* CHECK CURRENT LOGIN */
+
+async function checkUser() {
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+
+    if (user) {
+
+        showFamily();
+
+        loadFiles();
+
+    }
+
+}
+
+
+/* START */
+
+checkUser();
 
 </script>
 
