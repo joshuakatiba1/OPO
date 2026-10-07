@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opondo's Family Login</title>
 </head>
 
-<body style="text-align:center; padding:50px;">
+<body style="background:#f5efe3;font-family:Arial;text-align:center;padding:40px">
 
-  <h1>Opondo's Family</h1>
+<h1>🌿 Opondo's Family 🤎</h1>
 
-  <button onclick="testButton()">
-    TEST BUTTON
-  </button>
+<input id="email" type="email" placeholder="Email"
+style="padding:12px;width:90%;max-width:350px;margin:8px">
 
-  <p id="result"></p>
+<br>
 
-  <script>
-    function testButton() {
-      document.getElementById("result").innerText =
-        "✅ JAVASCRIPT IS WORKING";
+<input id="password" type="password" placeholder="Password"
+style="padding:12px;width:90%;max-width:350px;margin:8px">
+
+<br>
+
+<button id="loginButton"
+style="padding:12px 30px;margin:15px;background:#5b3a29;color:white;border:0;border-radius:10px">
+LOGIN
+</button>
+
+<p id="message"></p>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://udbkgjgomhxclgasbfmz.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+
+const client =
+supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+document.getElementById("loginButton").addEventListener("click", async function() {
+
+    const email =
+    document.getElementById("email").value.trim();
+
+    const password =
+    document.getElementById("password").value;
+
+    const message =
+    document.getElementById("message");
+
+    message.innerText = "Connecting to Supabase...";
+
+    try {
+
+        const { data, error } =
+        await client.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+        if (error) {
+            message.innerText = "❌ " + error.message;
+            return;
+        }
+
+        message.innerText =
+        "✅ LOGIN SUCCESSFUL!";
+
+    } catch (error) {
+
+        message.innerText =
+        "❌ " + error.message;
+
     }
-  </script>
+
+});
+
+</script>
 
 </body>
 </html>
