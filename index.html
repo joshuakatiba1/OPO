@@ -1,124 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opondo's Family</title>
+  <title>Test</title>
 </head>
 
-<body style="
-  margin:0;
-  background:#f5efe3;
-  font-family:Arial;
-">
+<body style="text-align:center; padding:50px;">
 
-<div style="
-  max-width:400px;
-  margin:60px auto;
-  padding:25px;
-  background:white;
-  border-radius:20px;
-  box-shadow:0 4px 15px rgba(0,0,0,.15);
-">
+  <h1>Opondo's Family</h1>
 
-  <h1 style="color:#5b3a29;text-align:center;">
-    🌿 Opondo's Family 🤎
-  </h1>
-
-  <input
-    id="email"
-    type="email"
-    placeholder="Email"
-    style="
-      width:100%;
-      padding:12px;
-      margin:8px 0;
-      box-sizing:border-box;
-    "
-  >
-
-  <input
-    id="password"
-    type="password"
-    placeholder="Password"
-    style="
-      width:100%;
-      padding:12px;
-      margin:8px 0;
-      box-sizing:border-box;
-    "
-  >
-
-  <button
-    onclick="login()"
-    style="
-      width:100%;
-      padding:13px;
-      margin-top:10px;
-      background:#5b3a29;
-      color:white;
-      border:0;
-      border-radius:10px;
-      font-weight:bold;
-    "
-  >
-    Login
+  <button onclick="testButton()">
+    TEST BUTTON
   </button>
 
-  <p id="message"></p>
+  <p id="result"></p>
 
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-const SUPABASE_URL =
-"https://udbkgjgomhxclgasbfmz.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
-
-const client =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-async function login(){
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  const message =
-    document.getElementById("message");
-
-  message.textContent =
-    "Logging in...";
-
-  const result =
-    await client.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-  if(result.error){
-
-    message.textContent =
-      result.error.message;
-
-    return;
-  }
-
-  message.textContent =
-    "✅ LOGIN WORKED!";
-
-}
-
-</script>
+  <script>
+    function testButton() {
+      document.getElementById("result").innerText =
+        "✅ JAVASCRIPT IS WORKING";
+    }
+  </script>
 
 </body>
 </html>
