@@ -7,374 +7,316 @@
 <title>Opondo's Family</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: #3d3028;
-  background-color: #f5efe3;
-
-  /* Polka dots */
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#3d3028;
+  background:#f5efe3;
   background-image:
-    radial-gradient(rgba(91,58,41,.10) 1.5px, transparent 1.5px),
-    radial-gradient(rgba(76,111,82,.08) 1.5px, transparent 1.5px);
-  background-size: 28px 28px;
-  background-position: 0 0, 14px 14px;
+    radial-gradient(rgba(91,58,41,.12) 1.5px,transparent 1.5px),
+    radial-gradient(rgba(73,107,79,.09) 1.5px,transparent 1.5px);
+  background-size:28px 28px;
+  background-position:0 0,14px 14px;
 }
 
-.hidden {
-  display: none !important;
+.hidden{display:none!important}
+
+header{
+  background:linear-gradient(135deg,#5b3a29,#496b4f);
+  color:white;
+  text-align:center;
+  padding:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.18);
 }
 
-header {
-  background: linear-gradient(135deg, #5b3a29, #496b4f);
-  color: white;
-  padding: 18px;
-  text-align: center;
-  box-shadow: 0 3px 12px rgba(0,0,0,.15);
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0}
+
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:16px;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 25px;
+.card{
+  background:#fffdf7;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 4px 15px rgba(91,58,41,.12);
+  border:1px solid rgba(91,58,41,.1);
 }
 
-header p {
-  margin: 5px 0 0;
-  opacity: .9;
+.auth-box{
+  max-width:430px;
+  margin:50px auto;
 }
 
-.container {
-  max-width: 850px;
-  margin: auto;
-  padding: 18px;
+.auth-box h1{
+  text-align:center;
+  color:#5b3a29;
 }
 
-.card {
-  background: rgba(255,253,247,.96);
-  border-radius: 20px;
-  padding: 18px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 15px rgba(91,58,41,.12);
-  border: 1px solid rgba(91,58,41,.10);
+input,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #d6c8b5;
+  border-radius:12px;
+  background:#fffdf7;
+  font-size:15px;
 }
 
-button {
-  border: none;
-  border-radius: 12px;
-  padding: 11px 16px;
-  background: #5b3a29;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+textarea{
+  min-height:90px;
+  resize:vertical;
 }
 
-button:hover {
-  opacity: .9;
+button{
+  border:0;
+  border-radius:12px;
+  padding:11px 16px;
+  background:#5b3a29;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.green-btn {
-  background: #496b4f;
+button:hover{opacity:.9}
+
+.green-btn{background:#496b4f}
+.yellow-btn{background:#d6aa42;color:#3d3028}
+.danger{background:#a84d42}
+
+.auth-buttons{
+  display:flex;
+  gap:8px;
 }
 
-.yellow-btn {
-  background: #d6aa42;
-  color: #3d3028;
+.auth-buttons button{flex:1}
+
+.section-title{
+  color:#5b3a29;
+  margin-top:0;
 }
 
-.danger {
-  background: #a84d42;
+.flower{
+  position:fixed;
+  opacity:.15;
+  font-size:35px;
+  pointer-events:none;
 }
 
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 12px;
-  margin: 7px 0;
-  border: 1px solid #d6c8b5;
-  border-radius: 12px;
-  font-size: 15px;
-  background: #fffdf7;
-}
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-}
-
-.auth-box {
-  max-width: 430px;
-  margin: 50px auto;
-}
-
-.auth-box h1 {
-  text-align: center;
-  color: #5b3a29;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.auth-buttons button {
-  flex: 1;
-}
-
-/* Decorative flowers */
-.flower {
-  position: fixed;
-  font-size: 35px;
-  opacity: .16;
-  pointer-events: none;
-}
-
-.flower.one {
-  top: 100px;
-  left: 10px;
-}
-
-.flower.two {
-  bottom: 70px;
-  right: 10px;
-}
-
-.section-title {
-  color: #5b3a29;
-  margin-top: 0;
-}
+.flower.one{top:90px;left:10px}
+.flower.two{bottom:60px;right:10px}
 
 /* PROFILE */
-.profile-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+
+.profile-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.profile-photo {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #5b3a29;
+.profile-photo{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #5b3a29;
 }
 
-.profile-initial {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: #496b4f;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: bold;
-  border: 3px solid #5b3a29;
+.profile-initial{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#496b4f;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:bold;
+  border:3px solid #5b3a29;
 }
 
 /* STATUS */
-.status-section {
-  overflow-x: auto;
+
+.status-list{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding:8px 2px 12px;
 }
 
-.status-list {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  padding: 8px 2px 12px;
+.status-item{
+  min-width:75px;
+  text-align:center;
+  cursor:pointer;
 }
 
-.status-item {
-  min-width: 75px;
-  text-align: center;
-  cursor: pointer;
+.status-circle{
+  width:68px;
+  height:68px;
+  margin:auto;
+  padding:3px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#5b3a29,#496b4f,#d6aa42);
 }
 
-.status-circle {
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
-  padding: 3px;
-  background: linear-gradient(135deg, #5b3a29, #496b4f, #d6aa42);
-  margin: auto;
+.status-circle-inner{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  overflow:hidden;
+  background:#f5efe3;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-.status-circle-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #f5efe3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.status-circle-inner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.status-circle img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.status-name{
+  margin-top:5px;
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.status-name {
-  font-size: 12px;
-  margin-top: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.add-status {
-  font-size: 30px;
-  color: #5b3a29;
+.add-status{
+  font-size:32px;
+  color:#5b3a29;
 }
 
 /* POSTS */
-.post {
-  border-top: 1px solid #e3d8c8;
-  padding-top: 15px;
-  margin-top: 15px;
+
+.post{
+  border-top:1px solid #e3d8c8;
+  padding-top:15px;
+  margin-top:15px;
 }
 
-.post-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.post-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.post-user {
-  font-weight: bold;
-  color: #5b3a29;
+.post-user{
+  font-weight:bold;
+  color:#5b3a29;
 }
 
-.post-date {
-  font-size: 11px;
-  color: #88796d;
+.post-date{
+  font-size:11px;
+  color:#88796d;
 }
 
-.post-content {
-  white-space: pre-wrap;
-  margin: 12px 0;
-  line-height: 1.5;
+.post-content{
+  white-space:pre-wrap;
+  line-height:1.5;
+  margin:12px 0;
 }
 
-.post-media {
-  max-width: 100%;
-  width: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  border-radius: 15px;
-  background: #eee5d8;
+.post-media{
+  width:100%;
+  max-height:500px;
+  object-fit:contain;
+  border-radius:15px;
+  background:#eee5d8;
 }
 
-.action-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
+.action-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
 }
 
-.action-row button {
-  background: #eee5d8;
-  color: #5b3a29;
-  padding: 8px 12px;
+.action-row button{
+  background:#eee5d8;
+  color:#5b3a29;
+  padding:8px 12px;
 }
 
-.action-row button.liked {
-  background: #5b3a29;
-  color: white;
+.action-row button.liked{
+  background:#5b3a29;
+  color:white;
 }
 
-.comment-box {
-  display: flex;
-  gap: 7px;
-  margin-top: 10px;
+.comment-box{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
 }
 
-.comment-box input {
-  margin: 0;
+.comment-box input{
+  margin:0;
 }
 
-.comment {
-  background: #f2eadf;
-  border-radius: 12px;
-  padding: 8px 11px;
-  margin-top: 7px;
-  font-size: 14px;
-}
-
-.comment strong {
-  color: #496b4f;
+.comment{
+  background:#f2eadf;
+  border-radius:12px;
+  padding:8px 11px;
+  margin-top:7px;
+  font-size:14px;
 }
 
 /* STATUS VIEWER */
-.status-viewer {
-  position: fixed;
-  inset: 0;
-  background: rgba(30,24,20,.94);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+
+.status-viewer{
+  position:fixed;
+  inset:0;
+  background:rgba(30,24,20,.94);
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
 }
 
-.status-viewer-card {
-  max-width: 600px;
-  width: 100%;
-  max-height: 90vh;
-  overflow: auto;
-  background: #fffdf7;
-  border-radius: 20px;
-  padding: 18px;
-  position: relative;
+.status-viewer-card{
+  width:100%;
+  max-width:600px;
+  max-height:90vh;
+  overflow:auto;
+  background:#fffdf7;
+  border-radius:20px;
+  padding:18px;
+  position:relative;
 }
 
-.status-viewer-media {
-  max-width: 100%;
-  max-height: 65vh;
-  display: block;
-  margin: auto;
-  border-radius: 15px;
+.status-viewer-media{
+  max-width:100%;
+  max-height:65vh;
+  display:block;
+  margin:auto;
+  border-radius:15px;
 }
 
-.close-status {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  background: #5b3a29;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  padding: 0;
+.close-status{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:38px;
+  height:38px;
+  padding:0;
+  border-radius:50%;
+  z-index:5;
 }
 
-/* Mobile */
-@media(max-width:600px) {
-  .container {
-    padding: 10px;
-  }
-
-  .card {
-    padding: 14px;
-    border-radius: 16px;
-  }
-
-  header h1 {
-    font-size: 21px;
-  }
-
-  .action-row {
-    flex-wrap: wrap;
-  }
-
-  button {
-    padding: 10px 13px;
-  }
+@media(max-width:600px){
+  .container{padding:10px}
+  .card{padding:14px}
+  header h1{font-size:21px}
 }
 </style>
 </head>
@@ -390,19 +332,39 @@ textarea {
 </header>
 
 <!-- LOGIN -->
+
 <div id="authPage" class="container">
 
   <div class="card auth-box">
 
     <h1>🌸 Welcome Family</h1>
 
-    <input id="loginEmail" type="email" placeholder="Email">
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
+    >
 
-    <input id="loginPassword" type="password" placeholder="Password">
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
 
     <div class="auth-buttons">
-      <button onclick="login()">Login</button>
-      <button class="green-btn" onclick="showRegister()">Register</button>
+
+      <button onclick="login()">
+        Login
+      </button>
+
+      <button
+        class="green-btn"
+        onclick="showRegister()">
+        Register
+      </button>
+
     </div>
 
     <p id="loginMessage"></p>
@@ -411,24 +373,45 @@ textarea {
 
 </div>
 
+
 <!-- REGISTER -->
+
 <div id="registerPage" class="container hidden">
 
   <div class="card auth-box">
 
     <h1>🌿 Join the Family</h1>
 
-    <input id="registerName" placeholder="Full name">
+    <input
+      id="registerName"
+      placeholder="Full name"
+    >
 
-    <input id="registerRelationship" placeholder="Relationship e.g. Son, Mum, Cousin">
+    <input
+      id="registerRelationship"
+      placeholder="Relationship e.g. Son, Mum, Cousin"
+    >
 
-    <input id="registerEmail" type="email" placeholder="Email">
+    <input
+      id="registerEmail"
+      type="email"
+      placeholder="Email"
+    >
 
-    <input id="registerPassword" type="password" placeholder="Password">
+    <input
+      id="registerPassword"
+      type="password"
+      placeholder="Password"
+    >
 
-    <button onclick="register()">Create Account</button>
+    <button onclick="register()">
+      Create Account
+    </button>
 
-    <button class="green-btn" onclick="showLogin()" style="margin-top:8px;">
+    <button
+      class="green-btn"
+      onclick="showLogin()"
+      style="margin-top:8px">
       Back to Login
     </button>
 
@@ -438,21 +421,34 @@ textarea {
 
 </div>
 
-<!-- APP -->
+
+<!-- MAIN APP -->
+
 <div id="appPage" class="container hidden">
 
   <!-- PROFILE -->
+
   <div class="card">
 
-    <h2 class="section-title">🌸 My Profile</h2>
+    <h2 class="section-title">
+      🌸 My Profile
+    </h2>
 
     <div class="profile-row">
 
       <div id="myProfilePhoto"></div>
 
-      <div style="flex:1;">
-        <strong id="myName"></strong>
-        <div id="myRelationship" style="font-size:13px;color:#88796d;"></div>
+      <div style="flex:1">
+
+        <strong id="myName">
+          Family Member
+        </strong>
+
+        <div
+          id="myRelationship"
+          style="font-size:13px;color:#88796d">
+        </div>
+
       </div>
 
     </div>
@@ -461,36 +457,56 @@ textarea {
       id="profilePhotoInput"
       type="file"
       accept="image/*"
+      style="display:none"
       onchange="uploadProfilePhoto()"
     >
 
-    <button class="green-btn" onclick="document.getElementById('profilePhotoInput').click()">
+    <button
+      class="green-btn"
+      onclick="document.getElementById('profilePhotoInput').click()">
       📸 Change Profile Photo
     </button>
 
-    <button class="danger" onclick="logout()" style="float:right;">
+    <button
+      class="danger"
+      onclick="logout()"
+      style="float:right">
       Logout
     </button>
 
+    <div style="clear:both"></div>
+
   </div>
+
 
   <!-- STATUS -->
-  <div class="card status-section">
 
-    <h2 class="section-title">🌸 Family Status</h2>
+  <div class="card">
 
-    <div class="status-list" id="statusList"></div>
+    <h2 class="section-title">
+      🌸 Family Status
+    </h2>
+
+    <div
+      id="statusList"
+      class="status-list">
+      Loading statuses...
+    </div>
 
   </div>
 
+
   <!-- ADD STATUS -->
+
   <div class="card">
 
-    <h2 class="section-title">✨ Add a Status</h2>
+    <h2 class="section-title">
+      ✨ Add a Status
+    </h2>
 
     <textarea
       id="statusText"
-      placeholder="What's happening?..."
+      placeholder="What's happening?"
     ></textarea>
 
     <input
@@ -503,18 +519,22 @@ textarea {
       📤 Share Status
     </button>
 
-    <p style="font-size:12px;color:#88796d;">
-      Statuses disappear automatically after 24 hours.
+    <p style="font-size:12px;color:#88796d">
+      Statuses disappear after 24 hours.
     </p>
 
     <p id="statusMessage"></p>
 
   </div>
 
+
   <!-- CREATE POST -->
+
   <div class="card">
 
-    <h2 class="section-title">🤎 Share With The Family</h2>
+    <h2 class="section-title">
+      🤎 Share With The Family
+    </h2>
 
     <textarea
       id="postText"
@@ -535,10 +555,14 @@ textarea {
 
   </div>
 
+
   <!-- FEED -->
+
   <div class="card">
 
-    <h2 class="section-title">🏡 Family Feed</h2>
+    <h2 class="section-title">
+      🏡 Family Feed
+    </h2>
 
     <div id="feed">
       Loading family posts...
@@ -548,12 +572,20 @@ textarea {
 
 </div>
 
+
 <!-- STATUS VIEWER -->
-<div id="statusViewer" class="status-viewer hidden">
+
+<div
+  id="statusViewer"
+  class="status-viewer hidden">
 
   <div class="status-viewer-card">
 
-    <button class="close-status" onclick="closeStatus()">×</button>
+    <button
+      class="close-status"
+      onclick="closeStatus()">
+      ×
+    </button>
 
     <div id="statusViewerContent"></div>
 
@@ -561,9 +593,14 @@ textarea {
 
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =================================
+   SUPABASE
+================================= */
 
 const SUPABASE_URL =
 "https://udbkgjgomhxclgasbfmz.supabase.co";
@@ -571,7 +608,8 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
 
-const BUCKET = "Family Media";
+const BUCKET =
+"Family Media";
 
 const supabaseClient =
 supabase.createClient(
@@ -582,272 +620,417 @@ supabase.createClient(
 let currentUser = null;
 
 
-/* =========================
-   AUTH
-========================= */
+/* =================================
+   LOGIN / REGISTER
+================================= */
 
-function showRegister() {
-  document.getElementById("authPage").classList.add("hidden");
-  document.getElementById("registerPage").classList.remove("hidden");
+function showRegister(){
+
+  document
+    .getElementById("authPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("registerPage")
+    .classList.remove("hidden");
 }
 
-function showLogin() {
-  document.getElementById("registerPage").classList.add("hidden");
-  document.getElementById("authPage").classList.remove("hidden");
+
+function showLogin(){
+
+  document
+    .getElementById("registerPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("authPage")
+    .classList.remove("hidden");
 }
 
-async function register() {
 
-  const name =
-    document.getElementById("registerName").value.trim();
-
-  const relationship =
-    document.getElementById("registerRelationship").value.trim();
+async function login(){
 
   const email =
-    document.getElementById("registerEmail").value.trim();
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("registerPassword").value;
-
-  const message =
-    document.getElementById("registerMessage");
-
-  if (!name || !email || !password) {
-    message.textContent =
-      "Please fill in your name, email and password.";
-    return;
-  }
-
-  const { data, error } =
-    await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: name,
-          relationship: relationship
-        }
-      }
-    });
-
-  if (error) {
-    message.textContent = error.message;
-    return;
-  }
-
-  message.textContent =
-    "Account created! Check your email if confirmation is required.";
-
-  setTimeout(showLogin, 1500);
-}
-
-
-async function login() {
-
-  const email =
-    document.getElementById("loginEmail").value.trim();
-
-  const password =
-    document.getElementById("loginPassword").value;
+    document
+      .getElementById("loginPassword")
+      .value;
 
   const message =
     document.getElementById("loginMessage");
 
-  message.textContent = "Logging in...";
+  if(!email || !password){
 
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
+    message.textContent =
+      "Please enter your email and password.";
 
-  if (error) {
-    message.textContent = error.message;
     return;
   }
 
-  currentUser = data.user;
+  message.textContent =
+    "Logging in...";
 
-  openApp();
+  try{
+
+    const result =
+      await supabaseClient.auth.signInWithPassword({
+        email:email,
+        password:password
+      });
+
+    if(result.error){
+
+      message.textContent =
+        result.error.message;
+
+      return;
+    }
+
+    if(!result.data || !result.data.user){
+
+      message.textContent =
+        "Login failed. Please try again.";
+
+      return;
+    }
+
+    currentUser =
+      result.data.user;
+
+    /*
+      IMPORTANT:
+      Open the app BEFORE loading
+      profile/feed/status data.
+      This means a problem in one
+      feature cannot prevent login.
+    */
+
+    document
+      .getElementById("authPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("registerPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("appPage")
+      .classList.remove("hidden");
+
+    message.textContent = "";
+
+    /*
+      Load the rest separately.
+      If one fails, login still works.
+    */
+
+    loadMyProfile().catch(console.error);
+    loadStatuses().catch(console.error);
+    loadFeed().catch(console.error);
+
+  }catch(error){
+
+    console.error(error);
+
+    message.textContent =
+      "Login error: " + error.message;
+  }
 }
 
 
-async function logout() {
+async function register(){
+
+  const name =
+    document
+      .getElementById("registerName")
+      .value
+      .trim();
+
+  const relationship =
+    document
+      .getElementById("registerRelationship")
+      .value
+      .trim();
+
+  const email =
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("registerPassword")
+      .value;
+
+  const message =
+    document.getElementById("registerMessage");
+
+  if(!name || !email || !password){
+
+    message.textContent =
+      "Please fill in your name, email and password.";
+
+    return;
+  }
+
+  message.textContent =
+    "Creating account...";
+
+  try{
+
+    const result =
+      await supabaseClient.auth.signUp({
+
+        email:email,
+
+        password:password,
+
+        options:{
+          data:{
+            full_name:name,
+            relationship:relationship
+          }
+        }
+
+      });
+
+    if(result.error){
+
+      message.textContent =
+        result.error.message;
+
+      return;
+    }
+
+    message.textContent =
+      "Account created successfully!";
+
+    setTimeout(
+      showLogin,
+      1500
+    );
+
+  }catch(error){
+
+    message.textContent =
+      error.message;
+  }
+}
+
+
+async function logout(){
 
   await supabaseClient.auth.signOut();
 
   currentUser = null;
 
-  document.getElementById("appPage")
+  document
+    .getElementById("appPage")
     .classList.add("hidden");
 
-  document.getElementById("authPage")
+  document
+    .getElementById("authPage")
     .classList.remove("hidden");
 }
 
 
-/* =========================
-   APP
-========================= */
-
-async function openApp() {
-
-  document.getElementById("authPage")
-    .classList.add("hidden");
-
-  document.getElementById("registerPage")
-    .classList.add("hidden");
-
-  document.getElementById("appPage")
-    .classList.remove("hidden");
-
-  await loadMyProfile();
-
-  await loadStatuses();
-
-  await loadFeed();
-}
-
-
-/* =========================
+/* =================================
    PROFILE
-========================= */
+================================= */
 
-async function loadMyProfile() {
+async function loadMyProfile(){
 
-  if (!currentUser) return;
+  if(!currentUser) return;
 
-  const { data, error } =
+  const result =
     await supabaseClient
       .from("profiles")
       .select("*")
-      .eq("id", currentUser.id)
+      .eq("id",currentUser.id)
       .single();
 
-  if (error) {
-    console.log(error);
+  if(result.error){
+
+    console.error(
+      "PROFILE ERROR:",
+      result.error
+    );
+
     return;
   }
 
-  document.getElementById("myName").textContent =
-    data.full_name || "Family Member";
+  const profile =
+    result.data;
 
-  document.getElementById("myRelationship").textContent =
-    data.relationship || "";
+  document
+    .getElementById("myName")
+    .textContent =
+      profile.full_name ||
+      "Family Member";
+
+  document
+    .getElementById("myRelationship")
+    .textContent =
+      profile.relationship || "";
 
   displayProfilePhoto(
     "myProfilePhoto",
-    data.avatar_url,
-    data.full_name
+    profile.avatar_url,
+    profile.full_name
   );
 }
 
 
-function displayProfilePhoto(
-  elementId,
-  avatarPath,
-  name
-) {
+async function uploadProfilePhoto(){
 
-  const element =
-    document.getElementById(elementId);
-
-  if (!avatarPath) {
-
-    const initial =
-      (name || "F").charAt(0).toUpperCase();
-
-    element.innerHTML =
-      <div class="profile-initial">${initial}</div>;
-
-    return;
-  }
-
-  createSignedUrl(avatarPath)
-    .then(url => {
-
-      if (!url) return;
-
-      element.innerHTML =
-        `<img class="profile-photo"
-        src="${url}"
-        alt="Profile photo">`;
-    });
-}
-
-
-async function uploadProfilePhoto() {
-
-  if (!currentUser) return;
+  if(!currentUser) return;
 
   const input =
-    document.getElementById("profilePhotoInput");
+    document.getElementById(
+      "profilePhotoInput"
+    );
 
-  const file = input.files[0];
+  const file =
+    input.files[0];
 
-  if (!file) return;
+  if(!file) return;
 
   const extension =
-    file.name.split(".").pop();
+    file.name
+      .split(".")
+      .pop();
 
   const filePath =
     profiles/${currentUser.id}/avatar_${Date.now()}.${extension};
 
-  const { error: uploadError } =
+  const upload =
     await supabaseClient
       .storage
       .from(BUCKET)
-      .upload(filePath, file);
+      .upload(
+        filePath,
+        file
+      );
 
-  if (uploadError) {
+  if(upload.error){
 
-    alert(uploadError.message);
+    alert(upload.error.message);
     return;
   }
 
-  const { error: updateError } =
+  const update =
     await supabaseClient
       .from("profiles")
       .update({
-        avatar_url: filePath
+        avatar_url:filePath
       })
-      .eq("id", currentUser.id);
+      .eq(
+        "id",
+        currentUser.id
+      );
 
-  if (updateError) {
+  if(update.error){
 
-    alert(updateError.message);
+    alert(update.error.message);
     return;
   }
 
   await loadMyProfile();
 
-  alert("Profile photo updated!");
+  alert(
+    "Profile photo updated! 🌸"
+  );
 }
 
 
-/* =========================
+async function displayProfilePhoto(
+  elementId,
+  avatarPath,
+  name
+){
+
+  const element =
+    document.getElementById(
+      elementId
+    );
+
+  if(!avatarPath){
+
+    const initial =
+      (name || "F")
+        .charAt(0)
+        .toUpperCase();
+
+    element.innerHTML =
+      `<div class="profile-initial">
+        ${initial}
+      </div>`;
+
+    return;
+  }
+
+  const url =
+    await createSignedUrl(
+      avatarPath
+    );
+
+  if(url){
+
+    element.innerHTML =
+      `<img
+        class="profile-photo"
+        src="${url}"
+        alt="Profile photo">`;
+
+  }else{
+
+    const initial =
+      (name || "F")
+        .charAt(0)
+        .toUpperCase();
+
+    element.innerHTML =
+      `<div class="profile-initial">
+        ${initial}
+      </div>`;
+  }
+}
+
+
+/* =================================
    STATUS
-========================= */
+================================= */
 
-async function addStatus() {
+async function addStatus(){
 
-  if (!currentUser) return;
+  if(!currentUser) return;
 
   const text =
-    document.getElementById("statusText")
-      .value.trim();
+    document
+      .getElementById("statusText")
+      .value
+      .trim();
 
-  const fileInput =
-    document.getElementById("statusFile");
+  const input =
+    document.getElementById(
+      "statusFile"
+    );
 
   const file =
-    fileInput.files[0];
+    input.files[0];
 
   const message =
-    document.getElementById("statusMessage");
+    document.getElementById(
+      "statusMessage"
+    );
 
-  if (!text && !file) {
+  if(!text && !file){
 
     message.textContent =
       "Write something or choose a photo/video.";
@@ -855,128 +1038,194 @@ async function addStatus() {
     return;
   }
 
-  message.textContent = "Sharing status...";
+  message.textContent =
+    "Sharing status...";
 
   let mediaUrl = null;
   let mediaType = null;
 
-  if (file) {
+  try{
 
-    const extension =
-      file.name.split(".").pop();
+    if(file){
 
-    const filePath =
-      statuses/${currentUser.id}/status_${Date.now()}.${extension};
+      const extension =
+        file.name
+          .split(".")
+          .pop();
 
-    const { error } =
-      await supabaseClient
-        .storage
-        .from(BUCKET)
-        .upload(filePath, file);
+      const path =
+        statuses/${currentUser.id}/status_${Date.now()}.${extension};
 
-    if (error) {
+      const upload =
+        await supabaseClient
+          .storage
+          .from(BUCKET)
+          .upload(
+            path,
+            file
+          );
 
-      message.textContent = error.message;
-      return;
+      if(upload.error){
+
+        message.textContent =
+          upload.error.message;
+
+        return;
+      }
+
+      mediaUrl = path;
+
+      mediaType =
+        file.type.startsWith("video/")
+        ? "video"
+        : "image";
     }
-
-    mediaUrl = filePath;
-
-    if (file.type.startsWith("video/")) {
-      mediaType = "video";
-    } else {
-      mediaType = "image";
-    }
-  }
-
-  const { error } =
-    await supabaseClient
-      .from("statuses")
-      .insert({
-        user_id: currentUser.id,
-        content: text || null,
-        media_url: mediaUrl,
-        media_type: mediaType
-      });
-
-  if (error) {
-
-    message.textContent = error.message;
-    return;
-  }
-
-  document.getElementById("statusText").value = "";
-  document.getElementById("statusFile").value = "";
-
-  message.textContent =
-    "Status shared successfully! 🌸";
-
-  await loadStatuses();
-}
-
-
-async function loadStatuses() {
-
-  const container =
-    document.getElementById("statusList");
-
-  container.innerHTML = "";
-
-  const cutoff =
-    new Date(Date.now() - 24 * 60 * 60 * 1000)
-      .toISOString();
-
-  const { data: statuses, error } =
-    await supabaseClient
-      .from("statuses")
-      .select("*")
-      .gte("created_at", cutoff)
-      .order("created_at", {
-        ascending: false
-      });
-
-  if (error) {
-
-    container.innerHTML =
-      "Unable to load statuses.";
-
-    console.log(error);
-    return;
-  }
-
-  const userIds =
-    [...new Set(statuses.map(s => s.user_id))];
-
-  let profiles = [];
-
-  if (userIds.length) {
 
     const result =
       await supabaseClient
-        .from("profiles")
-        .select("id,full_name,avatar_url")
-        .in("id", userIds);
+        .from("statuses")
+        .insert({
+          user_id:currentUser.id,
+          content:text || null,
+          media_url:mediaUrl,
+          media_type:mediaType
+        });
 
-    profiles = result.data || [];
+    if(result.error){
+
+      message.textContent =
+        result.error.message;
+
+      return;
+    }
+
+    document
+      .getElementById("statusText")
+      .value = "";
+
+    input.value = "";
+
+    message.textContent =
+      "Status shared! 🌸";
+
+    await loadStatuses();
+
+  }catch(error){
+
+    message.textContent =
+      error.message;
+  }
+}
+
+
+async function loadStatuses(){
+
+  const container =
+    document.getElementById(
+      "statusList"
+    );
+
+  container.innerHTML = "";
+
+  if(!currentUser) return;
+
+  const cutoff =
+    new Date(
+      Date.now() -
+      24 * 60 * 60 * 1000
+    ).toISOString();
+
+  const result =
+    await supabaseClient
+      .from("statuses")
+      .select("*")
+      .gte(
+        "created_at",
+        cutoff
+      )
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
+  if(result.error){
+
+    console.error(
+      "STATUS ERROR:",
+      result.error
+    );
+
+    container.innerHTML =
+      `<span style="color:#88796d">
+        Statuses unavailable right now.
+      </span>`;
+
+    return;
   }
 
-  /* Add Your Status */
-  const myProfile =
-    profiles.find(p => p.id === currentUser.id);
+  const statuses =
+    result.data || [];
+
+  /*
+    Get profiles
+  */
+
+  const ids =
+    [
+      ...new Set(
+        statuses.map(
+          s => s.user_id
+        )
+      )
+    ];
+
+  let profiles = [];
+
+  if(ids.length){
+
+    const profileResult =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "id,full_name,avatar_url"
+        )
+        .in(
+          "id",
+          ids
+        );
+
+    profiles =
+      profileResult.data || [];
+  }
+
+  /*
+    Your status button
+  */
+
+  const mine =
+    profiles.find(
+      p => p.id === currentUser.id
+    );
 
   let myAvatar = null;
 
-  if (myProfile?.avatar_url) {
+  if(mine?.avatar_url){
+
     myAvatar =
-      await createSignedUrl(myProfile.avatar_url);
+      await createSignedUrl(
+        mine.avatar_url
+      );
   }
 
-  const addItem =
-    document.createElement("div");
+  const yourStatus =
+    document.createElement(
+      "div"
+    );
 
-  addItem.className = "status-item";
+  yourStatus.className =
+    "status-item";
 
-  addItem.innerHTML = `
+  yourStatus.innerHTML = `
     <div class="status-circle">
       <div class="status-circle-inner">
         ${
@@ -986,192 +1235,81 @@ async function loadStatuses() {
         }
       </div>
     </div>
-    <div class="status-name">Your status</div>
+
+    <div class="status-name">
+      Your status
+    </div>
   `;
 
-  addItem.onclick = () => {
+  yourStatus.onclick =
+    () => {
 
-    document
-      .getElementById("statusText")
-      .focus();
+      document
+        .getElementById("statusText")
+        .focus();
 
-  };
+    };
 
-  container.appendChild(addItem);
+  container.appendChild(
+    yourStatus
+  );
 
 
-  /* Family statuses */
+  /*
+    Group statuses by member
+  */
 
   const grouped = {};
 
   statuses.forEach(status => {
 
-    if (!grouped[status.user_id]) {
+    if(!grouped[status.user_id]){
       grouped[status.user_id] = [];
     }
 
-    grouped[status.user_id].push(status);
+    grouped[status.user_id]
+      .push(status);
   });
 
 
-  for (const userId of Object.keys(grouped)) {
+  for(
+    const userId
+    of Object.keys(grouped)
+  ){
 
     const profile =
-      profiles.find(p => p.id === userId);
+      profiles.find(
+        p => p.id === userId
+      );
 
-    if (!profile) continue;
+    if(!profile) continue;
 
     let avatar = null;
 
-    if (profile.avatar_url) {
+    if(profile.avatar_url){
+
       avatar =
-        await createSignedUrl(profile.avatar_url);
+        await createSignedUrl(
+          profile.avatar_url
+        );
     }
 
     const item =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
-    item.className = "status-item";
+    item.className =
+      "status-item";
 
     item.innerHTML = `
       <div class="status-circle">
+
         <div class="status-circle-inner">
+
           ${
             avatar
             ? <img src="${avatar}">
-            : `<span style="font-size:22px;font-weight:bold;">
-                ${(profile.full_name || "F").charAt(0)}
-              </span>`
-          }
-        </div>
-      </div>
-
-      <div class="status-name">
-        ${escapeHtml(profile.full_name || "Family")}
-      </div>
-    `;
-
-    item.onclick = () => {
-
-      openStatusViewer(
-        grouped[userId],
-        profile
-      );
-
-    };
-
-    container.appendChild(item);
-  }
-}
-
-
-/* =========================
-   STATUS VIEWER
-========================= */
-
-async function openStatusViewer(
-  statuses,
-  profile
-) {
-
-  const viewer =
-    document.getElementById("statusViewer");
-
-  const content =
-    document.getElementById("statusViewerContent");
-
-  content.innerHTML = "";
-
-  for (const status of statuses) {
-
-    const wrapper =
-      document.createElement("div");
-
-    wrapper.style.marginBottom = "25px";
-
-    if (status.media_url) {
-
-      const url =
-        await createSignedUrl(status.media_url);
-
-      if (status.media_type === "video") {
-
-        wrapper.innerHTML += `
-          <video
-            class="status-viewer-media"
-            src="${url}"
-            controls
-            playsinline>
-          </video>
-        `;
-
-      } else {
-
-        wrapper.innerHTML += `
-          <img
-            class="status-viewer-media"
-            src="${url}">
-        `;
-      }
-    }
-
-    if (status.content) {
-
-      wrapper.innerHTML += `
-        <p style="
-          text-align:center;
-          font-size:18px;
-          line-height:1.5;
-          color:#5b3a29;
-        ">
-          ${escapeHtml(status.content)}
-        </p>
-      `;
-    }
-
-    wrapper.innerHTML += `
-      <div style="
-        text-align:center;
-        font-size:12px;
-        color:#88796d;
-      ">
-        ${escapeHtml(profile.full_name || "Family Member")}
-        • ${timeAgo(status.created_at)}
-      </div>
-    `;
-
-    content.appendChild(wrapper);
-  }
-
-  viewer.classList.remove("hidden");
-}
-
-
-function closeStatus() {
-
-  document
-    .getElementById("statusViewer")
-    .classList.add("hidden");
-
-}
-
-
-/* =========================
-   POSTS
-========================= */
-
-async function createPost() {
-
-  if (!currentUser) return;
-
-  const text =
-    document.getElementById("postText")
-      .value.trim();
-
-  const input =
-    document.getElementById("postFile");
-
-  const file =
-    input.files[0];
-
-  const messag
+            : `<span style="font-size:22px;font-weight:bold">
+                ${(profile.full_name || "F")
+                  .charAt(0)
