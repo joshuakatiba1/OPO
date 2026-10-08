@@ -1,603 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Opondo's Family</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:
-    radial-gradient(circle at 10px 10px, rgba(52,92,70,.12) 2px, transparent 2.5px),
-    #f8f1df;
-  background-size:28px 28px;
-  color:#3e281c;
-}
-
-header{
-  background:#5b351f;
-  color:white;
-  padding:18px;
-  text-align:center;
-  box-shadow:0 3px 10px rgba(0,0,0,.15);
-}
-
-header h1{
-  margin:0;
-  font-size:28px;
-}
-
-header p{
-  margin:6px 0 0;
-  color:#f8df76;
-}
-
-.container{
-  max-width:850px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:#fffdf6;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:20px;
-  box-shadow:0 5px 18px rgba(91,53,31,.12);
-  border:1px solid rgba(91,53,31,.08);
-}
-
-h2,h3{
-  color:#24563d;
-}
-
-input,
-textarea,
-button,
-select{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  margin-bottom:10px;
-  border-radius:10px;
-  border:1px solid #cdbda7;
-  font-size:15px;
-}
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-button{
-  background:#28704b;
-  color:white;
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-button:hover{
-  opacity:.9;
-}
-
-button.brown{
-  background:#5b351f;
-}
-
-button.yellow{
-  background:#d4a928;
-  color:#3e281c;
-}
-
-button.danger{
-  background:#a33a32;
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* PROFILE */
-
-.profile-box{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-.avatar{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#28704b;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  font-weight:bold;
-  overflow:hidden;
-  border:3px solid #d4a928;
-}
-
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.profile-info{
-  flex:1;
-}
-
-.profile-info h3{
-  margin:0;
-}
-
-.profile-info p{
-  margin:5px 0;
-  color:#765c49;
-}
-
-/* STATUS */
-
-.status-section{
-  overflow:hidden;
-}
-
-.status-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.status-header h2{
-  margin:0;
-}
-
-.status-row{
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-  padding:12px 3px 8px;
-  scrollbar-width:none;
-}
-
-.status-row::-webkit-scrollbar{
-  display:none;
-}
-
-.status-item{
-  min-width:75px;
-  text-align:center;
-  cursor:pointer;
-}
-
-.status-circle{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  padding:3px;
-  background:linear-gradient(135deg,#28704b,#d4a928,#5b351f);
-  margin:auto;
-}
-
-.status-inner{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background:#fffdf6;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.status-inner img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.status-name{
-  font-size:12px;
-  margin-top:5px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.add-status{
-  background:#e9dfc9;
-}
-
-.plus{
-  font-size:28px;
-  color:#28704b;
-}
-
-/* STATUS VIEWER */
-
-.status-viewer{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.92);
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.status-content{
-  max-width:650px;
-  width:100%;
-  max-height:90vh;
-  background:#fffdf6;
-  border-radius:18px;
-  overflow:hidden;
-  position:relative;
-}
-
-.status-content img,
-.status-content video{
-  width:100%;
-  max-height:70vh;
-  object-fit:contain;
-  background:#111;
-}
-
-.status-text{
-  padding:30px;
-  font-size:24px;
-  text-align:center;
-  color:#3e281c;
-}
-
-.status-close{
-  position:absolute;
-  right:12px;
-  top:12px;
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:rgba(0,0,0,.65);
-  color:white;
-  font-size:22px;
-  z-index:5;
-  padding:0;
-}
-
-.status-user{
-  padding:12px 16px;
-  font-weight:bold;
-  color:#24563d;
-}
-
-/* POSTS */
-
-.post{
-  border-top:1px solid #e5d8c4;
-  padding-top:18px;
-  margin-top:18px;
-}
-
-.post-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.post-header .avatar{
-  width:45px;
-  height:45px;
-  font-size:18px;
-}
-
-.post-author{
-  font-weight:bold;
-  color:#24563d;
-}
-
-.post-date{
-  font-size:12px;
-  color:#8a7867;
-}
-
-.post-content{
-  margin:15px 0;
-  line-height:1.5;
-}
-
-.post-media{
-  width:100%;
-  max-height:550px;
-  object-fit:contain;
-  border-radius:14px;
-  background:#eee5d5;
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-}
-
-.actions button{
-  width:auto;
-  padding:9px 15px;
-  margin:0;
-}
-
-.comment-box{
-  margin-top:12px;
-}
-
-.comment{
-  background:#f1eadc;
-  padding:9px;
-  border-radius:10px;
-  margin-top:7px;
-  font-size:14px;
-}
-
-/* FLOWERS */
-
-.flower{
-  position:fixed;
-  font-size:25px;
-  opacity:.5;
-  pointer-events:none;
-}
-
-.flower.one{
-  top:100px;
-  left:10px;
-}
-
-.flower.two{
-  bottom:80px;
-  right:15px;
-}
-
-.logout{
-  max-width:150px;
-  margin:10px auto 0;
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-  .container{
-    padding:12px;
-  }
-
-  header h1{
-    font-size:23px;
-  }
-
-  .card{
-    padding:14px;
-  }
-
-  .actions{
-    flex-wrap:wrap;
-  }
-
-  .actions button{
-    flex:1;
-  }
-
-  .status-item{
-    min-width:70px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Opondo's Family</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #294532;
+
+      background-color: #f5efe3;
+
+      background-image:
+        radial-gradient(
+          rgba(255, 215, 92, 0.35) 2px,
+          transparent 2px
+        ),
+        radial-gradient(
+          rgba(47, 93, 58, 0.10) 2px,
+          transparent 2px
+        );
+
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+
+
+    .container {
+      width: 94%;
+      max-width: 680px;
+      margin: auto;
+    }
+
+
+    .login-box,
+    .app {
+      padding: 25px 0 50px;
+    }
+
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .card {
+      position: relative;
+
+      background: rgba(255, 252, 244, 0.96);
+
+      padding: 22px;
+
+      border-radius: 22px;
+
+      margin: 18px 0;
+
+      border: 1px solid rgba(91, 58, 41, 0.10);
+
+      box-shadow:
+        0 8px 25px rgba(91, 58, 41, 0.10);
+    }
+
+
+    .card::after {
+      content: "✿";
+
+      position: absolute;
+
+      right: 18px;
+      top: 12px;
+
+      font-size: 20px;
+
+      color: #d8a91f;
+
+      opacity: 0.65;
+    }
+
+
+    /* =========================
+       HEADINGS
+    ========================= */
+
+    h1 {
+      color: #5b3a29;
+
+      text-align: center;
+
+      font-family: Georgia, serif;
+    }
+
+
+    h2 {
+      color: #2f5d3a;
+
+      font-family: Georgia, serif;
+
+      margin-top: 0;
+    }
+
+
+    /* =========================
+       TOP BAR
+    ========================= */
+
+    .topbar {
+      background: rgba(255, 252, 244, 0.95);
+
+      padding: 15px;
+
+      border-radius: 18px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 10px;
+
+      box-shadow:
+        0 5px 18px rgba(91, 58, 41, 0.10);
+
+      border-bottom:
+        4px solid #5b3a29;
+    }
+
+
+    .topbar h1 {
+      margin: 0;
+
+      text-align: left;
+
+      font-size: 22px;
+    }
+
+
+    /* =========================
+       INPUTS
+    ========================= */
+
+    input,
+    textarea {
+      width: 100%;
+
+      padding: 13px;
+
+      margin: 7px 0;
+
+      border: 1px solid #d8cdbb;
+
+      border-radius: 12px;
+
+      font-size: 15px;
+
+      background: #fffdf8;
+
+      color: #294532;
+
+      outline: none;
+    }
+
+
+    input:focus,
+    textarea:focus {
+      border-color: #2f5d3a;
+
+      box-shadow:
+        0 0 0 3px rgba(47, 93, 58, 0.10);
+    }
+
+
+    textarea {
+      min-height: 95px;
+
+      resize: vertical;
+    }
+
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    button {
+      border: none;
+
+      border-radius: 12px;
+
+      padding: 11px 18px;
+
+      cursor: pointer;
+
+      font-weight: bold;
+
+      transition:
+        transform 0.15s,
+        opacity 0.15s;
+    }
+
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+
+    .green-btn {
+      background: #2f5d3a;
+
+      color: white;
+    }
+
+
+    .brown-btn {
+      background: #5b3a29;
+
+      color: white;
+    }
+
+
+    .logout-btn {
+      background: #eadfce;
+
+      color: #5b3a29;
+    }
+
+
+    .hidden {
+      display: none;
+    }
+
+
+    /* =========================
+       PROFILE
+    ========================= */
+
+    .profile-center {
+      text-align: center;
+    }
+
+
+    #myProfilePhoto {
+      width: 120px;
+      height: 120px;
+
+      margin: auto;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #2f5d3a,
+          #5b3a29
+        );
+
+      color: white;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 42px;
+
+      overflow: hidden;
+
+      border:
+        5px solid #f1d35b;
+
+      box-shadow:
+        0 5px 18px rgba(91, 58, 41, 0.18);
+    }
+
+
+    #myProfilePhoto img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+
+    /* =========================
+       POSTS
+    ========================= */
+
+    .post {
+      border-top:
+        1px solid #e7dece;
+
+      padding-top: 18px;
+
+      margin-top: 18px;
+    }
+
+
+    .post-header {
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+    }
+
+
+    .post-avatar {
+      width: 48px;
+      height: 48px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #2f5d3a,
+          #5b3a29
+        );
+
+      color: white;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-weight: bold;
+
+      overflow: hidden;
+
+      flex-shrink: 0;
+
+      border:
+        2px solid #f1d35b;
+    }
+
+
+    .post-avatar img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+
+    .post-name {
+      font-weight: bold;
+
+      color: #5b3a29;
+    }
+
+
+    .post-content {
+      white-space: pre-wrap;
+
+      margin: 12px 0;
+
+      line-height: 1.5;
+    }
+
+
+    /* =========================
+       MEDIA
+    ========================= */
+
+    .post-image {
+      width: 100%;
+
+      max-height: 480px;
+
+      object-fit: cover;
+
+      border-radius: 16px;
+
+      margin-top: 10px;
+    }
+
+
+    .post-video {
+      width: 100%;
+
+      border-radius: 16px;
+
+      margin-top: 10px;
+    }
+
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .actions {
+      display: flex;
+
+      gap: 8px;
+
+      margin-top: 12px;
+
+      flex-wrap: wrap;
+    }
+
+
+    .actions button {
+      background: #eee6d7;
+
+      color: #5b3a29;
+    }
+
+
+    /* =========================
+       COMMENTS
+    ========================= */
+
+    .comment-box {
+      margin-top: 12px;
+    }
+
+
+    .comment {
+      background: #f1eadc;
+
+      padding: 9px 11px;
+
+      border-radius: 10px;
+
+      margin-top: 7px;
+
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       MESSAGES
+    ========================= */
+
+    .error {
+      color: #a52b2b;
+    }
+
+
+    .success {
+      color: #26703b;
+    }
+
+
+    /* =========================
+       DECORATION
+    ========================= */
+
+    #appPage::before {
+      content:
+        "🌸  FAMILY • LOVE • MEMORIES  🌸";
+
+      display: block;
+
+      text-align: center;
+
+      color: #5b3a29;
+
+      font-size: 12px;
+
+      letter-spacing: 2px;
+
+      margin-bottom: 10px;
+
+      font-weight: bold;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 500px) {
+
+      .container {
+        width: 92%;
+      }
+
+
+      .card {
+        padding: 17px;
+
+        border-radius: 18px;
+      }
+
+
+      .topbar {
+        padding: 12px;
+      }
+
+
+      .topbar h1 {
+        font-size: 19px;
+      }
+
+
+      button {
+        padding: 10px 14px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-<div class="flower one">🌸</div>
-<div class="flower two">🌼</div>
 
-<header>
-  <h1>🌿 Opondo's Family 🌿</h1>
-  <p>Our private family space ❤️</p>
-</header>
+<!-- ==================================================
+     LOGIN PAGE
+================================================== -->
 
-<div class="container">
+<div
+  id="loginPage"
+  class="container login-box"
+>
 
-<!-- LOGIN -->
+  <div class="card">
 
-<div id="loginSection" class="card">
+    <h1>
+      🌿 Opondo's Family 🤎
+    </h1>
 
-  <h2>Welcome Back 👋</h2>
+    <p style="text-align:center;">
+      A private space for the family
+    </p>
 
-  <input
-    type="email"
-    id="email"
-    placeholder="Email"
-  >
 
-  <input
-    type="password"
-    id="password"
-    placeholder="Password"
-  >
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+    >
 
-  <button onclick="login()">Login</button>
 
-  <p id="loginMessage"></p>
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+    >
+
+
+    <button
+      id="loginButton"
+      class="brown-btn"
+      style="width:100%;"
+    >
+      Login
+    </button>
+
+
+    <p id="loginMessage"></p>
+
+  </div>
 
 </div>
 
 
-<!-- FAMILY APP -->
 
-<div id="appSection" class="hidden">
+<!-- ==================================================
+     FAMILY APP
+================================================== -->
 
-  <!-- PROFILE -->
-
-  <div class="card">
-
-    <div class="profile-box">
-
-      <div id="myAvatar" class="avatar">
-        ?
-      </div>
-
-      <div class="profile-info">
-
-        <h3 id="myName">
-          Family Member
-        </h3>
-
-        <p>
-          Your family profile
-        </p>
-
-      </div>
-
-    </div>
-
-    <input
-      type="file"
-      id="profilePhoto"
-      accept="image/*"
-    >
-
-    <button onclick="uploadProfilePhoto()">
-      📸 Change Profile Photo
-    </button>
-
-  </div>
+<div
+  id="appPage"
+  class="container app hidden"
+>
 
 
-  <!-- STATUS -->
+  <!-- TOP BAR -->
 
-  <div class="card status-section">
+  <div class="topbar">
 
-    <div class="status-header">
+    <h1>
+      🌿 Opondo's Family
+    </h1>
 
-      <h2>Statuses 🌿</h2>
-
-      <button
-        class="yellow"
-        style="width:auto;padding:8px 13px;"
-        onclick="openStatusForm()"
-      >
-        + Add
-      </button>
-
-    </div>
-
-    <div id="statusRow" class="status-row">
-
-      <div
-        class="status-item"
-        onclick="openStatusForm()"
-      >
-
-        <div class="status-circle add-status">
-
-          <div class="status-inner">
-
-            <span class="plus">+</span>
-
-          </div>
-
-        </div>
-
-        <div class="status-name">
-          Your status
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- STATUS CREATOR -->
-
-  <div
-    id="statusForm"
-    class="card hidden"
-  >
-
-    <h2>Create Status 🌸</h2>
-
-    <textarea
-      id="statusText"
-      placeholder="What's happening with the family?"
-    ></textarea>
-
-    <input
-      type="file"
-      id="statusFile"
-      accept="image/,video/"
-    >
-
-    <button onclick="createStatus()">
-      Share Status
-    </button>
 
     <button
-      class="brown"
-      onclick="closeStatusForm()"
+      id="logoutButton"
+      class="logout-btn"
     >
-      Cancel
+      Logout
     </button>
-
-    <p id="statusMessage"></p>
 
   </div>
 
 
-  <!-- CREATE POST -->
+
+  <!-- ==================================================
+       PROFILE
+  ================================================== -->
 
   <div class="card">
 
-    <h2>Share With The Family 💚</h2>
+    <h2>
+      👤 My Profile
+    </h2>
+
+
+    <div class="profile-center">
+
+
+      <div id="myProfilePhoto">
+        👤
+      </div>
+
+
+      <br>
+
+
+      <input
+        id="profilePhoto"
+        type="file"
+        accept="image/*"
+      >
+
+
+      <button
+        id="profilePhotoButton"
+        class="brown-btn"
+      >
+        📸 Upload Profile Photo
+      </button>
+
+
+      <p id="profileMessage"></p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==================================================
+       CREATE POST
+  ================================================== -->
+
+  <div class="card">
+
+    <h2>
+      🌼 Share With The Family
+    </h2>
+
 
     <textarea
-      id="postText"
-      placeholder="What's on your mind?"
+      id="postContent"
+      placeholder="What's happening in the family?"
     ></textarea>
 
+
     <input
-      type="file"
       id="postFile"
+      type="file"
       accept="image/,video/,.pdf,.doc,.docx"
     >
 
-    <button onclick="createPost()">
-      📤 Share
+
+    <button
+      id="postButton"
+      class="green-btn"
+    >
+      Share
     </button>
+
 
     <p id="postMessage"></p>
 
   </div>
 
 
-  <!-- FEED -->
+
+  <!-- ==================================================
+       FAMILY FEED
+  ================================================== -->
 
   <div class="card">
 
-    <h2>Family Feed 🌿</h2>
+    <h2>
+      🌿 Family Feed
+    </h2>
+
 
     <div id="feed">
       Loading family posts...
@@ -605,1222 +704,930 @@ button.danger{
 
   </div>
 
-
-  <button
-    class="brown logout"
-    onclick="logout()"
-  >
-    Logout
-  </button>
-
-</div>
-
 </div>
 
 
-<!-- STATUS VIEWER -->
 
-<div
-  id="statusViewer"
-  class="status-viewer hidden"
->
+<!-- ==================================================
+     SUPABASE
+================================================== -->
 
-  <div class="status-content">
-
-    <button
-      class="status-close"
-      onclick="closeStatusViewer()"
-    >
-      ×
-    </button>
-
-    <div id="statusViewerContent"></div>
-
-  </div>
-
-</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
 
+
+/* ==================================================
+   SUPABASE CONFIGURATION
+================================================== */
+
 const SUPABASE_URL =
-  "https://udbkgjgomhxclgasbfmz.supabase.co";
+"https://udbkgjgomhxclgasbfmz.supabase.co";
+
 
 const SUPABASE_KEY =
-  "sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+"sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+
 
 const BUCKET =
-  "Family Media";
+"Family Media";
+
 
 const client =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
 
 let currentUser = null;
 
 
-/* =========================
+
+/* ==================================================
    LOGIN
-========================= */
-
-async function login(){
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  const message =
-    document.getElementById("loginMessage");
-
-  if(!email || !password){
-
-    message.innerText =
-      "Please enter your email and password.";
-
-    return;
-  }
-
-  message.innerText =
-    "Logging in...";
-
-  const {data,error} =
-    await client.auth.signInWithPassword({
-      email,
-      password
-    });
-
-  if(error){
-
-    message.innerText =
-      "❌ " + error.message;
-
-    return;
-  }
-
-  currentUser =
-    data.user;
-
-  document
-    .getElementById("loginSection")
-    .classList.add("hidden");
-
-  document
-    .getElementById("appSection")
-    .classList.remove("hidden");
-
-  await loadMyProfile();
-
-  await loadStatuses();
-
-  await loadFeed();
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
-
-  await client.auth.signOut();
-
-  location.reload();
-}
-
-
-/* =========================
-   PROFILE
-========================= */
-
-async function loadMyProfile(){
-
-  const {data,error} =
-    await client
-      .from("profiles")
-      .select("*")
-      .eq("id",currentUser.id)
-      .single();
-
-  if(error){
-
-    document.getElementById("myName")
-      .innerText = "Family Member";
-
-    return;
-  }
-
-  document.getElementById("myName")
-    .innerText =
-      data.full_name || "Family Member";
-
-  const avatar =
-    document.getElementById("myAvatar");
-
-  if(data.avatar_url){
-
-    const {data:urlData} =
-      await client
-        .storage
-        .from(BUCKET)
-        .createSignedUrl(
-          data.avatar_url,
-          3600
-        );
-
-    if(urlData?.signedUrl){
-
-      avatar.innerHTML =
-        <img src="${urlData.signedUrl}">;
-
-      return;
-    }
-  }
-
-  avatar.innerText =
-    (data.full_name || "F")
-      .charAt(0)
-      .toUpperCase();
-}
-
-
-/* =========================
-   PROFILE PHOTO
-========================= */
-
-async function uploadProfilePhoto(){
-
-  const input =
-    document.getElementById("profilePhoto");
-
-  const file =
-    input.files[0];
-
-  if(!file){
-
-    alert("Please choose a photo first.");
-
-    return;
-  }
-
-  if(!currentUser){
-
-    alert("Please login first.");
-
-    return;
-  }
-
-  const extension =
-    file.name.split(".").pop();
-
-  const filePath =
-    profiles/${currentUser.id}/avatar_${Date.now()}.${extension};
-
-  const {error:uploadError} =
-    await client
-      .storage
-      .from(BUCKET)
-      .upload(
-        filePath,
-        file,
-        {
-          upsert:true
-        }
-      );
-
-  if(uploadError){
-
-    alert(
-      "Profile upload failed: " +
-      uploadError.message
-    );
-
-    return;
-  }
-
-  const {error:updateError} =
-    await client
-      .from("profiles")
-      .update({
-        avatar_url:filePath
-      })
-      .eq("id",currentUser.id);
-
-  if(updateError){
-
-    alert(
-      "Profile update failed: " +
-      updateError.message
-    );
-
-    return;
-  }
-
-  alert("✅ Profile photo updated!");
-
-  input.value = "";
-
-  await loadMyProfile();
-
-  await loadStatuses();
-
-  await loadFeed();
-}
-
-
-/* =========================
-   STATUS FORM
-========================= */
-
-function openStatusForm(){
-
-  document
-    .getElementById("statusForm")
-    .classList.remove("hidden");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-function closeStatusForm(){
-
-  document
-    .getElementById("statusForm")
-    .classList.add("hidden");
-
-}
-
-
-/* =========================
-   CREATE STATUS
-========================= */
-
-async function createStatus(){
-
-  const text =
+================================================== */
+
+document
+.getElementById("loginButton")
+.addEventListener(
+  "click",
+  async function()
+  {
+
+    const email =
     document
-      .getElementById("statusText")
-      .value
-      .trim();
+    .getElementById("email")
+    .value
+    .trim();
 
-  const input =
-    document.getElementById("statusFile");
 
-  const file =
-    input.files[0];
+    const password =
+    document
+    .getElementById("password")
+    .value;
 
-  const message =
-    document.getElementById("statusMessage");
 
-  if(!text && !file){
+    const message =
+    document
+    .getElementById(
+      "loginMessage"
+    );
+
+
+    message.className = "";
 
     message.innerText =
-      "Write something or choose a photo/video.";
-
-    return;
-  }
-
-  message.innerText =
-    "Sharing status...";
-
-  let mediaUrl = null;
-  let mediaType = null;
-
-  /* UPLOAD MEDIA */
-
-  if(file){
-
-    const extension =
-      file.name.split(".").pop();
-
-    const filePath =
-      statuses/${currentUser.id}/${Date.now()}.${extension};
-
-    const {error:uploadError} =
-      await client
-        .storage
-        .from(BUCKET)
-        .upload(
-          filePath,
-          file
-        );
-
-    if(uploadError){
-
-      message.innerText =
-        "❌ " + uploadError.message;
-
-      return;
-    }
-
-    mediaUrl =
-      filePath;
-
-    if(file.type.startsWith("video/")){
-
-      mediaType = "video";
-
-    }else{
-
-      mediaType = "image";
-    }
-  }
+    "Connecting to Supabase...";
 
 
-  /* INSERT STATUS */
+    try {
 
-  const {error} =
-    await client
-      .from("statuses")
-      .insert({
+      const {
+        data,
+        error
+      } =
+      await client.auth
+      .signInWithPassword({
 
-        user_id:currentUser.id,
+        email:
+        email,
 
-        content:text || null,
-
-        media_url:mediaUrl,
-
-        media_type:mediaType
+        password:
+        password
 
       });
 
 
-  if(error){
+      if (error) {
 
-    message.innerText =
-      "❌ " + error.message;
+        message.className =
+        "error";
 
-    return;
-  }
+        message.innerText =
+        "❌ " +
+        error.message;
 
-
-  message.innerText =
-    "✅ Status shared!";
-
-  document
-    .getElementById("statusText")
-    .value = "";
-
-  input.value = "";
-
-  setTimeout(() => {
-
-    closeStatusForm();
-
-  },700);
-
-  await loadStatuses();
-}
+        return;
+      }
 
 
-/* =========================
-   LOAD STATUSES
-========================= */
-
-async function loadStatuses(){
-
-  const statusRow =
-    document.getElementById("statusRow");
-
-  statusRow.innerHTML = `
-
-    <div
-      class="status-item"
-      onclick="openStatusForm()"
-    >
-
-      <div class="status-circle add-status">
-
-        <div class="status-inner">
-
-          <span class="plus">+</span>
-
-        </div>
-
-      </div>
-
-      <div class="status-name">
-        Your status
-      </div>
-
-    </div>
-
-  `;
+      currentUser =
+      data.user;
 
 
-  const {data:statuses,error} =
-    await client
-      .from("statuses")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+      message.className =
+      "success";
+
+      message.innerText =
+      "✅ Login successful!";
 
 
-  if(error){
-
-    console.log(error);
-
-    return;
-  }
-
-
-  /* Only show statuses from last 24 hours */
-
-  const now =
-    new Date();
-
-  const activeStatuses =
-    statuses.filter(status => {
-
-      const created =
-        new Date(status.created_at);
-
-      const hours =
-        (now-created)/(1000*60*60);
-
-      return hours < 24;
-
-    });
+      document
+      .getElementById(
+        "loginPage"
+      )
+      .classList
+      .add("hidden");
 
 
-  /* Group statuses by user */
+      document
+      .getElementById(
+        "appPage"
+      )
+      .classList
+      .remove("hidden");
 
-  const grouped = {};
 
-  activeStatuses.forEach(status => {
+      loadMyProfile();
 
-    if(!grouped[status.user_id]){
+      loadFeed();
 
-      grouped[status.user_id] = [];
 
     }
 
-    grouped[status.user_id].push(status);
+    catch (error) {
 
-  });
+      message.className =
+      "error";
 
+      message.innerText =
+      "❌ " +
+      error.message;
 
-  const userIds =
-    Object.keys(grouped);
-
-  if(userIds.length === 0){
-
-    return;
-  }
-
-
-  const {data:profiles} =
-    await client
-      .from("profiles")
-      .select("id,full_name,avatar_url")
-      .in("id",userIds);
-
-
-  for(const profile of profiles || []){
-
-    const userStatuses =
-      grouped[profile.id];
-
-    const firstStatus =
-      userStatuses[0];
-
-
-    let avatarHtml =
-      `<span style="font-size:25px">
-        ${(profile.full_name || "F")
-          .charAt(0)
-          .toUpperCase()}
-      </span>`;
-
-
-    if(profile.avatar_url){
-
-      const {data:urlData} =
-        await client
-          .storage
-          .from(BUCKET)
-          .createSignedUrl(
-            profile.avatar_url,
-            3600
-          );
-
-      if(urlData?.signedUrl){
-
-        avatarHtml =
-          <img src="${urlData.signedUrl}">;
-      }
     }
 
-
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "status-item";
-
-
-    item.onclick =
-      () => viewStatusGroup(
-        userStatuses,
-        profile.full_name
-      );
-
-
-    item.innerHTML = `
-
-      <div class="status-circle">
-
-        <div class="status-inner">
-
-          ${avatarHtml}
-
-        </div>
-
-      </div>
-
-      <div class="status-name">
-
-        ${escapeHtml(
-          profile.full_name || "Family Member"
-        )}
-
-      </div>
-
-    `;
-
-
-    statusRow.appendChild(item);
-
   }
-}
+);
 
 
-/* =========================
-   VIEW STATUS GROUP
-========================= */
 
-async function viewStatusGroup(
-  statuses,
-  name
-){
+/* ==================================================
+   LOGOUT
+================================================== */
 
-  if(!statuses || statuses.length === 0){
+document
+.getElementById(
+  "logoutButton"
+)
+.addEventListener(
+  "click",
+  async function()
+  {
 
-    return;
-  }
+    await client.auth.signOut();
 
-  const viewer =
-    document.getElementById(
-      "statusViewer"
-    );
 
-  const content =
-    document.getElementById(
-      "statusViewerContent"
-    );
+    currentUser =
+    null;
 
 
-  let index = 0;
-
-
-  async function showCurrent(){
-
-    const status =
-      statuses[index];
-
-    let mediaHtml = "";
-
-
-    if(status.media_url){
-
-      const {data:urlData,error} =
-        await client
-          .storage
-          .from(BUCKET)
-          .createSignedUrl(
-            status.media_url,
-            3600
-          );
-
-
-      if(!error && urlData?.signedUrl){
-
-        if(status.media_type === "video"){
-
-          mediaHtml = `
-
-            <video
-              src="${urlData.signedUrl}"
-              controls
-              autoplay
-            ></video>
-
-          `;
-
-        }else{
-
-          mediaHtml = `
-
-            <img
-              src="${urlData.signedUrl}"
-            >
-
-          `;
-        }
-      }
-    }
-
-
-    const textHtml =
-      status.content
-        ? `<div class="status-text">
-             ${escapeHtml(status.content)}
-           </div>`
-        : "";
-
-
-    content.innerHTML = `
-
-      <div class="status-user">
-
-        ${escapeHtml(name)}
-
-        <br>
-
-        <small>
-          ${formatDate(status.created_at)}
-        </small>
-
-      </div>
-
-      ${mediaHtml}
-
-      ${textHtml}
-
-      <div style="
-        display:flex;
-        gap:8px;
-        padding:12px;
-      ">
-
-        ${
-          index > 0
-          ?
-          `<button
-            onclick="previousStatus()"
-          >
-            ← Previous
-          </button>`
-          :
-          ""
-        }
-
-        ${
-          index < statuses.length - 1
-          ?
-          `<button
-            onclick="nextStatus()"
-          >
-            Next →
-          </button>`
-          :
-          ""
-        }
-
-        ${
-          status.user_id === currentUser.id
-          ?
-          `<button
-            class="danger"
-            onclick="deleteStatus('${status.id}')"
-          >
-            Delete
-          </button>`
-          :
-          ""
-        }
-
-      </div>
-
-    `;
-
-  }
-
-
-  window.nextStatus =
-    async function(){
-
-      if(index < statuses.length - 1){
-
-        index++;
-
-        await showCurrent();
-
-      }
-
-    };
-
-
-  window.previousStatus =
-    async function(){
-
-      if(index > 0){
-
-        index--;
-
-        await showCurrent();
-
-      }
-
-    };
-
-
-  await showCurrent();
-
-  viewer.classList.remove("hidden");
-}
-
-
-/* =========================
-   CLOSE STATUS VIEWER
-========================= */
-
-function closeStatusViewer(){
-
-  document
-    .getElementById("statusViewer")
-    .classList.add("hidden");
-
-}
-
-
-/* =========================
-   DELETE STATUS
-========================= */
-
-async function deleteStatus(id){
-
-  if(!confirm(
-    "Delete this status?"
-  )){
-
-    return;
-  }
-
-
-  const {error} =
-    await client
-      .from("statuses")
-      .delete()
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
-
-
-  if(error){
-
-    alert(
-      "Could not delete status: " +
-      error.message
-    );
-
-    return;
-  }
-
-
-  closeStatusViewer();
-
-  await loadStatuses();
-}
-
-
-/* =========================
-   CREATE POST
-========================= */
-
-async function createPost(){
-
-  const text =
     document
-      .getElementById("postText")
-      .value
-      .trim();
+    .getElementById(
+      "appPage"
+    )
+    .classList
+    .add("hidden");
 
-  const input =
-    document.getElementById("postFile");
+
+    document
+    .getElementById(
+      "loginPage"
+    )
+    .classList
+    .remove("hidden");
+
+  }
+);
+
+
+
+/* ==================================================
+   PROFILE PHOTO BUTTON
+================================================== */
+
+document
+.getElementById(
+  "profilePhotoButton"
+)
+.addEventListener(
+  "click",
+  uploadProfilePhoto
+);
+
+
+
+/* ==================================================
+   UPLOAD PROFILE PHOTO
+================================================== */
+
+async function uploadProfilePhoto()
+{
+
+  if (!currentUser) {
+    return;
+  }
+
 
   const file =
-    input.files[0];
+  document
+  .getElementById(
+    "profilePhoto"
+  )
+  .files[0];
+
 
   const message =
-    document.getElementById("postMessage");
+  document
+  .getElementById(
+    "profileMessage"
+  );
 
 
-  if(!text && !file){
+  if (!file) {
+
+    message.className =
+    "error";
 
     message.innerText =
-      "Write something or choose a file.";
+    "Please choose a photo first.";
 
     return;
   }
 
 
+  message.className = "";
+
   message.innerText =
-    "Sharing...";
+  "Uploading photo...";
+
+
+  const extension =
+  file.name
+  .split(".")
+  .pop();
+
+
+  const filePath =
+    "profiles/" +
+    currentUser.id +
+    "/avatar_" +
+    Date.now() +
+    "." +
+    extension;
+
+
+  const {
+    error: uploadError
+  } =
+  await client
+  .storage
+  .from(BUCKET)
+  .upload(
+    filePath,
+    file
+  );
+
+
+  if (uploadError) {
+
+    message.className =
+    "error";
+
+    message.innerText =
+    "❌ " +
+    uploadError.message;
+
+    return;
+  }
+
+
+  const {
+    error: updateError
+  } =
+  await client
+  .from("profiles")
+  .update({
+
+    avatar_url:
+    filePath
+
+  })
+  .eq(
+    "id",
+    currentUser.id
+  );
+
+
+  if (updateError) {
+
+    message.className =
+    "error";
+
+    message.innerText =
+    "❌ " +
+    updateError.message;
+
+    return;
+  }
+
+
+  message.className =
+  "success";
+
+  message.innerText =
+  "✅ Profile photo updated!";
+
+
+  document
+  .getElementById(
+    "profilePhoto"
+  )
+  .value = "";
+
+
+  loadMyProfile();
+
+  loadFeed();
+
+}
+
+
+
+/* ==================================================
+   LOAD MY PROFILE
+================================================== */
+
+async function loadMyProfile()
+{
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  const {
+    data: profile
+  } =
+  await client
+  .from("profiles")
+  .select(
+    "avatar_url, full_name"
+  )
+  .eq(
+    "id",
+    currentUser.id
+  )
+  .maybeSingle();
+
+
+  if (!profile) {
+    return;
+  }
+
+
+  const photo =
+  document
+  .getElementById(
+    "myProfilePhoto"
+  );
+
+
+  if (
+    profile.avatar_url
+  ) {
+
+
+    const {
+      data: signedData
+    } =
+    await client
+    .storage
+    .from(BUCKET)
+    .createSignedUrl(
+      profile.avatar_url,
+      3600
+    );
+
+
+    if (
+      signedData &&
+      signedData.signedUrl
+    ) {
+
+      photo.innerHTML = `
+
+        <img
+          src="${signedData.signedUrl}"
+          alt="Profile photo"
+        >
+
+      `;
+
+    }
+
+  }
+
+}
+
+
+
+/* ==================================================
+   CREATE POST
+================================================== */
+
+document
+.getElementById(
+  "postButton"
+)
+.addEventListener(
+  "click",
+  createPost
+);
+
+
+
+async function createPost()
+{
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  const content =
+  document
+  .getElementById(
+    "postContent"
+  )
+  .value
+  .trim();
+
+
+  const file =
+  document
+  .getElementById(
+    "postFile"
+  )
+  .files[0];
+
+
+  const message =
+  document
+  .getElementById(
+    "postMessage"
+  );
+
+
+  if (
+    !content &&
+    !file
+  ) {
+
+    message.className =
+    "error";
+
+    message.innerText =
+    "Write something or choose a file.";
+
+    return;
+  }
+
+
+  message.className = "";
+
+  message.innerText =
+  "Sharing...";
 
 
   let filePath = null;
+
   let fileType = null;
+
   let fileName = null;
 
 
-  if(file){
 
-    const extension =
-      file.name.split(".").pop();
+  /* FILE UPLOAD */
+
+  if (file) {
 
     fileName =
-      file.name;
+    file.name;
 
     fileType =
-      file.type;
+    file.type;
 
 
-    const path =
-      posts/${currentUser.id}/${Date.now()}_${file.name};
+    const extension =
+    file.name
+    .split(".")
+    .pop();
 
 
-    const {error:uploadError} =
-      await client
-        .storage
-        .from(BUCKET)
-        .upload(
-          path,
-          file
-        );
+    filePath =
+      "posts/" +
+      currentUser.id +
+      "/" +
+      Date.now() +
+      "." +
+      extension;
 
 
-    if(uploadError){
+    const {
+      error: uploadError
+    } =
+    await client
+    .storage
+    .from(BUCKET)
+    .upload(
+      filePath,
+      file
+    );
+
+
+    if (uploadError) {
+
+      message.className =
+      "error";
 
       message.innerText =
-        "❌ " + uploadError.message;
+      "❌ Upload failed: " +
+      uploadError.message;
 
       return;
     }
 
-
-    filePath = path;
   }
 
 
-  const {error} =
-    await client
-      .from("posts")
-      .insert({
 
-        user_id:currentUser.id,
+  /* SAVE POST */
 
-        content:text || null,
+  const {
+    error
+  } =
+  await client
+  .from("posts")
+  .insert({
 
-        image_url:filePath,
+    user_id:
+    currentUser.id,
 
-        file_type:fileType,
+    content:
+    content || null,
 
-        file_name:fileName
+    image_url:
+    filePath,
 
-      });
+    file_type:
+    fileType,
+
+    file_name:
+    fileName
+
+  });
 
 
-  if(error){
+  if (error) {
+
+    message.className =
+    "error";
 
     message.innerText =
-      "❌ " + error.message;
+    "❌ " +
+    error.message;
 
     return;
   }
 
 
   document
-    .getElementById("postText")
-    .value = "";
+  .getElementById(
+    "postContent"
+  )
+  .value = "";
 
-  input.value = "";
+
+  document
+  .getElementById(
+    "postFile"
+  )
+  .value = "";
+
+
+  message.className =
+  "success";
 
   message.innerText =
-    "✅ Shared!";
+  "✅ Shared with the family!";
 
-  await loadFeed();
+
+  loadFeed();
+
 }
 
 
-/* =========================
-   LOAD FEED
-========================= */
 
-async function loadFeed(){
+/* ==================================================
+   LOAD FAMILY FEED
+================================================== */
+
+async function loadFeed()
+{
 
   const feed =
-    document.getElementById("feed");
+  document
+  .getElementById(
+    "feed"
+  );
+
 
   feed.innerHTML =
-    "Loading...";
+  "Loading posts...";
 
 
-  const {data:posts,error} =
-    await client
-      .from("posts")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+  const {
+    data: posts,
+    error
+  } =
+  await client
+  .from("posts")
+  .select("*")
+  .order(
+    "created_at",
+    {
+      ascending: false
+    }
+  );
 
 
-  if(error){
+  if (error) {
 
     feed.innerHTML =
-      "❌ " + error.message;
+    "<p class='error'>❌ " +
+    error.message +
+    "</p>";
 
     return;
   }
 
 
-  if(!posts || posts.length === 0){
+  if (
+    !posts ||
+    posts.length === 0
+  ) {
 
     feed.innerHTML =
-      "<p>No family posts yet. Be the first to share something! 🌸</p>";
+    "<p>No family posts yet 🌿</p>";
 
     return;
   }
-
-
-  const userIds =
-    [...new Set(
-      posts.map(p => p.user_id)
-    )];
-
-
-  const {data:profiles} =
-    await client
-      .from("profiles")
-      .select(
-        "id,full_name,avatar_url"
-      )
-      .in(
-        "id",
-        userIds
-      );
-
-
-  const profileMap = {};
-
-  (profiles || []).forEach(p => {
-
-    profileMap[p.id] = p;
-
-  });
-
-
-  const {data:likes} =
-    await client
-      .from("post_likes")
-      .select("*");
-
-
-  const {data:comments} =
-    await client
-      .from("comments")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:true
-        }
-      );
 
 
   feed.innerHTML = "";
 
 
-  for(const post of posts){
-
-    const profile =
-      profileMap[post.user_id] || {};
-
-
-    let avatarHtml =
-      `<div class="avatar">
-        ${(profile.full_name || "F")
-          .charAt(0)
-          .toUpperCase()}
-       </div>`;
+  for (
+    const post of posts
+  ) {
 
 
-    if(profile.avatar_url){
-
-      const {data:urlData} =
-        await client
-          .storage
-          .from(BUCKET)
-          .createSignedUrl(
-            profile.avatar_url,
-            3600
-          );
+    const postElement =
+    document
+    .createElement(
+      "div"
+    );
 
 
-      if(urlData?.signedUrl){
+    postElement.className =
+    "post";
 
-        avatarHtml =
-          `<div class="avatar">
-             <img
-               src="${urlData.signedUrl}"
-             >
-           </div>`;
-      }
+
+    /* PROFILE */
+
+    let name =
+    "Family Member";
+
+
+    let avatarUrl =
+    null;
+
+
+    const {
+      data: profile
+    } =
+    await client
+    .from("profiles")
+    .select(
+      "full_name, avatar_url"
+    )
+    .eq(
+      "id",
+      post.user_id
+    )
+    .maybeSingle();
+
+
+    if (
+      profile &&
+      profile.full_name
+    ) {
+
+      name =
+      profile.full_name;
+
     }
 
 
-    const postDiv =
-      document.createElement("div");
-
-    postDiv.className =
-      "post";
-
-
-    let mediaHtml = "";
+    if (
+      profile &&
+      profile.avatar_url
+    ) {
 
 
-    if(post.image_url){
-
-      const {data:urlData} =
-        await client
-          .storage
-          .from(BUCKET)
-          .createSignedUrl(
-            post.image_url,
-            3600
-          );
-
-
-      if(urlData?.signedUrl){
-
-        if(
-          post.file_type &&
-          post.file_type.startsWith("video/")
-        ){
-
-          mediaHtml = `
-            <video
-              class="post-media"
-              src="${urlData.signedUrl}"
-              controls
-            ></video>
-          `;
-
-        }else if(
-          post.file_type &&
-          post.file_type.includes("pdf")
-        ){
-
-          mediaHtml = `
-            <a
-              href="${urlData.signedUrl}"
-              target="_blank"
-            >
-              📄 Open ${escapeHtml(
-                post.file_name || "Document"
-              )}
-            </a>
-          `;
-
-        }else{
-
-          mediaHtml = `
-            <img
-              class="post-media"
-              src="${urlData.signedUrl}"
-            >
-          `;
-        }
-      }
-    }
-
-
-    const postLikes =
-      (likes || [])
-        .filter(
-          l => l.post_id === post.id
-        );
-
-
-    const userLiked =
-      postLikes.some(
-        l => l.user_id === currentUser.id
+      const {
+        data: avatarData
+      } =
+      await client
+      .storage
+      .from(BUCKET)
+      .createSignedUrl(
+        profile.avatar_url,
+        3600
       );
 
 
-    const postComments =
-      (comments || [])
-        .filter(
-          c => c.post_id === post.id
-        );
+      if (
+        avatarData &&
+        avatarData.signedUrl
+      ) {
+
+        avatarUrl =
+        avatarData.signedUrl;
+
+      }
+
+    }
 
 
-    let commentsHtml = "";
+
+    /* AVATAR */
+
+    let avatarHTML = `
+
+      <span>
+        ${escapeHTML(
+          name.charAt(0)
+        )}
+      </span>
+
+    `;
 
 
-    postComments.forEach(comment => {
+    if (avatarUrl) {
 
-      commentsHtml += `
+      avatarHTML = `
 
-        <div class="comment">
-
-          ${escapeHtml(
-            comment.content
-          )}
-
-        </div>
+        <img
+          src="${avatarUrl}"
+          alt="Profile photo"
+        >
 
       `;
 
-    });
+    }
 
 
-    postDiv.innerHTML = `
+
+    /* MEDIA */
+
+    let mediaHTML =
+    "";
+
+
+    if (
+      post.image_url
+    ) {
+
+
+      const {
+        data: signedData
+      } =
+      await client
+      .storage
+      .from(BUCKET)
+      .createSignedUrl(
+        post.image_url,
+        3600
+      );
+
+
+      if (
+        signedData &&
+        signedData.signedUrl
+      ) {
+
+
+        if (
+          post.file_type &&
+          post.file_type
+          .startsWith(
+            "video/"
+          )
+        ) {
+
+          mediaHTML = `
+
+            <video
+              class="post-video"
+              controls
+            >
+
+              <source
+                src="${signedData.signedUrl}"
+                type="${post.file_type}"
+              >
+
+            </video>
+
+          `;
+
+        }
+
+
+        else if (
+          post.file_type &&
+          post.file_type
+          .startsWith(
+            "image/"
+          )
+        ) {
+
+          mediaHTML = `
+
+            <img
+              class="post-image"
+              src="${signedData.signedUrl}"
+              alt="Family post"
+            >
+
+          `;
+
+        }
+
+
+        else {
+
+          mediaHTML = `
+
+            <p>
+
+              📄
+
+              <a
+                href="${signedData.signedUrl}"
+                target="_blank"
+              >
+
+                ${escapeHTML(
+                  post.file_name ||
+                  "Open document"
+                )}
+
+              </a>
+
+            </p>
+
+          `;
+
+        }
+
+      }
+
+    }
+
+
+
+    /* POST HTML */
+
+    postElement.innerHTML = `
 
       <div class="post-header">
 
-        ${avatarHtml}
+        <div class="post-avatar">
 
-        <div>
+          ${avatarHTML}
 
-          <div class="post-author">
+        </div>
 
-            ${escapeHtml(
-              profile.full_name ||
-              "Family Member"
-            )}
 
-          </div>
+        <div class="post-name">
 
-          <div class="post-date">
-
-            ${formatDate(
-              post.created_at
-            )}
-
-          </div>
+          ${escapeHTML(
+            name
+          )}
 
         </div>
 
@@ -1830,42 +1637,57 @@ async function loadFeed(){
       ${
         post.content
         ?
-        `<div class="post-content">
-          ${escapeHtml(post.content)}
-        </div>`
+
+        `
+
+        <div class="post-content">
+
+          ${escapeHTML(
+            post.content
+          )}
+
+        </div>
+
+        `
+
         :
+
         ""
       }
 
 
-      ${mediaHtml}
+      ${mediaHTML}
 
 
       <div class="actions">
 
         <button
-          onclick="toggleLike(${post.id})"
+          onclick="likePost(${post.id})"
         >
-          ${userLiked ? "❤️" : "🤍"}
-          ${postLikes.length}
+          ❤️ Like
         </button>
 
-        <button
-          onclick="focusComment(${post.id})"
-        >
-          💬 ${postComments.length}
-        </button>
 
         ${
-          post.user_id === currentUser.id
+          post.user_id ===
+          currentUser.id
+
           ?
-          `<button
-             class="danger"
-             onclick="deletePost(${post.id})"
-           >
-             🗑️
-           </button>`
+
+          `
+
+          <button
+            onclick="deletePost(${post.id})"
+          >
+
+            🗑️ Delete
+
+          </button>
+
+          `
+
           :
+
           ""
         }
 
@@ -1879,113 +1701,149 @@ async function loadFeed(){
           placeholder="Write a comment..."
         >
 
+
         <button
           onclick="addComment(${post.id})"
+          class="green-btn"
         >
+
           Comment
+
         </button>
 
-        ${commentsHtml}
+
+        <div
+          id="comments-${post.id}"
+        ></div>
 
       </div>
 
     `;
 
 
-    feed.appendChild(postDiv);
-
-  }
-}
-
-
-/* =========================
-   LIKE
-========================= */
-
-async function toggleLike(postId){
-
-  const {data:existing} =
-    await client
-      .from("post_likes")
-      .select("*")
-      .eq(
-        "post_id",
-        postId
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .maybeSingle();
-
-
-  if(existing){
-
-    await client
-      .from("post_likes")
-      .delete()
-      .eq(
-        "id",
-        existing.id
-      );
-
-  }else{
-
-    await client
-      .from("post_likes")
-      .insert({
-
-        post_id:postId,
-
-        user_id:currentUser.id
-
-      });
-
-  }
-
-
-  await loadFeed();
-}
-
-
-/* =========================
-   COMMENTS
-========================= */
-
-async function addComment(postId){
-
-  const input =
-    document.getElementById(
-      comment-${postId}
+    feed.appendChild(
+      postElement
     );
 
+
+    loadComments(
+      post.id
+    );
+
+  }
+
+}
+
+
+
+/* ==================================================
+   LIKE POST
+================================================== */
+
+async function likePost(
+  postId
+)
+{
+
+  const {
+    data: existing
+  } =
+  await client
+  .from("post_likes")
+  .select("id")
+  .eq(
+    "post_id",
+    postId
+  )
+  .eq(
+    "user_id",
+    currentUser.id
+  )
+  .maybeSingle();
+
+
+  if (existing) {
+
+    await client
+    .from("post_likes")
+    .delete()
+    .eq(
+      "id",
+      existing.id
+    );
+
+  }
+
+  else {
+
+    await client
+    .from("post_likes")
+    .insert({
+
+      post_id:
+      postId,
+
+      user_id:
+      currentUser.id
+
+    });
+
+  }
+
+}
+
+
+
+/* ==================================================
+   ADD COMMENT
+================================================== */
+
+async function addComment(
+  postId
+)
+{
+
+  const input =
+  document
+  .getElementById(
+    "comment-" +
+    postId
+  );
+
+
   const content =
-    input.value.trim();
+  input.value.trim();
 
 
-  if(!content){
-
+  if (!content) {
     return;
   }
 
 
-  const {error} =
-    await client
-      .from("comments")
-      .insert({
+  const {
+    error
+  } =
+  await client
+  .from("comments")
+  .insert({
 
-        post_id:postId,
+    post_id:
+    postId,
 
-        user_id:currentUser.id,
+    user_id:
+    currentUser.id,
 
-        content
+    content:
+    content
 
-      });
+  });
 
 
-  if(error){
+  if (error) {
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
     return;
   }
@@ -1993,126 +1851,211 @@ async function addComment(postId){
 
   input.value = "";
 
-  await loadFeed();
+
+  loadComments(
+    postId
+  );
+
 }
 
 
-function focusComment(postId){
 
-  const input =
-    document.getElementById(
-      comment-${postId}
+/* ==================================================
+   LOAD COMMENTS
+================================================== */
+
+async function loadComments(
+  postId
+)
+{
+
+  const container =
+  document
+  .getElementById(
+    "comments-" +
+    postId
+  );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  const {
+    data: comments
+  } =
+  await client
+  .from("comments")
+  .select("*")
+  .eq(
+    "post_id",
+    postId
+  )
+  .order(
+    "created_at",
+    {
+      ascending: true
+    }
+  );
+
+
+  container.innerHTML =
+  "";
+
+
+  if (!comments) {
+    return;
+  }
+
+
+  for (
+    const comment of comments
+  ) {
+
+
+    let name =
+    "Family Member";
+
+
+    const {
+      data: profile
+    } =
+    await client
+    .from("profiles")
+    .select(
+      "full_name"
+    )
+    .eq(
+      "id",
+      comment.user_id
+    )
+    .maybeSingle();
+
+
+    if (
+      profile &&
+      profile.full_name
+    ) {
+
+      name =
+      profile.full_name;
+
+    }
+
+
+    const div =
+    document
+    .createElement(
+      "div"
     );
 
-  if(input){
 
-    input.focus();
+    div.className =
+    "comment";
+
+
+    div.innerHTML = `
+
+      <strong>
+        ${escapeHTML(
+          name
+        )}
+      </strong>:
+
+      ${escapeHTML(
+        comment.content
+      )}
+
+    `;
+
+
+    container.appendChild(
+      div
+    );
 
   }
+
 }
 
 
-/* =========================
+
+/* ==================================================
    DELETE POST
-========================= */
+================================================== */
 
-async function deletePost(postId){
+async function deletePost(
+  postId
+)
+{
 
-  if(!confirm(
-    "Delete this post?"
-  )){
+  if (
+    !confirm(
+      "Delete this post?"
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await client
+  .from("posts")
+  .delete()
+  .eq(
+    "id",
+    postId
+  )
+  .eq(
+    "user_id",
+    currentUser.id
+  );
+
+
+  if (error) {
+
+    alert(
+      error.message
+    );
 
     return;
   }
 
 
-  const {error} =
-    await client
-      .from("posts")
-      .delete()
-      .eq(
-        "id",
-        postId
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+  loadFeed();
 
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-  }
-
-
-  await loadFeed();
 }
 
 
-/* =========================
-   HELPERS
-========================= */
 
-function formatDate(date){
+/* ==================================================
+   ESCAPE HTML
+================================================== */
 
-  return new Date(date)
-    .toLocaleString();
+function escapeHTML(
+  text
+)
+{
+
+  const div =
+  document
+  .createElement(
+    "div"
+  );
+
+
+  div.textContent =
+  text || "";
+
+
+  return div.innerHTML;
+
 }
 
-
-function escapeHtml(value){
-
-  if(value === null ||
-     value === undefined){
-
-    return "";
-  }
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-
-/* =========================
-   CHECK SESSION
-========================= */
-
-async function checkSession(){
-
-  const {data} =
-    await client.auth.getSession();
-
-
-  if(data.session){
-
-    currentUser =
-      data.session.user;
-
-    document
-      .getElementById("loginSection")
-      .classList.add("hidden");
-
-    document
-      .getElementById("appSection")
-      .classList.remove("hidden");
-
-    await loadMyProfile();
-
-    await loadStatuses();
-
-    await loadFeed();
-  }
-}
-
-
-checkSession();
 
 </script>
 
