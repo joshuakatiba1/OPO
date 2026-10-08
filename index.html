@@ -102,16 +102,65 @@
       font-size: 24px;
     }
 
+    .profile-center {
+      text-align: center;
+    }
+
+    #myProfilePhoto {
+      width: 110px;
+      height: 110px;
+      margin: auto;
+      border-radius: 50%;
+      background: #2f5d3a;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      overflow: hidden;
+    }
+
+    #myProfilePhoto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .post {
       border-top: 1px solid #eee;
       padding-top: 15px;
       margin-top: 15px;
     }
 
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .post-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #2f5d3a;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .post-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .post-name {
       font-weight: bold;
       color: #5b3a29;
-      margin-bottom: 8px;
     }
 
     .post-content {
@@ -169,7 +218,11 @@
 
 <body>
 
-<!-- LOGIN -->
+
+<!-- =========================
+     LOGIN PAGE
+========================= -->
+
 <div id="loginPage" class="container login-box">
 
   <div class="card">
@@ -207,8 +260,14 @@
 </div>
 
 
-<!-- FAMILY APP -->
+<!-- =========================
+     FAMILY APP
+========================= -->
+
 <div id="appPage" class="container app hidden">
+
+
+  <!-- TOP BAR -->
 
   <div class="topbar">
 
@@ -224,7 +283,46 @@
   </div>
 
 
-  <!-- CREATE POST -->
+  <!-- =========================
+       PROFILE
+  ========================== -->
+
+  <div class="card">
+
+    <h2>👤 My Profile</h2>
+
+    <div class="profile-center">
+
+      <div id="myProfilePhoto">
+        👤
+      </div>
+
+      <br>
+
+      <input
+        id="profilePhoto"
+        type="file"
+        accept="image/*"
+      >
+
+      <button
+        id="profilePhotoButton"
+        class="brown-btn"
+      >
+        📸 Upload Profile Photo
+      </button>
+
+      <p id="profileMessage"></p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CREATE POST
+  ========================== -->
+
   <div class="card">
 
     <h2>🌼 Share With The Family</h2>
@@ -252,7 +350,10 @@
   </div>
 
 
-  <!-- FEED -->
+  <!-- =========================
+       FAMILY FEED
+  ========================== -->
+
   <div class="card">
 
     <h2>🌿 Family Feed</h2>
@@ -266,6 +367,10 @@
 </div>
 
 
+<!-- =========================
+     SUPABASE
+========================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -276,7 +381,8 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
 
-const BUCKET = "Family Media";
+const BUCKET =
+"Family Media";
 
 const client =
 supabase.createClient(
@@ -296,17 +402,22 @@ document
 .addEventListener("click", async function() {
 
   const email =
-  document.getElementById("email").value.trim();
+  document.getElementById("email")
+  .value
+  .trim();
 
   const password =
-  document.getElementById("password").value;
+  document.getElementById("password")
+  .value;
 
   const message =
   document.getElementById("loginMessage");
 
   message.className = "";
+
   message.innerText =
   "Connecting to Supabase...";
+
 
   try {
 
@@ -316,34 +427,52 @@ document
       password: password
     });
 
+
     if (error) {
 
-      message.className = "error";
+      message.className =
+      "error";
+
       message.innerText =
       "❌ " + error.message;
 
       return;
     }
 
-    currentUser = data.user;
 
-    message.className = "success";
+    currentUser =
+    data.user;
+
+
+    message.className =
+    "success";
+
     message.innerText =
     "✅ Login successful!";
 
+
     document
     .getElementById("loginPage")
-    .classList.add("hidden");
+    .classList
+    .add("hidden");
+
 
     document
     .getElementById("appPage")
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
+
+
+    loadMyProfile();
 
     loadFeed();
 
+
   } catch (error) {
 
-    message.className = "error";
+    message.className =
+    "error";
+
     message.innerText =
     "❌ " + error.message;
 
@@ -364,15 +493,223 @@ document
 
   currentUser = null;
 
+
   document
   .getElementById("appPage")
-  .classList.add("hidden");
+  .classList
+  .add("hidden");
+
 
   document
   .getElementById("loginPage")
-  .classList.remove("hidden");
+  .classList
+  .remove("hidden");
 
 });
+
+
+/* =========================
+   PROFILE PHOTO BUTTON
+========================= */
+
+document
+.getElementById("profilePhotoButton")
+.addEventListener(
+  "click",
+  uploadProfilePhoto
+);
+
+
+/* =========================
+   UPLOAD PROFILE PHOTO
+========================= */
+
+async function uploadProfilePhoto() {
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  const file =
+  document
+  .getElementById("profilePhoto")
+  .files[0];
+
+
+  const message =
+  document
+  .getElementById("profileMessage");
+
+
+  if (!file) {
+
+    message.className =
+    "error";
+
+    message.innerText =
+    "Please choose a photo first.";
+
+    return;
+  }
+
+
+  message.className = "";
+
+  message.innerText =
+  "Uploading photo...";
+
+
+  const extension =
+  file.name
+  .split(".")
+  .pop();
+
+
+  const filePath =
+  "profiles/" +
+  currentUser.id +
+  "/avatar_" +
+  Date.now() +
+  "." +
+  extension;
+
+
+  const { error: uploadError } =
+  await client
+  .storage
+  .from(BUCKET)
+  .upload(
+    filePath,
+    file
+  );
+
+
+  if (uploadError) {
+
+    message.className =
+    "error";
+
+    message.innerText =
+    "❌ " +
+    uploadError.message;
+
+    return;
+  }
+
+
+  const { error: updateError } =
+  await client
+  .from("profiles")
+  .update({
+    avatar_url:
+    filePath
+  })
+  .eq(
+    "id",
+    currentUser.id
+  );
+
+
+  if (updateError) {
+
+    message.className =
+    "error";
+
+    message.innerText =
+    "❌ " +
+    updateError.message;
+
+    return;
+  }
+
+
+  message.className =
+  "success";
+
+  message.innerText =
+  "✅ Profile photo updated!";
+
+
+  document
+  .getElementById("profilePhoto")
+  .value = "";
+
+
+  loadMyProfile();
+
+  loadFeed();
+
+}
+
+
+/* =========================
+   LOAD MY PROFILE
+========================= */
+
+async function loadMyProfile() {
+
+  if (!currentUser) {
+    return;
+  }
+
+
+  const { data: profile } =
+  await client
+  .from("profiles")
+  .select(
+    "avatar_url, full_name"
+  )
+  .eq(
+    "id",
+    currentUser.id
+  )
+  .maybeSingle();
+
+
+  if (!profile) {
+    return;
+  }
+
+
+  const photo =
+  document
+  .getElementById("myProfilePhoto");
+
+
+  if (
+    profile.avatar_url
+  ) {
+
+    const { data: signedData } =
+    await client
+    .storage
+    .from(BUCKET)
+    .createSignedUrl(
+      profile.avatar_url,
+      3600
+    );
+
+
+    if (
+      signedData &&
+      signedData.signedUrl
+    ) {
+
+      photo.innerHTML = `
+
+        <img
+          src="${signedData.signedUrl}"
+          alt="Profile photo"
+        >
+
+      `;
+
+    }
+
+  }
+
+}
 
 
 /* =========================
@@ -381,7 +718,10 @@ document
 
 document
 .getElementById("postButton")
-.addEventListener("click", createPost);
+.addEventListener(
+  "click",
+  createPost
+);
 
 
 async function createPost() {
@@ -390,32 +730,47 @@ async function createPost() {
     return;
   }
 
+
   const content =
-  document.getElementById("postContent")
-  .value.trim();
+  document
+  .getElementById("postContent")
+  .value
+  .trim();
+
 
   const file =
-  document.getElementById("postFile")
+  document
+  .getElementById("postFile")
   .files[0];
 
+
   const message =
-  document.getElementById("postMessage");
+  document
+  .getElementById("postMessage");
+
 
   if (!content && !file) {
 
-    message.className = "error";
+    message.className =
+    "error";
+
     message.innerText =
     "Write something or choose a file.";
 
     return;
   }
 
+
   message.className = "";
+
   message.innerText =
   "Sharing...";
 
+
   let filePath = null;
+
   let fileType = null;
+
   let fileName = null;
 
 
@@ -423,11 +778,18 @@ async function createPost() {
 
   if (file) {
 
-    fileName = file.name;
-    fileType = file.type;
+    fileName =
+    file.name;
+
+    fileType =
+    file.type;
+
 
     const extension =
-    file.name.split(".").pop();
+    file.name
+    .split(".")
+    .pop();
+
 
     filePath =
     "posts/" +
@@ -442,11 +804,17 @@ async function createPost() {
     await client
     .storage
     .from(BUCKET)
-    .upload(filePath, file);
+    .upload(
+      filePath,
+      file
+    );
+
 
     if (uploadError) {
 
-      message.className = "error";
+      message.className =
+      "error";
+
       message.innerText =
       "❌ Upload failed: " +
       uploadError.message;
@@ -464,7 +832,8 @@ async function createPost() {
   .from("posts")
   .insert({
 
-    user_id: currentUser.id,
+    user_id:
+    currentUser.id,
 
     content:
     content || null,
@@ -483,7 +852,9 @@ async function createPost() {
 
   if (error) {
 
-    message.className = "error";
+    message.className =
+    "error";
+
     message.innerText =
     "❌ " + error.message;
 
@@ -495,13 +866,18 @@ async function createPost() {
   .getElementById("postContent")
   .value = "";
 
+
   document
   .getElementById("postFile")
   .value = "";
 
-  message.className = "success";
+
+  message.className =
+  "success";
+
   message.innerText =
   "✅ Shared with the family!";
+
 
   loadFeed();
 
@@ -517,6 +893,7 @@ async function loadFeed() {
   const feed =
   document.getElementById("feed");
 
+
   feed.innerHTML =
   "Loading posts...";
 
@@ -525,9 +902,12 @@ async function loadFeed() {
   await client
   .from("posts")
   .select("*")
-  .order("created_at", {
-    ascending: false
-  });
+  .order(
+    "created_at",
+    {
+      ascending: false
+    }
+  );
 
 
   if (error) {
@@ -541,7 +921,10 @@ async function loadFeed() {
   }
 
 
-  if (!posts || posts.length === 0) {
+  if (
+    !posts ||
+    posts.length === 0
+  ) {
 
     feed.innerHTML =
     "<p>No family posts yet 🌿</p>";
@@ -553,10 +936,14 @@ async function loadFeed() {
   feed.innerHTML = "";
 
 
-  for (const post of posts) {
+  for (
+    const post of posts
+  ) {
 
     const postElement =
-    document.createElement("div");
+    document
+    .createElement("div");
+
 
     postElement.className =
     "post";
@@ -567,15 +954,27 @@ async function loadFeed() {
     let name =
     "Family Member";
 
+    let avatarUrl =
+    null;
+
+
     const { data: profile } =
     await client
     .from("profiles")
-    .select("full_name")
-    .eq("id", post.user_id)
+    .select(
+      "full_name, avatar_url"
+    )
+    .eq(
+      "id",
+      post.user_id
+    )
     .maybeSingle();
 
 
-    if (profile && profile.full_name) {
+    if (
+      profile &&
+      profile.full_name
+    ) {
 
       name =
       profile.full_name;
@@ -583,10 +982,62 @@ async function loadFeed() {
     }
 
 
-    let mediaHTML = "";
+    if (
+      profile &&
+      profile.avatar_url
+    ) {
+
+      const { data: avatarData } =
+      await client
+      .storage
+      .from(BUCKET)
+      .createSignedUrl(
+        profile.avatar_url,
+        3600
+      );
+
+
+      if (
+        avatarData &&
+        avatarData.signedUrl
+      ) {
+
+        avatarUrl =
+        avatarData.signedUrl;
+
+      }
+
+    }
+
+
+    /* AVATAR */
+
+    let avatarHTML =
+    `<span>
+      ${escapeHTML(
+        name.charAt(0)
+      )}
+    </span>`;
+
+
+    if (avatarUrl) {
+
+      avatarHTML = `
+
+        <img
+          src="${avatarUrl}"
+          alt="Profile photo"
+        >
+
+      `;
+
+    }
 
 
     /* MEDIA */
+
+    let mediaHTML = "";
+
 
     if (post.image_url) {
 
@@ -600,54 +1051,78 @@ async function loadFeed() {
       );
 
 
-      if (signedData &&
-          signedData.signedUrl) {
+      if (
+        signedData &&
+        signedData.signedUrl
+      ) {
+
 
         if (
           post.file_type &&
-          post.file_type.startsWith("video/")
+          post.file_type
+          .startsWith("video/")
         ) {
 
           mediaHTML = `
+
             <video
               class="post-video"
               controls
             >
+
               <source
                 src="${signedData.signedUrl}"
                 type="${post.file_type}"
               >
+
             </video>
+
           `;
 
         }
+
 
         else if (
           post.file_type &&
-          post.file_type.startsWith("image/")
+          post.file_type
+          .startsWith("image/")
         ) {
 
           mediaHTML = `
+
             <img
               class="post-image"
               src="${signedData.signedUrl}"
+              alt="Family post"
             >
+
           `;
 
         }
+
 
         else {
 
           mediaHTML = `
+
             <p>
+
               📄
+
               <a
                 href="${signedData.signedUrl}"
                 target="_blank"
               >
-                ${post.file_name || "Open document"}
+
+                ${escapeHTML(
+                  post.file_name ||
+                  "Open document"
+                )}
+
               </a>
+
             </p>
+
           `;
 
         }
@@ -657,23 +1132,49 @@ async function loadFeed() {
     }
 
 
+    /* POST HTML */
+
     postElement.innerHTML = `
 
-      <div class="post-name">
-        🌿 ${escapeHTML(name)}
+      <div class="post-header">
+
+        <div class="post-avatar">
+
+          ${avatarHTML}
+
+        </div>
+
+
+        <div class="post-name">
+
+          ${escapeHTML(name)}
+
+        </div>
+
       </div>
+
 
       ${
         post.content
         ?
-        `<div class="post-content">
-          ${escapeHTML(post.content)}
-        </div>`
+        `
+
+        <div class="post-content">
+
+          ${escapeHTML(
+            post.content
+          )}
+
+        </div>
+
+        `
         :
         ""
       }
 
+
       ${mediaHTML}
+
 
       <div class="actions">
 
@@ -683,19 +1184,31 @@ async function loadFeed() {
           ❤️ Like
         </button>
 
+
         ${
-          post.user_id === currentUser.id
+          post.user_id ===
+          currentUser.id
           ?
-          `<button
+
+          `
+
+          <button
             onclick="deletePost(${post.id})"
           >
+
             🗑️ Delete
-          </button>`
+
+          </button>
+
+          `
+
           :
+
           ""
         }
 
       </div>
+
 
       <div class="comment-box">
 
@@ -704,12 +1217,16 @@ async function loadFeed() {
           placeholder="Write a comment..."
         >
 
+
         <button
           onclick="addComment(${post.id})"
           class="green-btn"
         >
+
           Comment
+
         </button>
+
 
         <div
           id="comments-${post.id}"
@@ -720,9 +1237,14 @@ async function loadFeed() {
     `;
 
 
-    feed.appendChild(postElement);
+    feed.appendChild(
+      postElement
+    );
 
-    loadComments(post.id);
+
+    loadComments(
+      post.id
+    );
 
   }
 
@@ -733,14 +1255,22 @@ async function loadFeed() {
    LIKE
 ========================= */
 
-async function likePost(postId) {
+async function likePost(
+  postId
+) {
 
   const { data: existing } =
   await client
   .from("post_likes")
   .select("id")
-  .eq("post_id", postId)
-  .eq("user_id", currentUser.id)
+  .eq(
+    "post_id",
+    postId
+  )
+  .eq(
+    "user_id",
+    currentUser.id
+  )
   .maybeSingle();
 
 
@@ -749,7 +1279,10 @@ async function likePost(postId) {
     await client
     .from("post_likes")
     .delete()
-    .eq("id", existing.id);
+    .eq(
+      "id",
+      existing.id
+    );
 
   }
 
@@ -759,7 +1292,8 @@ async function likePost(postId) {
     .from("post_likes")
     .insert({
 
-      post_id: postId,
+      post_id:
+      postId,
 
       user_id:
       currentUser.id
@@ -772,15 +1306,18 @@ async function likePost(postId) {
 
 
 /* =========================
-   COMMENTS
+   ADD COMMENT
 ========================= */
 
-async function addComment(postId) {
+async function addComment(
+  postId
+) {
 
   const input =
   document.getElementById(
     "comment-" + postId
   );
+
 
   const content =
   input.value.trim();
@@ -796,7 +1333,8 @@ async function addComment(postId) {
   .from("comments")
   .insert({
 
-    post_id: postId,
+    post_id:
+    postId,
 
     user_id:
     currentUser.id,
@@ -809,20 +1347,31 @@ async function addComment(postId) {
 
   if (error) {
 
-    alert(error.message);
-    return;
+    alert(
+      error.message
+    );
 
+    return;
   }
 
 
   input.value = "";
 
-  loadComments(postId);
+
+  loadComments(
+    postId
+  );
 
 }
 
 
-async function loadComments(postId) {
+/* =========================
+   LOAD COMMENTS
+========================= */
+
+async function loadComments(
+  postId
+) {
 
   const container =
   document.getElementById(
@@ -839,10 +1388,16 @@ async function loadComments(postId) {
   await client
   .from("comments")
   .select("*")
-  .eq("post_id", postId)
-  .order("created_at", {
-    ascending: true
-  });
+  .eq(
+    "post_id",
+    postId
+  )
+  .order(
+    "created_at",
+    {
+      ascending: true
+    }
+  );
 
 
   container.innerHTML = "";
@@ -853,7 +1408,9 @@ async function loadComments(postId) {
   }
 
 
-  for (const comment of comments) {
+  for (
+    const comment of comments
+  ) {
 
     let name =
     "Family Member";
@@ -862,13 +1419,20 @@ async function loadComments(postId) {
     const { data: profile } =
     await client
     .from("profiles")
-    .select("full_name")
-    .eq("id", comment.user_id)
+    .select(
+      "full_name"
+    )
+    .eq(
+      "id",
+      comment.user_id
+    )
     .maybeSingle();
 
 
-    if (profile &&
-        profile.full_name) {
+    if (
+      profile &&
+      profile.full_name
+    ) {
 
       name =
       profile.full_name;
@@ -877,18 +1441,31 @@ async function loadComments(postId) {
 
 
     const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
     div.className =
     "comment";
 
-    div.innerHTML =
-    `<strong>
-      ${escapeHTML(name)}
-    </strong>: 
-    ${escapeHTML(comment.content)}`;
 
-    container.appendChild(div);
+    div.innerHTML = `
+
+      <strong>
+        ${escapeHTML(name)}
+      </strong>:
+
+      ${escapeHTML(
+        comment.content
+      )}
+
+    `;
+
+
+    container.appendChild(
+      div
+    );
 
   }
 
@@ -899,12 +1476,18 @@ async function loadComments(postId) {
    DELETE POST
 ========================= */
 
-async function deletePost(postId) {
+async function deletePost(
+  postId
+) {
 
-  if (!confirm(
-    "Delete this post?"
-  )) {
+  if (
+    !confirm(
+      "Delete this post?"
+    )
+  ) {
+
     return;
+
   }
 
 
@@ -912,15 +1495,23 @@ async function deletePost(postId) {
   await client
   .from("posts")
   .delete()
-  .eq("id", postId)
-  .eq("user_id", currentUser.id);
+  .eq(
+    "id",
+    postId
+  )
+  .eq(
+    "user_id",
+    currentUser.id
+  );
 
 
   if (error) {
 
-    alert(error.message);
-    return;
+    alert(
+      error.message
+    );
 
+    return;
   }
 
 
@@ -933,13 +1524,19 @@ async function deletePost(postId) {
    ESCAPE HTML
 ========================= */
 
-function escapeHTML(text) {
+function escapeHTML(
+  text
+) {
 
   const div =
-  document.createElement("div");
+  document.createElement(
+    "div"
+  );
+
 
   div.textContent =
   text || "";
+
 
   return div.innerHTML;
 
