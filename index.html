@@ -1,156 +1,875 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opondo's Family</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opondo's Family</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --brown:#5b351f; --green:#28704b; --emerald:#145b3b;
+  --sage:#9caf88; --cream:#f8f1df; --white:#fffdf6;
+  --yellow:#e5c44e; --border:#e5d7c1;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:Arial,sans-serif; color:var(--brown);
+  background-color:var(--cream);
+  background-image:radial-gradient(#9caf8840 2px,transparent 2.5px);
+  background-size:27px 27px;
+}
+header { background:var(--brown); color:white; text-align:center; padding:22px 12px; }
+header h1 { margin:0; font-size:26px; }
+header p { color:var(--yellow); margin-bottom:0; }
+.container { max-width:850px; margin:auto; padding:15px; }
+.card {
+  background:var(--white); border:1px solid var(--border);
+  border-radius:17px; padding:17px; margin-bottom:17px;
+  box-shadow:0 4px 14px #5b351f12;
+}
+h2,h3 { color:var(--emerald); }
+input,textarea,button {
+  width:100%; padding:12px; margin:7px 0;
+  border-radius:10px; font:inherit;
+}
+input,textarea { border:1px solid #cdbda7; background:white; color:var(--brown); }
+textarea { min-height:80px; resize:vertical; }
+button { background:var(--green); color:white; border:0; font-weight:bold; cursor:pointer; }
+button.brown { background:var(--brown); }
+button.yellow { background:var(--yellow); color:var(--brown); }
+button.danger { background:#a33a32; }
+.hidden { display:none!important; }
+.muted { font-size:12px; color:#806b58; }
+.profile-box,.post-header { display:flex; align-items:center; gap:12px; }
+.profile-info { flex:1; min-width:0; }
+.profile-info h3 { margin:0; }
+.avatar {
+  width:56px; height:56px; flex-shrink:0; border-radius:50%;
+  border:3px solid var(--yellow); background:var(--green); color:white;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; font-size:22px; font-weight:bold;
+}
+.avatar img { width:100%; height:100%; object-fit:cover; }
+.status-row { display:flex; gap:13px; overflow-x:auto; padding:12px 0; }
+.status-item { flex:0 0 74px; text-align:center; cursor:pointer; }
+.status-ring {
+  width:66px; height:66px; padding:3px; margin:auto; border-radius:50%;
+  background:linear-gradient(135deg,var(--green),var(--yellow),var(--brown));
+}
+.status-circle {
+  width:100%; height:100%; border-radius:50%; overflow:hidden;
+  background:var(--white); display:flex; align-items:center; justify-content:center;
+}
+.status-circle img { width:100%; height:100%; object-fit:cover; }
+.status-name { font-size:12px; margin-top:5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.post { border-top:1px solid var(--border); padding-top:16px; margin-top:16px; }
+.post-author { color:var(--emerald); font-weight:bold; }
+.post-date { font-size:12px; color:#806b58; margin-top:4px; }
+.post-text { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.5; margin:14px 0; }
+.post-media { width:100%; max-height:500px; object-fit:contain; border-radius:12px; background:#eee6d8; }
+.actions { display:flex; flex-wrap:wrap; gap:7px; margin:12px 0; }
+.actions button { width:auto; margin:0; padding:9px 12px; }
+.comment { background:#f1eadc; border-radius:9px; padding:9px; margin-top:7px; overflow-wrap:anywhere; }
+.comment small { color:#806b58; }
+.status-viewer {
+  position:fixed; inset:0; z-index:1000; background:#17120ff2;
+  display:flex; justify-content:center; align-items:center; padding:12px;
+}
+.viewer-card { width:100%; max-width:620px; max-height:94vh; overflow:auto; background:var(--white); border-radius:16px; position:relative; }
+.viewer-top { padding:16px 55px 12px 15px; color:var(--green); font-weight:bold; }
+.viewer-close { position:absolute; top:7px; right:7px; width:40px; padding:8px; background:var(--brown); }
+.viewer-media { width:100%; max-height:65vh; object-fit:contain; background:#111; }
+.viewer-text { padding:24px 16px; text-align:center; font-size:22px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.viewer-actions { display:flex; gap:8px; padding:12px; }
+.viewer-actions button { margin:0; }
+.flower { position:fixed; z-index:-1; font-size:26px; opacity:.5; pointer-events:none; }
+.flower.one { top:150px; left:5px; }
+.flower.two { bottom:30px; right:7px; }
+@media(max-width:500px) {
+  header h1 { font-size:22px; }
+  .container { padding:10px; }
+  .card { padding:13px; }
+}
+</style>
 </head>
 
-<body style="
-  background:#f8f1df;
-  font-family:Arial;
-  text-align:center;
-  padding:40px;
-">
+<body>
+<div class="flower one">🌸</div>
+<div class="flower two">🌼</div>
 
-  <h1 style="color:#5b351f;">
-    🌿 Opondo's Family 🌿
-  </h1>
+<header>
+  <h1>🌿 Opondo's Family 🌿</h1>
+  <p>Our family, our memories ❤️</p>
+</header>
 
-  <div style="
-    max-width:400px;
-    margin:auto;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-  ">
+<main class="container">
 
-    <h2 style="color:#28704b;">
-      Welcome Back
-    </h2>
+<section id="loginSection" class="card">
+  <h2>Welcome Back 👋</h2>
+  <form id="loginForm">
+    <input id="email" type="email" placeholder="Email address" required>
+    <input id="password" type="password" placeholder="Password" required>
+    <button id="loginButton" type="submit">Login</button>
+  </form>
+  <p id="loginMessage" role="status"></p>
+</section>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Email"
-      style="
-        width:100%;
-        padding:12px;
-        margin:8px 0;
-        box-sizing:border-box;
-      "
-    >
+<section id="appSection" class="hidden">
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-      style="
-        width:100%;
-        padding:12px;
-        margin:8px 0;
-        box-sizing:border-box;
-      "
-    >
-
-    <button
-      id="loginButton"
-      style="
-        width:100%;
-        padding:12px;
-        background:#28704b;
-        color:white;
-        border:none;
-        border-radius:8px;
-        font-weight:bold;
-      "
-    >
-      Login
-    </button>
-
-    <p id="message"></p>
-
+  <div class="card">
+    <div class="profile-box">
+      <div id="myAvatar" class="avatar">F</div>
+      <div class="profile-info">
+        <h3 id="myName">Family Member</h3>
+        <div class="muted">Your family profile 🌿</div>
+      </div>
+    </div>
+    <label for="profilePhoto">Change profile photo</label>
+    <input id="profilePhoto" type="file" accept="image/*">
+    <button id="profileButton">📸 Upload Profile Photo</button>
+    <p id="profileMessage" role="status"></p>
   </div>
 
+  <div class="card">
+    <h2>Family Statuses 🌸</h2>
+    <div id="statusRow" class="status-row"></div>
+    <div id="statusForm" class="hidden">
+      <h3>Share a status</h3>
+      <textarea id="statusText" placeholder="What's happening?"></textarea>
+      <input id="statusFile" type="file" accept="image/,video/">
+      <button id="shareStatusButton">Share Status</button>
+      <button id="cancelStatusButton" class="brown">Cancel</button>
+      <p id="statusMessage" role="status"></p>
+    </div>
+    <button id="openStatusButton" class="yellow">+ Add Your Status</button>
+    <p class="muted">Statuses are displayed for 24 hours.</p>
+  </div>
+
+  <div class="card">
+    <h2>Share With The Family 💚</h2>
+    <textarea id="postText" placeholder="Write something for your family..."></textarea>
+    <input id="postFile" type="file" accept="image/,video/,.pdf,.doc,.docx,.txt">
+    <button id="sharePostButton">📤 Share Post</button>
+    <p id="postMessage" role="status"></p>
+  </div>
+
+  <div class="card">
+    <h2>Family Feed 🌿</h2>
+    <button id="refreshButton" class="yellow">Refresh Feed</button>
+    <div id="feed">Your family posts will appear here.</div>
+  </div>
+
+  <button id="logoutButton" class="brown">Log Out</button>
+</section>
+</main>
+
+<div id="statusViewer" class="status-viewer hidden">
+  <div class="viewer-card">
+    <button id="closeViewerButton" class="viewer-close">✕</button>
+    <div id="viewerContent"></div>
+  </div>
+</div>
 
 <script>
+"use strict";
 
-const SUPABASE_URL =
-  "https://udbkgjgomhxclgasbfmz.supabase.co";
+const SUPABASE_URL = "https://udbkgjgomhxclgasbfmz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+const BUCKET = "Family Media";
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const SUPABASE_KEY =
-  "sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+let currentUser = null;
+let currentStatuses = [];
+let currentStatusIndex = 0;
+let currentStatusOwner = "";
+let currentStatusName = "";
 
-const client =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+const $ = id => document.getElementById(id);
 
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+  })[char]);
+}
 
-document
-  .getElementById("loginButton")
-  .addEventListener("click", async function(){
+function formatDate(value) {
+  return new Date(value).toLocaleString();
+}
 
-    const email =
-      document
-        .getElementById("email")
-        .value
-        .trim();
+function showMessage(id, message) {
+  $(id).textContent = message;
+}
 
-    const password =
-      document
-        .getElementById("password")
-        .value;
+function setLoggedIn(user) {
+  currentUser = user;
+  $("loginSection").classList.add("hidden");
+  $("appSection").classList.remove("hidden");
+}
 
-    const message =
-      document
-        .getElementById("message");
+function setLoggedOut() {
+  currentUser = null;
+  $("appSection").classList.add("hidden");
+  $("loginSection").classList.remove("hidden");
+}
 
+async function signedUrl(path) {
+  if (!path) return null;
+  const { data, error } = await client.storage.from(BUCKET).createSignedUrl(path, 3600);
+  if (error) {
+    console.error("Could not create signed URL:", error.message);
+    return null;
+  }
+  return data.signedUrl;
+}
 
-    if(!email || !password){
+async function uploadFile(path, file) {
+  const { error } = await client.storage.from(BUCKET).upload(path, file);
+  if (error) throw error;
+  return path;
+}
 
-      message.innerText =
-        "Please enter your email and password.";
+/* LOGIN: keep the same sign-in method that was tested successfully. */
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
 
-      return;
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  const button = $("loginButton");
+
+  if (!email || !password) {
+    showMessage("loginMessage", "Enter your email and password.");
+    return;
+  }
+
+  button.disabled = true;
+  showMessage("loginMessage", "Logging in...");
+
+  try {
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+
+    setLoggedIn(data.user);
+    showMessage("loginMessage", "");
+    await loadApp();
+  } catch (error) {
+    showMessage("loginMessage", "Login failed: " + error.message);
+  } finally {
+    button.disabled = false;
+  }
+});
+
+$("logoutButton").addEventListener("click", async () => {
+  const { error } = await client.auth.signOut();
+  if (error) {
+    alert("Could not log out: " + error.message);
+    return;
+  }
+  setLoggedOut();
+  $("email").value = "";
+  $("password").value = "";
+});
+
+async function loadApp() {
+  if (!currentUser) return;
+  await loadProfile();
+  await loadStatuses();
+  await loadFeed();
+}
+
+/* PROFILE */
+async function loadProfile() {
+  const { data, error } = await client
+    .from("profiles")
+    .select("id,full_name,avatar_url")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    showMessage("profileMessage", "Profile: " + error.message);
+    return;
+  }
+
+  const name = data?.full_name || "Family Member";
+  $("myName").textContent = name;
+  $("myAvatar").textContent = name.charAt(0).toUpperCase();
+
+  if (data?.avatar_url) {
+    const url = await signedUrl(data.avatar_url);
+    if (url) $("myAvatar").innerHTML = <img alt="Profile photo" src="${url}">;
+  }
+}
+
+$("profileButton").addEventListener("click", async () => {
+  if (!currentUser) return;
+
+  const file = $("profilePhoto").files[0];
+  if (!file) {
+    showMessage("profileMessage", "Choose a photo first.");
+    return;
+  }
+  if (!file.type.startsWith("image/")) {
+    showMessage("profileMessage", "Please choose an image.");
+    return;
+  }
+
+  showMessage("profileMessage", "Uploading profile photo...");
+
+  try {
+    const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-z0-9]/gi, "");
+    const path = profiles/${currentUser.id}/avatar_${Date.now()}.${ext};
+    await uploadFile(path, file);
+
+    const { error } = await client
+      .from("profiles")
+      .update({ avatar_url: path })
+      .eq("id", currentUser.id);
+
+    if (error) throw error;
+
+    $("profilePhoto").value = "";
+    showMessage("profileMessage", "Profile photo updated!");
+    await loadProfile();
+    await loadStatuses();
+    await loadFeed();
+  } catch (error) {
+    showMessage("profileMessage", "Upload failed: " + error.message);
+  }
+});
+
+/* STATUSES */
+$("openStatusButton").addEventListener("click", () => {
+  $("statusForm").classList.remove("hidden");
+  $("statusText").focus();
+});
+$("cancelStatusButton").addEventListener("click", () => {
+  $("statusForm").classList.add("hidden");
+});
+
+$("shareStatusButton").addEventListener("click", async () => {
+  const content = $("statusText").value.trim();
+  const file = $("statusFile").files[0];
+
+  if (!content && !file) {
+    showMessage("statusMessage", "Write a status or select a photo/video.");
+    return;
+  }
+  if (file && !file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+    showMessage("statusMessage", "Choose an image or video.");
+    return;
+  }
+
+  showMessage("statusMessage", "Sharing status...");
+
+  try {
+    let mediaUrl = null;
+    let mediaType = null;
+
+    if (file) {
+      const ext = (file.name.split(".").pop() || "bin").replace(/[^a-z0-9]/gi, "");
+      mediaUrl = statuses/${currentUser.id}/${Date.now()}.${ext};
+      await uploadFile(mediaUrl, file);
+      mediaType = file.type.startsWith("video/") ? "video" : "image";
     }
 
+    const { error } = await client.from("statuses").insert({
+      user_id: currentUser.id,
+      content: content || null,
+      media_url: mediaUrl,
+      media_type: mediaType
+    });
 
-    message.innerText =
-      "Logging in...";
+    if (error) throw error;
 
+    $("statusText").value = "";
+    $("statusFile").value = "";
+    $("statusForm").classList.add("hidden");
+    showMessage("statusMessage", "Status shared!");
+    await loadStatuses();
+  } catch (error) {
+    showMessage("statusMessage", "Could not share status: " + error.message);
+  }
+});
 
-    const {data,error} =
-      await client.auth.signInWithPassword({
+async function loadStatuses() {
+  const row = $("statusRow");
+  row.innerHTML = `
+    <div class="status-item" id="addStatusCircle">
+      <div class="status-ring"><div class="status-circle"><span style="font-size:30px;color:#28704b">+</span></div></div>
+      <div class="status-name">Your status</div>
+    </div>`;
 
-        email: email,
-
-        password: password
-
-      });
-
-
-    if(error){
-
-      message.innerText =
-        "❌ " + error.message;
-
-      return;
-    }
-
-
-    message.innerText =
-      "✅ LOGIN SUCCESSFUL!";
-
-
-    console.log(data);
-
+  $("addStatusCircle").addEventListener("click", () => {
+    $("statusForm").classList.remove("hidden");
   });
 
-</script>
+  const { data: statuses, error } = await client
+    .from("statuses")
+    .select("*")
+    .order("created_at", { ascending: false });
 
+  if (error) {
+    console.error("Status loading failed:", error.message);
+    row.insertAdjacentHTML("beforeend",
+      <div class="muted">Statuses unavailable: ${escapeHtml(error.message)}</div>);
+    return;
+  }
+
+  const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+  const active = (statuses || []).filter(s => new Date(s.created_at).getTime() > cutoff);
+  const groups = new Map();
+
+  for (const status of active) {
+    if (!groups.has(status.user_id)) groups.set(status.user_id, []);
+    groups.get(status.user_id).push(status);
+  }
+
+  const ids = [...groups.keys()];
+  if (!ids.length) return;
+
+  const { data: profiles, error: profileError } = await client
+    .from("profiles")
+    .select("id,full_name,avatar_url")
+    .in("id", ids);
+
+  if (profileError) {
+    console.error("Status profiles failed:", profileError.message);
+    return;
+  }
+
+  for (const profile of profiles || []) {
+    const group = groups.get(profile.id) || [];
+    if (!group.length) continue;
+
+    const item = document.createElement("div");
+    item.className = "status-item";
+
+    const ring = document.createElement("div");
+    ring.className = "status-ring";
+
+    const circle = document.createElement("div");
+    circle.className = "status-circle";
+
+    if (profile.avatar_url) {
+      const url = await signedUrl(profile.avatar_url);
+      if (url) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Profile photo";
+        circle.appendChild(img);
+      } else {
+        circle.textContent = (profile.full_name || "F").charAt(0);
+      }
+    } else {
+      circle.textContent = (profile.full_name || "F").charAt(0);
+    }
+
+    ring.appendChild(circle);
+    item.appendChild(ring);
+
+    const name = document.createElement("div");
+    name.className = "status-name";
+    name.textContent = profile.full_name || "Family Member";
+    item.appendChild(name);
+
+    item.addEventListener("click", () => openStatusGroup(group, profile.full_name || "Family Member"));
+    row.appendChild(item);
+  }
+}
+
+function openStatusGroup(group, name) {
+  currentStatuses = group;
+  currentStatusIndex = 0;
+  currentStatusOwner = group[0]?.user_id;
+  currentStatusName = name;
+  $("statusViewer").classList.remove("hidden");
+  renderStatus();
+}
+
+async function renderStatus() {
+  const status = currentStatuses[currentStatusIndex];
+  if (!status) return;
+
+  const content = $("viewerContent");
+  content.innerHTML = "";
+
+  const top = document.createElement("div");
+  top.className = "viewer-top";
+  top.textContent = ${currentStatusName} · ${formatDate(status.created_at)};
+  content.appendChild(top);
+
+  if (status.media_url) {
+    const url = await signedUrl(status.media_url);
+    if (url) {
+      const media = document.createElement(status.media_type === "video" ? "video" : "img");
+      media.className = "viewer-media";
+      media.src = url;
+      if (status.media_type === "video") media.controls = true;
+      else media.alt = "Status photo";
+      content.appendChild(media);
+    } else {
+      const warning = document.createElement("p");
+      warning.className = "viewer-text";
+      warning.textContent = "Media could not be loaded.";
+      content.appendChild(warning);
+    }
+  }
+
+  if (status.content) {
+    const text = document.createElement("div");
+    text.className = "viewer-text";
+    text.textContent = status.content;
+    content.appendChild(text);
+  }
+
+  const actions = document.createElement("div");
+  actions.className = "viewer-actions";
+
+  if (currentStatusIndex > 0) {
+    const previous = document.createElement("button");
+    previous.textContent = "← Previous";
+    previous.addEventListener("click", () => {
+      currentStatusIndex--;
+      renderStatus();
+    });
+    actions.appendChild(previous);
+  }
+
+  if (currentStatusIndex < currentStatuses.length - 1) {
+    const next = document.createElement("button");
+    next.textContent = "Next →";
+    next.addEventListener("click", () => {
+      currentStatusIndex++;
+      renderStatus();
+    });
+    actions.appendChild(next);
+  }
+
+  if (status.user_id === currentUser.id) {
+    const del = document.createElement("button");
+    del.className = "danger";
+    del.textContent = "Delete";
+    del.addEventListener("click", () => deleteStatus(status.id));
+    actions.appendChild(del);
+  }
+
+  content.appendChild(actions);
+}
+
+$("closeViewerButton").addEventListener("click", () => {
+  $("statusViewer").classList.add("hidden");
+  $("viewerContent").innerHTML = "";
+});
+
+/* Deleting a status removes its database row. */
+async function deleteStatus(id) {
+  if (!confirm("Delete this status?")) return;
+
+  const { error } = await client
+    .from("statuses")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Could not delete status: " + error.message);
+    return;
+  }
+
+  $("statusViewer").classList.add("hidden");
+  await loadStatuses();
+}
+
+/* FAMILY POSTS */
+$("sharePostButton").addEventListener("click", async () => {
+  const content = $("postText").value.trim();
+  const file = $("postFile").files[0];
+
+  if (!content && !file) {
+    showMessage("postMessage", "Write something or select a file.");
+    return;
+  }
+
+  showMessage("postMessage", "Sharing post...");
+
+  try {
+    let filePath = null;
+    let fileType = null;
+    let fileName = null;
+
+    if (file) {
+      filePath = posts/${currentUser.id}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")};
+      await uploadFile(filePath, file);
+      fileType = file.type || "";
+      fileName = file.name;
+    }
+
+    const { error } = await client.from("posts").insert({
+      user_id: currentUser.id,
+      content: content || null,
+      image_url: filePath,
+      file_type: fileType,
+      file_name: fileName
+    });
+
+    if (error) throw error;
+
+    $("postText").value = "";
+    $("postFile").value = "";
+    showMessage("postMessage", "Post shared!");
+    await loadFeed();
+  } catch (error) {
+    showMessage("postMessage", "Could not share post: " + error.message);
+  }
+});
+
+$("refreshButton").addEventListener("click", loadFeed);
+
+async function loadFeed() {
+  if (!currentUser) return;
+  const feed = $("feed");
+  feed.textContent = "Loading posts...";
+
+  const { data: posts, error } = await client
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    feed.textContent = "Could not load posts: " + error.message;
+    return;
+  }
+
+  if (!posts?.length) {
+    feed.textContent = "No posts yet. Share the first family memory! 🌸";
+    return;
+  }
+
+  const ids = [...new Set(posts.map(p => p.user_id))];
+  const { data: profiles, error: profileError } = await client
+    .from("profiles")
+    .select("id,full_name,avatar_url")
+    .in("id", ids);
+
+  if (profileError) {
+    feed.textContent = "Could not load profiles: " + profileError.message;
+    return;
+  }
+
+  const profileMap = Object.fromEntries((profiles || []).map(p => [p.id, p]));
+
+  const { data: likes, error: likesError } = await client.from("post_likes").select("*");
+  const { data: comments, error: commentsError } = await client.from("comments").select("*");
+
+  if (likesError || commentsError) {
+    feed.textContent = "Could not load likes or comments. Check their table permissions.";
+    return;
+  }
+
+  feed.innerHTML = "";
+
+  for (const post of posts) {
+    const profile = profileMap[post.user_id] || {};
+    const postLikes = (likes || []).filter(l => String(l.post_id) === String(post.id));
+    const postComments = (comments || []).filter(c => String(c.post_id) === String(post.id));
+    const liked = postLikes.some(l => l.user_id === currentUser.id);
+
+    const article = document.createElement("article");
+    article.className = "post";
+
+    const header = document.createElement("div");
+    header.className = "post-header";
+
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.textContent = (profile.full_name || "F").charAt(0).toUpperCase();
+
+    if (profile.avatar_url) {
+      const url = await signedUrl(profile.avatar_url);
+      if (url) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "Profile photo";
+        avatar.textContent = "";
+        avatar.appendChild(img);
+      }
+    }
+
+    const authorInfo = document.createElement("div");
+    const author = document.createElement("div");
+    author.className = "post-author";
+    author.textContent = profile.full_name || "Family Member";
+
+    const date = document.createElement("div");
+    date.className = "post-date";
+    date.textContent = formatDate(post.created_at);
+
+    authorInfo.append(author, date);
+    header.append(avatar, authorInfo);
+    article.appendChild(header);
+
+    if (post.content) {
+      const text = document.createElement("div");
+      text.className = "post-text";
+      text.textContent = post.content;
+      article.appendChild(text);
+    }
+
+    if (post.image_url) {
+      const url = await signedUrl(post.image_url);
+      if (url) {
+        if (post.file_type?.startsWith("video/")) {
+          const video = document.createElement("video");
+          video.className = "post-media";
+          video.src = url;
+          video.controls = true;
+          article.appendChild(video);
+        } else if (post.file_type?.startsWith("image/")) {
+          const img = document.createElement("img");
+          img.className = "post-media";
+          img.src = url;
+          img.alt = post.file_name || "Family photo";
+          article.appendChild(img);
+        } else {
+          const link = document.createElement("a");
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener";
+          link.textContent = "📄 Open attachment: " + (post.file_name || "Download file");
+          article.appendChild(link);
+        }
+      }
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const likeButton = document.createElement("button");
+    likeButton.textContent = ${liked ? "❤️" : "🤍"} ${postLikes.length};
+    likeButton.addEventListener("click", () => toggleLike(post.id));
+    actions.appendChild(likeButton);
+
+    const commentCount = document.createElement("span");
+    commentCount.textContent = 💬 ${postComments.length};
+    commentCount.style.alignSelf = "center";
+    actions.appendChild(commentCount);
+
+    if (post.user_id === currentUser.id) {
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "danger";
+      deleteButton.textContent = "Delete Post";
+      deleteButton.addEventListener("click", () => deletePost(post.id));
+      actions.appendChild(deleteButton);
+    }
+
+    article.appendChild(actions);
+
+    const commentArea = document.createElement("div");
+    commentArea.className = "comments";
+
+    for (const comment of postComments) {
+      const item = document.createElement("div");
+      item.className = "comment";
+      item.textContent = comment.content || "";
+      commentArea.appendChild(item);
+    }
+
+    const commentInput = document.createElement("input");
+    commentInput.placeholder = "Write a comment...";
+
+    const commentButton = document.createElement("button");
+    commentButton.textContent = "Comment";
+    commentButton.addEventListener("click", async () => {
+      const value = commentInput.value.trim();
+      if (!value) return;
+
+      commentButton.disabled = true;
+      const { error } = await client.from("comments").insert({
+        post_id: post.id,
+        user_id: currentUser.id,
+        content: value
+      });
+      commentButton.disabled = false;
+
+      if (error) {
+        alert("Comment failed: " + error.message);
+        return;
+      }
+      await loadFeed();
+    });
+
+    commentArea.append(commentInput, commentButton);
+    article.appendChild(commentArea);
+    feed.appendChild(article);
+  }
+}
+
+async function toggleLike(postId) {
+  const { data: existing, error: findError } = await client
+    .from("post_likes")
+    .select("id")
+    .eq("post_id", postId)
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
+
+  if (findError) {
+    alert("Could not check like: " + findError.message);
+    return;
+  }
+
+  let result;
+  if (existing) {
+    result = await client.from("post_likes").delete().eq("id", existing.id);
+  } else {
+    result = await client.from("post_likes").insert({
+      post_id: postId,
+      user_id: currentUser.id
+    });
+  }
+
+  if (result.error) {
+    alert("Like failed: " + result.error.message);
+    return;
+  }
+  await loadFeed();
+}
+
+async function deletePost(postId) {
+  if (!confirm("Delete this post?")) return;
+
+  const { error } = await client.from("posts")
+    .delete()
+    .eq("id", postId)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Could not delete post: " + error.message);
+    return;
+  }
+  await loadFeed();
+}
+
+/* Restore an existing session after page refresh. */
+async function restoreSession() {
+  try {
+    const { data, error } = await client.auth.getSession();
+    if (error) throw error;
+
+    if (data.session?.user) {
+      setLoggedIn(data.session.user);
+      await loadApp();
+    }
+  } catch (error) {
+    console.error("Session restore failed:", error.message);
+    showMessage("loginMessage", "Please log in again.");
+  }
+}
+
+client.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_OUT") setLoggedOut();
+});
+
+restoreSession();
+</script>
 </body>
 </html>
