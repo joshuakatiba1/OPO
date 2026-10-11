@@ -1,1547 +1,1836 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f5e9">
+<title>Opondo's Family</title>
 
-  <title>Opondo's Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+:root {
+  --cream:#f7f5e9;
+  --paper:#fffef8;
+  --sage:#dce5cc;
+  --sage-dark:#c8d7b4;
+  --green:#174c32;
+  --green2:#246442;
+  --brown:#62402c;
+  --yellow:#ffd957;
+  --text:#18271e;
+  --muted:#778078;
+  --line:#e5e3d7;
+  --danger:#c71e42;
+  --shadow:0 3px 14px rgba(39,53,34,.055);
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5efe3;
-      color: #263d2b;
-    }
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--cream);
+  color:var(--text);
+  font-family:"DM Sans",Arial,sans-serif;
+  font-size:14px;
+}
+button,input,textarea { font:inherit; }
+button { cursor:pointer; }
+button:disabled { opacity:.6; cursor:wait; }
+button:focus-visible,input:focus-visible,textarea:focus-visible {
+  outline:2px solid var(--green2);
+  outline-offset:2px;
+}
+.hidden { display:none!important; }
+.muted { color:var(--muted); }
+.error { color:#b42336; }
+.success { color:#26703b; }
+.small { font-size:12px; }
+a { color:var(--green); }
+h1,h2,h3,p { margin-top:0; }
+h2 { font-size:16px; margin-bottom:14px; }
+h3 { font-size:14px; margin-bottom:5px; }
+p { line-height:1.55; }
 
-    .container {
-      width: 94%;
-      max-width: 650px;
-      margin: auto;
-    }
+.card {
+  background:rgba(255,254,248,.96);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:var(--shadow);
+  min-width:0;
+  scroll-margin-top:95px;
+}
+.btn {
+  border:0;
+  border-radius:12px;
+  padding:10px 15px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.btn-green { background:var(--green); color:white; }
+.btn-brown { background:var(--brown); color:white; }
+.btn-soft { background:var(--sage); color:var(--green); }
+.btn-yellow { background:var(--yellow); color:#241d08; }
+.btn-light { background:#f1efe5; color:var(--brown); }
+.btn-block { width:100%; }
+.icon-btn {
+  border:0;
+  background:transparent;
+  color:var(--text);
+  border-radius:10px;
+  width:38px;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+}
+.icon-btn:hover { background:var(--sage); }
+.field {
+  display:block;
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #dddccf;
+  background:#fffef9;
+  border-radius:11px;
+  margin:9px 0;
+  color:var(--text);
+}
+textarea.field { min-height:90px; resize:vertical; }
+.message {
+  min-height:18px;
+  margin:9px 0 0;
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
 
-    .login-box,
-    .app {
-      padding: 25px 0;
-    }
+/* LOGIN */
+#loginPage {
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:radial-gradient(circle at 10% 10%,#e0e8d1,transparent 35%),var(--cream);
+}
+.login-card { width:min(420px,100%); padding:30px; }
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--green);
+  min-width:0;
+}
+.brand-symbol { font-size:34px; }
+.brand-name {
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-weight:700;
+  font-size:25px;
+  line-height:1.1;
+}
+.brand-sub { font-size:11px; color:var(--muted); margin-top:5px; }
+.login-card .brand { justify-content:center; }
+.login-card h1 { text-align:center; margin:22px 0 8px; font-size:22px; }
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 18px;
-      margin: 15px 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+/* TOP BAR */
+.topbar {
+  min-height:76px;
+  padding:10px 24px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,254,248,.96);
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(14px);
+}
+.top-brand { flex:0 0 250px; }
+.search-wrap {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex:1;
+  max-width:400px;
+  background:#faf9f1;
+  border:1px solid #dddccd;
+  border-radius:15px;
+  padding:0 13px;
+}
+.search-wrap input {
+  border:0;
+  background:transparent;
+  outline:none;
+  width:100%;
+  min-width:0;
+  padding:13px 0;
+}
+.top-actions {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-left:auto;
+}
+.nav-action { position:relative; }
+.nav-action.active { color:var(--green); }
+.nav-action.active:after {
+  content:"";
+  position:absolute;
+  bottom:-11px;
+  left:6px;
+  right:6px;
+  height:3px;
+  background:var(--green);
+  border-radius:5px;
+}
+.badge-count {
+  position:absolute;
+  top:-3px;
+  right:-2px;
+  border-radius:20px;
+  background:var(--danger);
+  color:white;
+  min-width:18px;
+  height:18px;
+  display:grid;
+  place-items:center;
+  font-size:10px;
+}
+.account {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  white-space:nowrap;
+  font-weight:700;
+}
+.account-menu { position:relative; }
+.account-dropdown {
+  position:absolute;
+  top:48px;
+  right:0;
+  width:170px;
+  padding:8px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  z-index:50;
+}
+.account-dropdown button {
+  display:block;
+  width:100%;
+  padding:10px;
+  border:0;
+  background:transparent;
+  text-align:left;
+  border-radius:8px;
+}
+.account-dropdown button:hover { background:var(--sage); }
 
-    h1 {
-      color: #5b3a29;
-      text-align: center;
-    }
+/* AVATARS */
+.avatar {
+  width:43px;
+  height:43px;
+  flex:0 0 43px;
+  border-radius:50%;
+  background:var(--green);
+  color:white;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  font-weight:800;
+  position:relative;
+}
+.avatar img { width:100%; height:100%; object-fit:cover; }
+.avatar.lg { width:62px; height:62px; flex-basis:62px; font-size:23px; }
+.avatar.sm { width:34px; height:34px; flex-basis:34px; font-size:12px; }
 
-    h2 {
-      color: #2f5d3a;
-    }
+/* DASHBOARD */
+.dashboard {
+  display:grid;
+  grid-template-columns:210px minmax(330px,1fr) minmax(220px,270px) minmax(210px,250px);
+  gap:13px;
+  padding:14px 18px 85px;
+  align-items:start;
+}
+.left-column,.center-column,.right-column {
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+  min-width:0;
+}
+.sidebar { position:sticky; top:91px; }
+.side-link {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:13px 12px;
+  margin-bottom:4px;
+  border-radius:13px;
+  color:var(--text);
+  text-decoration:none;
+  font-weight:600;
+  cursor:pointer;
+  border:0;
+  background:transparent;
+  width:100%;
+  text-align:left;
+}
+.side-link i { width:22px; text-align:center; font-size:19px; }
+.side-link:hover,.side-link.selected { background:var(--sage); color:var(--green); }
+.side-link .count {
+  margin-left:auto;
+  border-radius:50%;
+  background:var(--green);
+  color:white;
+  min-width:27px;
+  height:27px;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+}
+.promo {
+  margin-top:18px;
+  padding:19px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#e4e9d2,#d4dfbd);
+}
+.promo .brand-name { font-size:19px; }
+.promo p { margin:14px 0; }
+.sun-promo {
+  background:linear-gradient(145deg,#ffe98b,#f5c94e);
+  border-radius:15px;
+  padding:19px;
+  margin-top:12px;
+}
+.sun-promo i { font-size:28px; color:#ad6b08; }
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 13px;
-      margin: 7px 0;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 15px;
-    }
+/* STORIES */
+.stories {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  overflow-x:auto;
+  padding:2px 0 6px;
+  scrollbar-width:thin;
+}
+.story {
+  flex:0 0 64px;
+  text-align:center;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:var(--text);
+  min-width:0;
+}
+.story-ring {
+  width:62px;
+  height:62px;
+  margin:0 auto 7px;
+  padding:3px;
+  border-radius:50%;
+  border:2px solid #cf9d31;
+  display:grid;
+  place-items:center;
+}
+.story-ring .avatar {
+  width:100%;
+  height:100%;
+  flex-basis:100%;
+  font-size:22px;
+}
+.story-label {
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:12px;
+  font-weight:600;
+}
+.story.add .story-ring {
+  border-color:#efce56;
+  background:#f7dc65;
+  color:var(--green);
+}
+.story.add .story-ring i { font-size:25px; }
 
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
+/* COMPOSER */
+.composer-top { display:flex; gap:12px; align-items:flex-start; }
+.composer-top textarea {
+  min-height:58px;
+  height:58px;
+  resize:vertical;
+  flex:1;
+  margin:0;
+}
+.composer-bottom {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.composer-tools { display:flex; gap:5px; flex-wrap:wrap; }
+.tool-button {
+  border:0;
+  background:transparent;
+  padding:9px 10px;
+  border-radius:9px;
+  color:var(--green);
+}
+.tool-button:hover { background:var(--sage); }
+.tool-button .fa-face-smile { color:#d34e3b; }
+.file-label { cursor:pointer; }
+.file-label input { display:none; }
+.selected-file { font-size:12px; color:var(--muted); margin-top:7px; }
 
-    button {
-      border: none;
-      border-radius: 10px;
-      padding: 11px 18px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+/* POSTS */
+.post-card { margin-bottom:12px; }
+.post-header { display:flex; align-items:center; gap:10px; }
+.post-author { min-width:0; flex:1; }
+.post-author strong { color:var(--brown); font-size:14px; }
+.post-meta { font-size:12px; color:var(--muted); margin-top:4px; }
+.post-text { white-space:pre-wrap; overflow-wrap:anywhere; margin:13px 0 10px; }
+.post-media {
+  display:block;
+  width:100%;
+  max-height:480px;
+  object-fit:cover;
+  border-radius:12px;
+  margin:10px 0;
+  background:#efeee5;
+}
+.post-video { width:100%; max-height:480px; }
+.post-document {
+  padding:14px;
+  background:#f1efe6;
+  border-radius:10px;
+  overflow-wrap:anywhere;
+}
+.post-footer {
+  display:flex;
+  align-items:center;
+  gap:5px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.post-footer button {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:transparent;
+  border:0;
+  padding:8px 10px;
+  border-radius:9px;
+  color:var(--text);
+}
+.post-footer button:hover { background:var(--sage); }
+.post-footer .liked { color:var(--danger); }
+.post-footer .save-action { margin-left:auto; }
+.comment-section { margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+.comment-form { display:flex; gap:8px; }
+.comment-form input {
+  min-width:0;
+  flex:1;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fffef9;
+}
+.comment { padding:9px 10px; margin-top:7px; border-radius:9px; background:#f4f3eb; overflow-wrap:anywhere; }
+.comment strong { color:var(--brown); }
+.post-time { color:var(--muted); font-size:12px; }
 
-    .green-btn {
-      background: #2f5d3a;
-      color: white;
-    }
+/* SIDE PANELS */
+.profile-cover {
+  height:75px;
+  border-radius:11px;
+  background:
+    radial-gradient(ellipse at 20% 20%,#7caa60,transparent 45%),
+    linear-gradient(120deg,#b9d19a,#476f41,#e4d9aa);
+  margin-bottom:-32px;
+}
+.profile-main { display:flex; align-items:flex-end; gap:10px; }
+.profile-main .avatar { border:3px solid var(--paper); width:70px; height:70px; flex-basis:70px; }
+.profile-name { font-weight:800; font-size:15px; overflow-wrap:anywhere; }
+.profile-handle { color:var(--muted); font-size:12px; margin-top:3px; overflow-wrap:anywhere; }
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  margin:18px 0;
+  text-align:center;
+}
+.stat { border-right:1px solid var(--line); }
+.stat:last-child { border:0; }
+.stat strong { display:block; font-size:17px; }
+.stat span { font-size:11px; color:var(--muted); }
+.section-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:12px;
+}
+.section-title h2 { margin:0; }
+.text-button {
+  background:transparent;
+  border:0;
+  color:var(--green);
+  font-weight:700;
+  font-size:12px;
+}
+.person-row { display:flex; align-items:center; gap:9px; margin:12px 0; min-width:0; }
+.person-details { flex:1; min-width:0; }
+.person-details strong { display:block; font-size:12px; overflow-wrap:anywhere; }
+.person-details span { display:block; color:var(--muted); font-size:11px; margin-top:4px; }
+.person-row .btn { padding:8px 10px; font-size:11px; }
+.activity-row { display:flex; gap:10px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--line); }
+.activity-row:last-child { border-bottom:0; }
+.activity-text { flex:1; font-size:12px; line-height:1.5; min-width:0; }
+.activity-text strong { color:var(--brown); }
+.activity-icon { color:var(--green); font-size:18px; padding-top:5px; }
+.group-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 0;
+  border:0;
+  background:transparent;
+  text-align:left;
+  width:100%;
+}
+.group-icon {
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--brown);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+.quote-card {
+  min-height:205px;
+  border-radius:16px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  background:linear-gradient(160deg,#a3b98b,#3d6035 55%,#62402c);
+  color:white;
+}
+.quote-card blockquote {
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-size:22px;
+  line-height:1.3;
+  margin:0 0 16px;
+}
 
-    .brown-btn {
-      background: #5b3a29;
-      color: white;
-    }
+/* FOOTER */
+.footer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:15;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:10px 24px;
+  min-height:54px;
+  background:rgba(255,254,248,.92);
+  backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);
+  font-size:11px;
+}
+.footer-links { display:flex; gap:22px; flex-wrap:wrap; }
+.footer-links a { color:var(--text); text-decoration:none; }
+.footer-brand { display:flex; gap:8px; align-items:center; color:var(--green); font-weight:800; }
 
-    .logout-btn {
-      background: #eee;
-      color: #5b3a29;
-    }
+/* GENERAL PAGE STATES */
+.empty-state { text-align:center; padding:30px 10px; color:var(--muted); }
+.empty-state i { font-size:30px; color:var(--green); margin-bottom:12px; }
+#toast {
+  position:fixed;
+  bottom:75px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:12px 18px;
+  border-radius:12px;
+  background:var(--green);
+  color:white;
+  box-shadow:var(--shadow);
+  z-index:100;
+  max-width:90%;
+}
+.mobile-nav { display:none; }
 
-    .hidden {
-      display: none;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .topbar h1 {
-      margin: 0;
-      text-align: left;
-      font-size: 24px;
-    }
-
-    .profile-center {
-      text-align: center;
-    }
-
-    #myProfilePhoto {
-      width: 110px;
-      height: 110px;
-      margin: auto;
-      border-radius: 50%;
-      background: #2f5d3a;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      overflow: hidden;
-    }
-
-    #myProfilePhoto img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .post {
-      border-top: 1px solid #eee;
-      padding-top: 15px;
-      margin-top: 15px;
-    }
-
-    .post-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .post-avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #2f5d3a;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .post-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .post-name {
-      font-weight: bold;
-      color: #5b3a29;
-    }
-
-    .post-content {
-      white-space: pre-wrap;
-      margin: 10px 0;
-    }
-
-    .post-image {
-      width: 100%;
-      max-height: 450px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
-
-    .post-video {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
-    .actions button {
-      background: #f1eee8;
-      color: #5b3a29;
-    }
-
-    .comment-box {
-      margin-top: 10px;
-    }
-
-    .comment {
-      background: #f7f5f0;
-      padding: 8px;
-      border-radius: 8px;
-      margin-top: 6px;
-      font-size: 14px;
-    }
-
-    .error {
-      color: #b00020;
-    }
-
-    .success {
-      color: #26703b;
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:1250px) {
+  .dashboard { grid-template-columns:190px minmax(300px,1fr) minmax(220px,270px); }
+  .right-column { grid-column:3; }
+  .left-column { grid-row:1 / span 2; }
+  .top-brand { flex-basis:220px; }
+  .search-wrap { max-width:310px; }
+}
+@media(max-width:900px) {
+  .topbar { padding:10px 14px; gap:10px; }
+  .top-brand { flex:0 0 auto; }
+  .top-brand .brand-name { font-size:20px; }
+  .top-brand .brand-sub { display:none; }
+  .search-wrap { max-width:none; }
+  .top-actions { gap:2px; }
+  .top-actions .nav-action:nth-child(2),
+  .top-actions .nav-action:nth-child(4) { display:none; }
+  .account .account-name { display:none; }
+  .dashboard { grid-template-columns:175px minmax(0,1fr); padding:12px 12px 85px; }
+  .left-column { grid-row:auto; }
+  .center-column { grid-column:2; }
+  .right-column { grid-column:2; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+  .sidebar { top:85px; }
+  .footer-links { gap:12px; }
+}
+@media(max-width:600px) {
+  body { font-size:13px; }
+  .topbar { min-height:62px; padding:8px 10px; gap:8px; }
+  .top-brand .brand-symbol { font-size:25px; }
+  .top-brand .brand-name { font-size:17px; }
+  .top-brand .brand-sub { display:none; }
+  .search-wrap { padding:0 9px; }
+  .search-wrap input { padding:10px 0; font-size:12px; }
+  .top-actions { display:none; }
+  .account { gap:4px; }
+  .account .avatar { width:32px; height:32px; flex-basis:32px; }
+  .dashboard {
+    display:flex;
+    flex-direction:column;
+    padding:10px 10px 100px;
+    gap:10px;
+  }
+  .left-column { display:none; }
+  .center-column,.right-column { width:100%; }
+  .right-column { display:flex; }
+  .card { padding:13px; border-radius:14px; }
+  .stories { gap:9px; }
+  .story { flex-basis:58px; }
+  .story-ring { width:55px; height:55px; }
+  .composer-top { gap:8px; }
+  .composer-top .avatar { width:38px; height:38px; flex-basis:38px; }
+  .composer-bottom { align-items:flex-start; }
+  .composer-tools { gap:0; }
+  .tool-button { padding:9px; }
+  .post-media { max-height:380px; }
+  .profile-card { order:-1; }
+  .footer {
+    position:fixed;
+    bottom:0;
+    padding:8px 10px;
+    min-height:48px;
+    font-size:10px;
+  }
+  .footer-links { gap:10px; }
+  .footer-links a:nth-child(2),.footer-links a:nth-child(3) { display:none; }
+  .footer-brand .footer-label { display:none; }
+  .mobile-nav {
+    position:fixed;
+    bottom:48px;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    background:rgba(255,254,248,.97);
+    border-top:1px solid var(--line);
+    z-index:14;
+    padding:6px 4px;
+  }
+  .mobile-nav button { font-size:19px; }
+}
+</style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<section id="loginPage">
+  <div class="card login-card">
+    <div class="brand">
+      <div class="brand-symbol"><i class="fa-solid fa-people-group"></i></div>
+      <div>
+        <div class="brand-name">Opondo's Family</div>
+        <div class="brand-sub">Family first · Always connected</div>
+      </div>
+    </div>
 
-<!-- =========================
-     LOGIN PAGE
-========================= -->
+    <h1>Welcome back 🌿</h1>
+    <p class="muted" style="text-align:center">Your private space for family moments.</p>
 
-<div id="loginPage" class="container login-box">
+    <form id="loginForm">
+      <label for="email">Email address</label>
+      <input class="field" id="email" type="email" autocomplete="username" placeholder="you@example.com" required>
 
-  <div class="card">
+      <label for="password">Password</label>
+      <input class="field" id="password" type="password" autocomplete="current-password" placeholder="Your password" required>
 
-    <h1>🌿 Opondo's Family 🤎</h1>
-
-    <p style="text-align:center;">
-      A private space for the family
-    </p>
-
-    <input
-      id="email"
-      type="email"
-      placeholder="Email"
-    >
-
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-    >
-
-    <button
-      id="loginButton"
-      class="brown-btn"
-      style="width:100%;"
-    >
-      Login
-    </button>
-
-    <p id="loginMessage"></p>
-
+      <button id="loginButton" class="btn btn-brown btn-block" type="submit">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+      </button>
+    </form>
+    <p id="loginMessage" class="message" role="status"></p>
   </div>
+</section>
 
-</div>
+<!-- APP -->
+<div id="appPage" class="hidden">
 
+  <header class="topbar">
+    <div class="brand top-brand">
+      <div class="brand-symbol"><i class="fa-solid fa-people-group"></i></div>
+      <div>
+        <div class="brand-name">Opondo's Family</div>
+        <div class="brand-sub">Family Only · Good Vibes · Always Connected</div>
+      </div>
+    </div>
 
-<!-- =========================
-     FAMILY APP
-========================= -->
+    <label class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="searchInput" type="search" placeholder="Search family posts...">
+    </label>
 
-<div id="appPage" class="container app hidden">
+    <div class="top-actions">
+      <button class="icon-btn nav-action active" data-section="home" title="Home"><i class="fa-solid fa-house"></i></button>
+      <button class="icon-btn nav-action" data-section="friends" title="Family"><i class="fa-regular fa-compass"></i></button>
+      <button class="icon-btn nav-action" data-section="create" title="Create post"><i class="fa-regular fa-square-plus"></i></button>
+      <button class="icon-btn nav-action" data-section="saved" title="Saved posts"><i class="fa-regular fa-bookmark"></i></button>
+    </div>
 
+    <div class="account account-menu">
+      <div id="topAvatar" class="avatar sm">O</div>
+      <span id="topName" class="account-name">Family Member</span>
+      <button id="accountMenuButton" class="icon-btn" aria-label="Account menu"><i class="fa-solid fa-chevron-down"></i></button>
+      <div id="accountDropdown" class="account-dropdown hidden">
+        <button id="viewProfileButton"><i class="fa-regular fa-user"></i> My profile</button>
+        <button id="settingsButton"><i class="fa-solid fa-gear"></i> Settings</button>
+        <button id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </div>
+  </header>
 
-  <!-- TOP BAR -->
+  <main class="dashboard">
 
-  <div class="topbar">
+    <!-- LEFT SIDEBAR -->
+    <aside class="left-column">
+      <div class="sidebar">
+        <nav>
+          <button class="side-link selected" data-section="home"><i class="fa-solid fa-house"></i> Home</button>
+          <button class="side-link" data-section="friends"><i class="fa-regular fa-compass"></i> Explore</button>
+          <button class="side-link" data-section="create"><i class="fa-regular fa-square-plus"></i> Create Post</button>
+          <button class="side-link" data-section="messages"><i class="fa-regular fa-paper-plane"></i> Messages</button>
+          <button class="side-link" data-section="notifications"><i class="fa-regular fa-bell"></i> Notifications</button>
+          <button class="side-link" data-section="friends"><i class="fa-solid fa-people-group"></i> Family Members</button>
+          <button class="side-link" data-section="saved"><i class="fa-regular fa-bookmark"></i> Saved Posts</button>
+          <button class="side-link" data-section="settings"><i class="fa-solid fa-gear"></i> Settings</button>
+        </nav>
 
-    <h1>🌿 Opondo's Family</h1>
+        <div class="promo">
+          <div class="brand">
+            <i class="fa-solid fa-leaf" style="font-size:27px"></i>
+            <div class="brand-name">Family First</div>
+          </div>
+          <p>A place for real family, real moments.</p>
+          <hr style="border:0;border-top:1px solid var(--green);width:35px;margin:14px 0">
+          <button class="btn btn-green btn-block" id="inviteButton"><i class="fa-solid fa-user-plus"></i> Invite Family</button>
+        </div>
 
-    <button
-      id="logoutButton"
-      class="logout-btn"
-    >
-      Logout
-    </button>
+        <div class="sun-promo">
+          <i class="fa-regular fa-sun"></i>
+          <p style="margin:12px 0 0;font-weight:700">Good vibes, better company. 🌞</p>
+        </div>
+      </div>
+    </aside>
 
-  </div>
+    <!-- CENTRE FEED -->
+    <section class="center-column" id="homeSection">
 
-
-  <!-- =========================
-       PROFILE
-  ========================== -->
-
-  <div class="card">
-
-    <h2>👤 My Profile</h2>
-
-    <div class="profile-center">
-
-      <div id="myProfilePhoto">
-        👤
+      <div class="card">
+        <div class="stories">
+          <button class="story add" id="storyButton">
+            <span class="story-ring"><i class="fa-solid fa-plus"></i></span>
+            <span class="story-label">Add Story</span>
+          </button>
+          <button class="story" data-story="Family moments">
+            <span class="story-ring"><span class="avatar">F</span></span>
+            <span class="story-label">Family</span>
+          </button>
+          <button class="story" data-story="Good vibes">
+            <span class="story-ring"><span class="avatar" style="background:#8a6548">🌿</span></span>
+            <span class="story-label">Good Vibes</span>
+          </button>
+          <button class="story" data-story="Memories">
+            <span class="story-ring"><span class="avatar" style="background:#927c4e">📸</span></span>
+            <span class="story-label">Memories</span>
+          </button>
+          <button class="story" data-story="Celebrations">
+            <span class="story-ring"><span class="avatar" style="background:#647a4c">🎉</span></span>
+            <span class="story-label">Celebrations</span>
+          </button>
+        </div>
       </div>
 
-      <br>
+      <div class="card" id="composerCard">
+        <h2>🌼 Share with the family</h2>
+        <div class="composer-top">
+          <div id="composerAvatar" class="avatar">O</div>
+          <textarea id="postContent" class="field" placeholder="What's happening in the family?" aria-label="Post content"></textarea>
+        </div>
 
-      <input
-        id="profilePhoto"
-        type="file"
-        accept="image/*"
-      >
+        <label class="selected-file" id="selectedFileLabel"></label>
 
-      <button
-        id="profilePhotoButton"
-        class="brown-btn"
-      >
-        📸 Upload Profile Photo
-      </button>
+        <div class="composer-bottom">
+          <div class="composer-tools">
+            <label class="tool-button file-label" title="Upload photo or video">
+              <i class="fa-regular fa-image" style="font-size:19px"></i>
+              <input id="postFile" type="file" accept="image/,video/,.pdf,.doc,.docx">
+            </label>
+            <button class="tool-button" id="emojiButton" title="Add emoji"><i class="fa-regular fa-face-smile" style="font-size:19px"></i></button>
+          </div>
+          <button id="postButton" class="btn btn-green"><span>Post</span> <i class="fa-regular fa-paper-plane"></i></button>
+        </div>
+        <p id="postMessage" class="message" role="status"></p>
+      </div>
 
-      <p id="profileMessage"></p>
+      <div class="card">
+        <div class="feed-heading">
+          <h2 style="margin:0">🌿 Family Feed</h2>
+          <button id="refreshFeed" class="icon-btn" title="Refresh feed"><i class="fa-solid fa-rotate"></i></button>
+        </div>
+        <div id="feed">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading family posts...</p></div>
+        </div>
+      </div>
+    </section>
 
+    <!-- MIDDLE RIGHT -->
+    <aside class="right-column">
+
+      <div class="card profile-card" id="profileSection">
+        <div class="section-title">
+          <h2>Your Profile</h2>
+          <button class="text-button" id="viewProfileButton2">View Profile →</button>
+        </div>
+        <div class="profile-cover"></div>
+        <div class="profile-main">
+          <div id="myProfilePhoto" class="avatar lg">O</div>
+          <div>
+            <div id="profileName" class="profile-name">Family Member</div>
+            <div id="profileHandle" class="profile-handle">Family account</div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong id="postCount">—</strong><span>Posts</span></div>
+          <div class="stat"><strong id="familyCount">—</strong><span>Family</span></div>
+          <div class="stat"><strong id="followingCount">—</strong><span>Following</span></div>
+        </div>
+
+        <button id="editProfileButton" class="btn btn-soft btn-block"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+
+        <div id="editProfilePanel" class="hidden" style="margin-top:12px">
+          <label for="fullNameInput">Your display name</label>
+          <input id="fullNameInput" class="field" maxlength="80" placeholder="Your name">
+          <label class="file-label btn btn-light btn-block">
+            <i class="fa-solid fa-camera"></i> Choose profile photo
+            <input id="profilePhoto" type="file" accept="image/*">
+          </label>
+          <button id="saveProfileButton" class="btn btn-green btn-block" style="margin-top:8px">Save Profile</button>
+          <p id="profileMessage" class="message"></p>
+        </div>
+      </div>
+
+      <div class="card" id="friendsSection">
+        <div class="section-title"><h2>Family Members</h2><span class="muted small">People</span></div>
+        <div id="membersList">
+          <p class="muted small">Family members appear here when available.</p>
+        </div>
+      </div>
+
+      <div class="card" id="quickActions">
+        <h2>Quick Actions</h2>
+        <button class="side-link" data-section="create"><i class="fa-regular fa-square-plus"></i> Create Post</button>
+        <button class="side-link" id="quickUpload"><i class="fa-regular fa-image"></i> Upload Photo</button>
+        <button class="side-link" id="quickShare"><i class="fa-regular fa-paper-plane"></i> Share a Moment</button>
+      </div>
+    </aside>
+
+    <!-- FAR RIGHT -->
+    <aside class="right-column">
+      <div class="card" id="activitySection">
+        <div class="section-title"><h2>Recent Activity</h2></div>
+        <div id="activityList">
+          <p class="muted small">Your family feed will show recent posts here.</p>
+        </div>
+      </div>
+
+      <div class="card" id="groupsSection">
+        <div class="section-title"><h2>Family Groups</h2></div>
+        <div class="group-row">
+          <div class="group-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div class="person-details"><strong>The Family</strong><span>Family moments</span></div>
+        </div>
+        <div class="group-row">
+          <div class="group-icon"><i class="fa-solid fa-seedling"></i></div>
+          <div class="person-details"><strong>Good Vibes</strong><span>Positive memories</span></div>
+        </div>
+        <div class="group-row">
+          <div class="group-icon"><i class="fa-solid fa-camera"></i></div>
+          <div class="person-details"><strong>Family Memories</strong><span>Photos and stories</span></div>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <blockquote>Family makes ordinary moments unforgettable.</blockquote>
+        <button class="btn btn-yellow" id="exploreButton">Explore the Feed <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </aside>
+
+  </main>
+
+  <nav class="mobile-nav">
+    <button class="icon-btn" data-section="home" aria-label="Home"><i class="fa-solid fa-house"></i></button>
+    <button class="icon-btn" data-section="friends" aria-label="Family"><i class="fa-solid fa-people-group"></i></button>
+    <button class="icon-btn" data-section="create" aria-label="Create post"><i class="fa-solid fa-plus"></i></button>
+    <button class="icon-btn" data-section="saved" aria-label="Saved"><i class="fa-regular fa-bookmark"></i></button>
+    <button class="icon-btn" data-section="settings" aria-label="Settings"><i class="fa-solid fa-gear"></i></button>
+  </nav>
+
+  <footer class="footer">
+    <div class="footer-brand"><i class="fa-solid fa-people-group" style="font-size:23px"></i><span class="footer-label">Opondo's Family</span></div>
+    <div class="footer-links">
+      <a href="#" data-info="About">About</a>
+      <a href="#" data-info="Privacy">Privacy</a>
+      <a href="#" data-info="Terms">Terms</a>
+      <a href="#" data-info="Contact">Contact</a>
     </div>
-
-  </div>
-
-
-  <!-- =========================
-       CREATE POST
-  ========================== -->
-
-  <div class="card">
-
-    <h2>🌼 Share With The Family</h2>
-
-    <textarea
-      id="postContent"
-      placeholder="What's happening in the family?"
-    ></textarea>
-
-    <input
-      id="postFile"
-      type="file"
-      accept="image/,video/,.pdf,.doc,.docx"
-    >
-
-    <button
-      id="postButton"
-      class="green-btn"
-    >
-      Share
-    </button>
-
-    <p id="postMessage"></p>
-
-  </div>
-
-
-  <!-- =========================
-       FAMILY FEED
-  ========================== -->
-
-  <div class="card">
-
-    <h2>🌿 Family Feed</h2>
-
-    <div id="feed">
-      Loading family posts...
-    </div>
-
-  </div>
-
+    <span class="muted">Family Only · Keep It Real 🌿</span>
+  </footer>
 </div>
 
-
-<!-- =========================
-     SUPABASE
-========================= -->
+<div id="toast" class="hidden" role="status"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
+"use strict";
 
-const SUPABASE_URL =
-"https://udbkgjgomhxclgasbfmz.supabase.co";
+/* SUPABASE CONFIGURATION */
+const SUPABASE_URL = "https://udbkgjgomhxclgasbfmz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
+const BUCKET = "Family Media";
 
-const SUPABASE_KEY =
-"sb_publishable_WOP5H3ij2JBj2s6_9tyxiA_KMoqiwCV";
-
-const BUCKET =
-"Family Media";
-
-const client =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentUser = null;
+let currentProfile = null;
+let cachedPosts = [];
+let savedPosts = new Set();
+let toastTimer = null;
 
+/* HELPERS */
+const $ = id => document.getElementById(id);
 
-/* =========================
-   LOGIN
-========================= */
+function escapeHTML(value) {
+  const div = document.createElement("div");
+  div.textContent = value == null ? "" : String(value);
+  return div.innerHTML;
+}
 
-document
-.getElementById("loginButton")
-.addEventListener("click", async function() {
+function setMessage(id, text, type = "") {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = text;
+  el.className = "message" + (type ? " " + type : "");
+}
 
-  const email =
-  document.getElementById("email")
-  .value
-  .trim();
+function showToast(text) {
+  const el = $("toast");
+  el.textContent = text;
+  el.classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.add("hidden"), 3000);
+}
 
-  const password =
-  document.getElementById("password")
-  .value;
+function setBusy(button, busy, busyText = "Please wait...") {
+  if (!button) return;
+  if (busy) {
+    button.dataset.originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + escapeHTML(busyText);
+  } else {
+    button.disabled = false;
+    if (button.dataset.originalText) {
+      button.innerHTML = button.dataset.originalText;
+      delete button.dataset.originalText;
+    }
+  }
+}
 
-  const message =
-  document.getElementById("loginMessage");
+function initial(name) {
+  return (name || "O").trim().charAt(0).toUpperCase() || "O";
+}
 
-  message.className = "";
+function avatarHTML(url, name, extraClass = "") {
+  const safeName = escapeHTML(name || "Family Member");
+  if (url) {
+    return '<div class="avatar ' + extraClass + '"><img src="' +
+      escapeHTML(url) + '" alt="' + safeName +
+      '" referrerpolicy="no-referrer"></div>';
+  }
+  return '<div class="avatar ' + extraClass + '">' + initial(name) + '</div>';
+}
 
-  message.innerText =
-  "Connecting to Supabase...";
+function timeAgo(dateString) {
+  if (!dateString) return "";
+  const seconds = Math.max(0, (Date.now() - new Date(dateString).getTime()) / 1000);
+  if (!Number.isFinite(seconds)) return "";
+  if (seconds < 60) return "Just now";
+  if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
+  if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
+  if (seconds < 604800) return Math.floor(seconds / 86400) + "d ago";
+  return new Date(dateString).toLocaleDateString();
+}
 
+function setAppVisible(visible) {
+  $("loginPage").classList.toggle("hidden", visible);
+  $("appPage").classList.toggle("hidden", !visible);
+}
+
+async function getSignedUrl(path) {
+  if (!path) return null;
+
+  // Support existing full URLs as well as stored object paths.
+  if (/^https?:\/\//i.test(path)) return path;
+
+  const { data, error } = await client.storage
+    .from(BUCKET)
+    .createSignedUrl(path, 3600);
+
+  if (error) {
+    console.warn("Could not sign storage URL:", error.message);
+    return null;
+  }
+  return data?.signedUrl || null;
+}
+
+/* LOGIN AND SESSION */
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  const button = $("loginButton");
+
+  if (!email || !password) {
+    setMessage("loginMessage", "Enter your email and password.", "error");
+    return;
+  }
+
+  setBusy(button, true, "Signing in");
+  setMessage("loginMessage", "Connecting securely...");
 
   try {
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
 
-    const { data, error } =
-    await client.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-
-    if (error) {
-
-      message.className =
-      "error";
-
-      message.innerText =
-      "❌ " + error.message;
-
-      return;
-    }
-
-
-    currentUser =
-    data.user;
-
-
-    message.className =
-    "success";
-
-    message.innerText =
-    "✅ Login successful!";
-
-
-    document
-    .getElementById("loginPage")
-    .classList
-    .add("hidden");
-
-
-    document
-    .getElementById("appPage")
-    .classList
-    .remove("hidden");
-
-
-    loadMyProfile();
-
-    loadFeed();
-
-
+    currentUser = data.user;
+    setAppVisible(true);
+    setMessage("loginMessage", "");
+    await initializeApp();
   } catch (error) {
-
-    message.className =
-    "error";
-
-    message.innerText =
-    "❌ " + error.message;
-
+    setMessage("loginMessage", error.message || "Login failed.", "error");
+  } finally {
+    setBusy(button, false);
   }
-
 });
 
-
-/* =========================
-   LOGOUT
-========================= */
-
-document
-.getElementById("logoutButton")
-.addEventListener("click", async function() {
-
-  await client.auth.signOut();
-
-  currentUser = null;
-
-
-  document
-  .getElementById("appPage")
-  .classList
-  .add("hidden");
-
-
-  document
-  .getElementById("loginPage")
-  .classList
-  .remove("hidden");
-
+client.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_OUT") {
+    currentUser = null;
+    currentProfile = null;
+    setAppVisible(false);
+  }
 });
 
+async function initializeApp() {
+  const { data, error } = await client.auth.getSession();
+  if (error) console.error(error);
 
-/* =========================
-   PROFILE PHOTO BUTTON
-========================= */
-
-document
-.getElementById("profilePhotoButton")
-.addEventListener(
-  "click",
-  uploadProfilePhoto
-);
-
-
-/* =========================
-   UPLOAD PROFILE PHOTO
-========================= */
-
-async function uploadProfilePhoto() {
+  currentUser = data?.session?.user || currentUser;
 
   if (!currentUser) {
+    setAppVisible(false);
     return;
   }
 
-
-  const file =
-  document
-  .getElementById("profilePhoto")
-  .files[0];
-
-
-  const message =
-  document
-  .getElementById("profileMessage");
-
-
-  if (!file) {
-
-    message.className =
-    "error";
-
-    message.innerText =
-    "Please choose a photo first.";
-
-    return;
-  }
-
-
-  message.className = "";
-
-  message.innerText =
-  "Uploading photo...";
-
-
-  const extension =
-  file.name
-  .split(".")
-  .pop();
-
-
-  const filePath =
-  "profiles/" +
-  currentUser.id +
-  "/avatar_" +
-  Date.now() +
-  "." +
-  extension;
-
-
-  const { error: uploadError } =
-  await client
-  .storage
-  .from(BUCKET)
-  .upload(
-    filePath,
-    file
-  );
-
-
-  if (uploadError) {
-
-    message.className =
-    "error";
-
-    message.innerText =
-    "❌ " +
-    uploadError.message;
-
-    return;
-  }
-
-
-  const { error: updateError } =
-  await client
-  .from("profiles")
-  .update({
-    avatar_url:
-    filePath
-  })
-  .eq(
-    "id",
-    currentUser.id
-  );
-
-
-  if (updateError) {
-
-    message.className =
-    "error";
-
-    message.innerText =
-    "❌ " +
-    updateError.message;
-
-    return;
-  }
-
-
-  message.className =
-  "success";
-
-  message.innerText =
-  "✅ Profile photo updated!";
-
-
-  document
-  .getElementById("profilePhoto")
-  .value = "";
-
-
-  loadMyProfile();
-
-  loadFeed();
-
+  setAppVisible(true);
+  await loadMyProfile();
+  await loadFeed();
+  await loadFamilyMembers();
 }
 
+$("logoutButton").addEventListener("click", async () => {
+  $("accountDropdown").classList.add("hidden");
+  const { error } = await client.auth.signOut();
+  if (error) showToast("Logout failed: " + error.message);
+  else {
+    currentUser = null;
+    currentProfile = null;
+    setAppVisible(false);
+    $("password").value = "";
+    showToast("You have logged out.");
+  }
+});
 
-/* =========================
-   LOAD MY PROFILE
-========================= */
+/* ACCOUNT MENU */
+$("accountMenuButton").addEventListener("click", () => {
+  $("accountDropdown").classList.toggle("hidden");
+});
+document.addEventListener("click", event => {
+  if (!event.target.closest(".account-menu")) {
+    $("accountDropdown").classList.add("hidden");
+  }
+});
 
+/* PROFILE */
 async function loadMyProfile() {
+  if (!currentUser) return;
 
-  if (!currentUser) {
+  const { data, error } = await client.from("profiles")
+    .select("id,full_name,avatar_url")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Profile load error:", error.message);
     return;
   }
 
+  currentProfile = data || {
+    id: currentUser.id,
+    full_name: currentUser.user_metadata?.full_name || currentUser.email?.split("@")[0] || "Family Member",
+    avatar_url: null
+  };
 
-  const { data: profile } =
-  await client
-  .from("profiles")
-  .select(
-    "avatar_url, full_name"
-  )
-  .eq(
-    "id",
-    currentUser.id
-  )
-  .maybeSingle();
+  const name = currentProfile.full_name || "Family Member";
+  const url = await getSignedUrl(currentProfile.avatar_url);
 
+  $("topName").textContent = name;
+  $("profileName").textContent = name;
+  $("profileHandle").textContent = currentUser.email || "Family account";
+  $("fullNameInput").value = name;
 
-  if (!profile) {
+  $("topAvatar").innerHTML = url
+    ? '<img src="' + escapeHTML(url) + '" alt="Profile photo">'
+    : escapeHTML(initial(name));
+
+  $("myProfilePhoto").innerHTML = url
+    ? '<img src="' + escapeHTML(url) + '" alt="Profile photo">'
+    : escapeHTML(initial(name));
+
+  $("composerAvatar").innerHTML = url
+    ? '<img src="' + escapeHTML(url) + '" alt="Profile photo">'
+    : escapeHTML(initial(name));
+}
+
+$("editProfileButton").addEventListener("click", () => {
+  $("editProfilePanel").classList.toggle("hidden");
+});
+
+$("viewProfileButton").addEventListener("click", () => {
+  $("accountDropdown").classList.add("hidden");
+  $("profileSection").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+$("viewProfileButton2").addEventListener("click", () => {
+  $("profileSection").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+$("saveProfileButton").addEventListener("click", saveProfile);
+
+async function saveProfile() {
+  if (!currentUser) return;
+
+  const button = $("saveProfileButton");
+  const name = $("fullNameInput").value.trim();
+  const file = $("profilePhoto").files[0];
+
+  if (!name) {
+    setMessage("profileMessage", "Please enter your name.", "error");
     return;
   }
 
+  if (file && !file.type.startsWith("image/")) {
+    setMessage("profileMessage", "Please select an image file.", "error");
+    return;
+  }
 
-  const photo =
-  document
-  .getElementById("myProfilePhoto");
+  if (file && file.size > 8 * 1024 * 1024) {
+    setMessage("profileMessage", "Choose an image smaller than 8 MB.", "error");
+    return;
+  }
 
+  setBusy(button, true, "Saving");
+  setMessage("profileMessage", "Saving profile...");
 
-  if (
-    profile.avatar_url
-  ) {
+  try {
+    let avatarPath = currentProfile?.avatar_url || null;
 
-    const { data: signedData } =
-    await client
-    .storage
-    .from(BUCKET)
-    .createSignedUrl(
-      profile.avatar_url,
-      3600
-    );
+    if (file) {
+      const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-zA-Z0-9]/g, "");
+      const path = "profiles/" + currentUser.id + "/avatar_" + Date.now() + "." + ext;
 
+      const { error: uploadError } = await client.storage.from(BUCKET)
+        .upload(path, file, { upsert: false, contentType: file.type });
 
-    if (
-      signedData &&
-      signedData.signedUrl
-    ) {
-
-      photo.innerHTML = `
-
-        <img
-          src="${signedData.signedUrl}"
-          alt="Profile photo"
-        >
-
-      `;
-
+      if (uploadError) throw uploadError;
+      avatarPath = path;
     }
 
-  }
+    // Update existing profile, or create it if no row exists.
+    const profileData = {
+      id: currentUser.id,
+      full_name: name,
+      avatar_url: avatarPath
+    };
 
+    const { error: profileError } = await client.from("profiles")
+      .upsert(profileData, { onConflict: "id" });
+
+    if (profileError) throw profileError;
+
+    currentProfile = profileData;
+    $("profilePhoto").value = "";
+    await loadMyProfile();
+    await loadFeed();
+
+    setMessage("profileMessage", "Profile updated successfully!", "success");
+    showToast("Profile updated!");
+  } catch (error) {
+    setMessage("profileMessage", error.message || "Could not update profile.", "error");
+  } finally {
+    setBusy(button, false);
+  }
 }
 
+/* CREATE POST */
+$("postFile").addEventListener("change", () => {
+  const file = $("postFile").files[0];
+  $("selectedFileLabel").textContent = file ? "Selected: " + file.name : "";
+});
 
-/* =========================
-   CREATE POST
-========================= */
+$("emojiButton").addEventListener("click", () => {
+  const field = $("postContent");
+  const start = field.selectionStart;
+  const end = field.selectionEnd;
+  const emoji = " 🌿 ";
+  field.setRangeText(emoji, start, end, "end");
+  field.focus();
+});
 
-document
-.getElementById("postButton")
-.addEventListener(
-  "click",
-  createPost
-);
-
+$("postButton").addEventListener("click", createPost);
+$("quickUpload").addEventListener("click", () => $("postFile").click());
+$("quickShare").addEventListener("click", () => {
+  $("postContent").focus();
+  $("composerCard").scrollIntoView({ behavior: "smooth", block: "center" });
+});
+$("storyButton").addEventListener("click", () => {
+  $("postContent").focus();
+  $("composerCard").scrollIntoView({ behavior: "smooth", block: "center" });
+  showToast("Share a family moment in the post box.");
+});
 
 async function createPost() {
+  if (!currentUser) return;
 
-  if (!currentUser) {
-    return;
-  }
-
-
-  const content =
-  document
-  .getElementById("postContent")
-  .value
-  .trim();
-
-
-  const file =
-  document
-  .getElementById("postFile")
-  .files[0];
-
-
-  const message =
-  document
-  .getElementById("postMessage");
-
+  const button = $("postButton");
+  const content = $("postContent").value.trim();
+  const file = $("postFile").files[0];
 
   if (!content && !file) {
-
-    message.className =
-    "error";
-
-    message.innerText =
-    "Write something or choose a file.";
-
+    setMessage("postMessage", "Write something or choose a file first.", "error");
     return;
   }
 
+  if (file && file.size > 40 * 1024 * 1024) {
+    setMessage("postMessage", "Choose a file smaller than 40 MB.", "error");
+    return;
+  }
 
-  message.className = "";
+  setBusy(button, true, "Sharing");
+  setMessage("postMessage", "Sharing with the family...");
 
-  message.innerText =
-  "Sharing...";
+  let uploadedPath = null;
 
+  try {
+    let fileType = null;
+    let fileName = null;
 
-  let filePath = null;
+    if (file) {
+      fileType = file.type || "application/octet-stream";
+      fileName = file.name;
 
-  let fileType = null;
+      const ext = (file.name.split(".").pop() || "bin").replace(/[^a-zA-Z0-9]/g, "");
+      uploadedPath = "posts/" + currentUser.id + "/" + Date.now() + "." + ext;
 
-  let fileName = null;
+      const { error: uploadError } = await client.storage.from(BUCKET)
+        .upload(uploadedPath, file, {
+          upsert: false,
+          contentType: file.type || "application/octet-stream"
+        });
 
-
-  /* UPLOAD FILE */
-
-  if (file) {
-
-    fileName =
-    file.name;
-
-    fileType =
-    file.type;
-
-
-    const extension =
-    file.name
-    .split(".")
-    .pop();
-
-
-    filePath =
-    "posts/" +
-    currentUser.id +
-    "/" +
-    Date.now() +
-    "." +
-    extension;
-
-
-    const { error: uploadError } =
-    await client
-    .storage
-    .from(BUCKET)
-    .upload(
-      filePath,
-      file
-    );
-
-
-    if (uploadError) {
-
-      message.className =
-      "error";
-
-      message.innerText =
-      "❌ Upload failed: " +
-      uploadError.message;
-
-      return;
+      if (uploadError) throw uploadError;
     }
 
+    const { error: insertError } = await client.from("posts").insert({
+      user_id: currentUser.id,
+      content: content || null,
+      image_url: uploadedPath,
+      file_type: fileType,
+      file_name: fileName
+    });
+
+    if (insertError) {
+      // Avoid leaving an uploaded file behind if the database insert fails.
+      if (uploadedPath) {
+        await client.storage.from(BUCKET).remove([uploadedPath]);
+      }
+      throw insertError;
+    }
+
+    $("postContent").value = "";
+    $("postFile").value = "";
+    $("selectedFileLabel").textContent = "";
+    setMessage("postMessage", "Shared with the family!", "success");
+
+    await loadFeed();
+    showToast("Your post has been shared!");
+  } catch (error) {
+    setMessage("postMessage", error.message || "Could not share your post.", "error");
+  } finally {
+    setBusy(button, false);
   }
-
-
-  /* SAVE POST */
-
-  const { error } =
-  await client
-  .from("posts")
-  .insert({
-
-    user_id:
-    currentUser.id,
-
-    content:
-    content || null,
-
-    image_url:
-    filePath,
-
-    file_type:
-    fileType,
-
-    file_name:
-    fileName
-
-  });
-
-
-  if (error) {
-
-    message.className =
-    "error";
-
-    message.innerText =
-    "❌ " + error.message;
-
-    return;
-  }
-
-
-  document
-  .getElementById("postContent")
-  .value = "";
-
-
-  document
-  .getElementById("postFile")
-  .value = "";
-
-
-  message.className =
-  "success";
-
-  message.innerText =
-  "✅ Shared with the family!";
-
-
-  loadFeed();
-
 }
 
-
-/* =========================
-   LOAD FEED
-========================= */
+/* FEED */
+$("refreshFeed").addEventListener("click", loadFeed);
 
 async function loadFeed() {
+  if (!currentUser) return;
 
-  const feed =
-  document.getElementById("feed");
+  const feed = $("feed");
+  feed.innerHTML = '<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading family posts...</p></div>';
 
+  try {
+    const { data: posts, error } = await client.from("posts")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  feed.innerHTML =
-  "Loading posts...";
+    if (error) throw error;
 
+    cachedPosts = posts || [];
 
-  const { data: posts, error } =
-  await client
-  .from("posts")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending: false
-    }
-  );
+    const myPosts = cachedPosts.filter(p => p.user_id === currentUser.id);
+    $("postCount").textContent = myPosts.length;
 
+    await renderFeed();
+    renderActivity();
+  } catch (error) {
+    feed.innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load posts.</p><p class="small">' +
+      escapeHTML(error.message) + '</p><button class="btn btn-green" id="retryFeed">Try Again</button></div>';
+    $("retryFeed").addEventListener("click", loadFeed);
+  }
+}
 
-  if (error) {
+async function renderFeed() {
+  const feed = $("feed");
+  const query = $("searchInput").value.trim().toLowerCase();
 
-    feed.innerHTML =
-    "<p class='error'>❌ " +
-    error.message +
-    "</p>";
+  let posts = [...cachedPosts];
 
-    return;
+  if (query) {
+    posts = posts.filter(p => (p.content || "").toLowerCase().includes(query) ||
+      (p.file_name || "").toLowerCase().includes(query));
   }
 
-
-  if (
-    !posts ||
-    posts.length === 0
-  ) {
-
-    feed.innerHTML =
-    "<p>No family posts yet 🌿</p>";
-
-    return;
+  if (feed.dataset.mode === "saved") {
+    posts = posts.filter(p => savedPosts.has(String(p.id)));
   }
 
+  if (!posts.length) {
+    feed.innerHTML = '<div class="empty-state"><i class="fa-solid fa-leaf"></i><p>' +
+      (query ? "No posts match your search." :
+       feed.dataset.mode === "saved" ? "You have not saved any posts yet." :
+       "No family posts yet. Be the first to share a moment! 🌿") +
+      '</p></div>';
+    return;
+  }
 
   feed.innerHTML = "";
 
+  for (const post of posts) {
+    const card = document.createElement("article");
+    card.className = "post-card";
 
-  for (
-    const post of posts
-  ) {
+    const [profileResult, likesResult, commentsResult] = await Promise.all([
+      client.from("profiles").select("full_name,avatar_url").eq("id", post.user_id).maybeSingle(),
+      client.from("post_likes").select("id,user_id").eq("post_id", post.id),
+      client.from("comments").select("id").eq("post_id", post.id)
+    ]);
 
-    const postElement =
-    document
-    .createElement("div");
-
-
-    postElement.className =
-    "post";
-
-
-    /* GET PROFILE */
-
-    let name =
-    "Family Member";
-
-    let avatarUrl =
-    null;
-
-
-    const { data: profile } =
-    await client
-    .from("profiles")
-    .select(
-      "full_name, avatar_url"
-    )
-    .eq(
-      "id",
-      post.user_id
-    )
-    .maybeSingle();
-
-
-    if (
-      profile &&
-      profile.full_name
-    ) {
-
-      name =
-      profile.full_name;
-
-    }
-
-
-    if (
-      profile &&
-      profile.avatar_url
-    ) {
-
-      const { data: avatarData } =
-      await client
-      .storage
-      .from(BUCKET)
-      .createSignedUrl(
-        profile.avatar_url,
-        3600
-      );
-
-
-      if (
-        avatarData &&
-        avatarData.signedUrl
-      ) {
-
-        avatarUrl =
-        avatarData.signedUrl;
-
-      }
-
-    }
-
-
-    /* AVATAR */
-
-    let avatarHTML =
-    `<span>
-      ${escapeHTML(
-        name.charAt(0)
-      )}
-    </span>`;
-
-
-    if (avatarUrl) {
-
-      avatarHTML = `
-
-        <img
-          src="${avatarUrl}"
-          alt="Profile photo"
-        >
-
-      `;
-
-    }
-
-
-    /* MEDIA */
+    const profile = profileResult.data || {};
+    const name = profile.full_name || "Family Member";
+    const avatarUrl = await getSignedUrl(profile.avatar_url);
+    const likes = likesResult.data || [];
+    const comments = commentsResult.data || [];
+    const liked = likes.some(like => like.user_id === currentUser.id);
+    const isSaved = savedPosts.has(String(post.id));
 
     let mediaHTML = "";
 
-
     if (post.image_url) {
+      const url = await getSignedUrl(post.image_url);
 
-      const { data: signedData } =
-      await client
-      .storage
-      .from(BUCKET)
-      .createSignedUrl(
-        post.image_url,
-        3600
-      );
-
-
-      if (
-        signedData &&
-        signedData.signedUrl
-      ) {
-
-
-        if (
-          post.file_type &&
-          post.file_type
-          .startsWith("video/")
-        ) {
-
-          mediaHTML = `
-
-            <video
-              class="post-video"
-              controls
-            >
-
-              <source
-                src="${signedData.signedUrl}"
-                type="${post.file_type}"
-              >
-
-            </video>
-
-          `;
-
+      if (url) {
+        if ((post.file_type || "").startsWith("image/")) {
+          mediaHTML = '<img class="post-media" src="' + escapeHTML(url) +
+            '" alt="Family post photo" loading="lazy">';
+        } else if ((post.file_type || "").startsWith("video/")) {
+          mediaHTML = '<video class="post-media post-video" controls preload="metadata"><source src="' +
+            escapeHTML(url) + '" type="' + escapeHTML(post.file_type) +
+            '">Your browser does not support video playback.</video>';
+        } else {
+          mediaHTML = '<div class="post-document"><i class="fa-regular fa-file-lines"></i> ' +
+            '<a href="' + escapeHTML(url) + '" target="_blank" rel="noopener noreferrer">' +
+            escapeHTML(post.file_name || "Open document") + '</a></div>';
         }
-
-
-        else if (
-          post.file_type &&
-          post.file_type
-          .startsWith("image/")
-        ) {
-
-          mediaHTML = `
-
-            <img
-              class="post-image"
-              src="${signedData.signedUrl}"
-              alt="Family post"
-            >
-
-          `;
-
-        }
-
-
-        else {
-
-          mediaHTML = `
-
-            <p>
-
-              📄
-
-              <a
-                href="${signedData.signedUrl}"
-                target="_blank"
-              >
-
-                ${escapeHTML(
-                  post.file_name ||
-                  "Open document"
-                )}
-
-              </a>
-
-            </p>
-
-          `;
-
-        }
-
+      } else {
+        mediaHTML = '<p class="muted small">Attachment unavailable. Check storage permissions.</p>';
       }
-
     }
 
-
-    /* POST HTML */
-
-    postElement.innerHTML = `
-
-      <div class="post-header">
-
-        <div class="post-avatar">
-
-          ${avatarHTML}
-
+    card.innerHTML = `
+      <div class="card">
+        <div class="post-header">
+          ${avatarHTML(avatarUrl, name)}
+          <div class="post-author">
+            <strong>${escapeHTML(name)}</strong>
+            <div class="post-meta">${escapeHTML(timeAgo(post.created_at))} · Family</div>
+          </div>
+          ${post.user_id === currentUser.id
+            ? '<button class="icon-btn delete-post" title="Delete your post" aria-label="Delete post"><i class="fa-solid fa-ellipsis"></i></button>'
+            : ''}
         </div>
 
+        ${post.content ? '<div class="post-text">' + escapeHTML(post.content) + '</div>' : ''}
+        ${mediaHTML}
 
-        <div class="post-name">
-
-          ${escapeHTML(name)}
-
-        </div>
-
-      </div>
-
-
-      ${
-        post.content
-        ?
-        `
-
-        <div class="post-content">
-
-          ${escapeHTML(
-            post.content
-          )}
-
-        </div>
-
-        `
-        :
-        ""
-      }
-
-
-      ${mediaHTML}
-
-
-      <div class="actions">
-
-        <button
-          onclick="likePost(${post.id})"
-        >
-          ❤️ Like
-        </button>
-
-
-        ${
-          post.user_id ===
-          currentUser.id
-          ?
-
-          `
-
-          <button
-            onclick="deletePost(${post.id})"
-          >
-
-            🗑️ Delete
-
+        <div class="post-footer">
+          <button class="like-action ${liked ? "liked" : ""}" aria-label="Like post">
+            <i class="${liked ? "fa-solid" : "fa-regular"} fa-heart"></i> <span>${likes.length}</span>
           </button>
+          <button class="comment-toggle" aria-label="Show comments">
+            <i class="fa-regular fa-comment"></i> <span>${comments.length}</span>
+          </button>
+          <button class="share-action" aria-label="Share post"><i class="fa-regular fa-paper-plane"></i></button>
+          <button class="save-action ${isSaved ? "liked" : ""}" aria-label="Save post">
+            <i class="${isSaved ? "fa-solid" : "fa-regular"} fa-bookmark"></i>
+          </button>
+        </div>
 
-          `
+        <div class="comment-section hidden">
+          <div class="comment-list"><p class="muted small">Loading comments...</p></div>
+          <form class="comment-form">
+            <input type="text" maxlength="1000" placeholder="Write a comment..." aria-label="Write a comment">
+            <button class="btn btn-green" type="submit">Send</button>
+          </form>
+        </div>
+      </div>`;
 
-          :
+    feed.appendChild(card);
 
-          ""
-        }
-
-      </div>
-
-
-      <div class="comment-box">
-
-        <input
-          id="comment-${post.id}"
-          placeholder="Write a comment..."
-        >
-
-
-        <button
-          onclick="addComment(${post.id})"
-          class="green-btn"
-        >
-
-          Comment
-
-        </button>
-
-
-        <div
-          id="comments-${post.id}"
-        ></div>
-
-      </div>
-
-    `;
-
-
-    feed.appendChild(
-      postElement
-    );
-
-
-    loadComments(
-      post.id
-    );
+    card.querySelector(".like-action").addEventListener("click", () => toggleLike(post.id));
+    card.querySelector(".comment-toggle").addEventListener("click", async () => {
+      const section = card.querySelector(".comment-section");
+      section.classList.toggle("hidden");
+      if (!section.classList.contains("hidden")) await loadComments(post.id, card);
+    });
+    card.querySelector(".comment-form").addEventListener("submit", event => addComment(event, post.id, card));
+    card.querySelector(".save-action").addEventListener("click", () => toggleSaved(post.id));
+    card.querySelector(".share-action").addEventListener("click", () => sharePost(post));
+    const deleteButton = card.querySelector(".delete-post");
+    if (deleteButton) deleteButton.addEventListener("click", () => deletePost(post));
 
   }
-
 }
 
+/* LIKES */
+async function toggleLike(postId) {
+  if (!currentUser) return;
 
-/* =========================
-   LIKE
-========================= */
+  const { data: existing, error: findError } = await client.from("post_likes")
+    .select("id")
+    .eq("post_id", postId)
+    .eq("user_id", currentUser.id)
+    .maybeSingle();
 
-async function likePost(
-  postId
-) {
+  if (findError) {
+    showToast(findError.message);
+    return;
+  }
 
-  const { data: existing } =
-  await client
-  .from("post_likes")
-  .select("id")
-  .eq(
-    "post_id",
-    postId
-  )
-  .eq(
-    "user_id",
-    currentUser.id
-  )
-  .maybeSingle();
-
+  let error;
 
   if (existing) {
-
-    await client
-    .from("post_likes")
-    .delete()
-    .eq(
-      "id",
-      existing.id
-    );
-
+    ({ error } = await client.from("post_likes").delete().eq("id", existing.id));
+  } else {
+    ({ error } = await client.from("post_likes").insert({
+      post_id: postId,
+      user_id: currentUser.id
+    }));
   }
-
-  else {
-
-    await client
-    .from("post_likes")
-    .insert({
-
-      post_id:
-      postId,
-
-      user_id:
-      currentUser.id
-
-    });
-
-  }
-
-}
-
-
-/* =========================
-   ADD COMMENT
-========================= */
-
-async function addComment(
-  postId
-) {
-
-  const input =
-  document.getElementById(
-    "comment-" + postId
-  );
-
-
-  const content =
-  input.value.trim();
-
-
-  if (!content) {
-    return;
-  }
-
-
-  const { error } =
-  await client
-  .from("comments")
-  .insert({
-
-    post_id:
-    postId,
-
-    user_id:
-    currentUser.id,
-
-    content:
-    content
-
-  });
-
 
   if (error) {
-
-    alert(
-      error.message
-    );
-
+    showToast("Could not update like: " + error.message);
     return;
   }
 
-
-  input.value = "";
-
-
-  loadComments(
-    postId
-  );
-
+  await loadFeed();
 }
 
+/* COMMENTS */
+async function loadComments(postId, card) {
+  const container = card.querySelector(".comment-list");
 
-/* =========================
-   LOAD COMMENTS
-========================= */
+  const { data: comments, error } = await client.from("comments")
+    .select("*")
+    .eq("post_id", postId)
+    .order("created_at", { ascending: true });
 
-async function loadComments(
-  postId
-) {
-
-  const container =
-  document.getElementById(
-    "comments-" + postId
-  );
-
-
-  if (!container) {
+  if (error) {
+    container.innerHTML = '<p class="error small">' + escapeHTML(error.message) + '</p>';
     return;
   }
 
-
-  const { data: comments } =
-  await client
-  .from("comments")
-  .select("*")
-  .eq(
-    "post_id",
-    postId
-  )
-  .order(
-    "created_at",
-    {
-      ascending: true
-    }
-  );
-
+  if (!comments || !comments.length) {
+    container.innerHTML = '<p class="muted small">No comments yet. Start the conversation!</p>';
+    return;
+  }
 
   container.innerHTML = "";
 
+  for (const comment of comments) {
+    const { data: profile } = await client.from("profiles")
+      .select("full_name").eq("id", comment.user_id).maybeSingle();
 
-  if (!comments) {
-    return;
+    const div = document.createElement("div");
+    div.className = "comment";
+    const strong = document.createElement("strong");
+    strong.textContent = profile?.full_name || "Family Member";
+    const span = document.createElement("span");
+    span.textContent = ": " + (comment.content || "");
+    div.append(strong, span);
+    container.appendChild(div);
   }
-
-
-  for (
-    const comment of comments
-  ) {
-
-    let name =
-    "Family Member";
-
-
-    const { data: profile } =
-    await client
-    .from("profiles")
-    .select(
-      "full_name"
-    )
-    .eq(
-      "id",
-      comment.user_id
-    )
-    .maybeSingle();
-
-
-    if (
-      profile &&
-      profile.full_name
-    ) {
-
-      name =
-      profile.full_name;
-
-    }
-
-
-    const div =
-    document.createElement(
-      "div"
-    );
-
-
-    div.className =
-    "comment";
-
-
-    div.innerHTML = `
-
-      <strong>
-        ${escapeHTML(name)}
-      </strong>:
-
-      ${escapeHTML(
-        comment.content
-      )}
-
-    `;
-
-
-    container.appendChild(
-      div
-    );
-
-  }
-
 }
 
+async function addComment(event, postId, card) {
+  event.preventDefault();
 
-/* =========================
-   DELETE POST
-========================= */
+  const input = card.querySelector(".comment-form input");
+  const content = input.value.trim();
 
-async function deletePost(
-  postId
-) {
+  if (!content || !currentUser) return;
 
-  if (
-    !confirm(
-      "Delete this post?"
-    )
-  ) {
+  const button = card.querySelector(".comment-form button");
+  button.disabled = true;
 
-    return;
+  try {
+    const { error } = await client.from("comments").insert({
+      post_id: postId,
+      user_id: currentUser.id,
+      content
+    });
 
+    if (error) throw error;
+
+    input.value = "";
+    await loadFeed();
+    showToast("Comment added!");
+  } catch (error) {
+    showToast("Could not comment: " + error.message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+/* SAVE POSTS - stored in this browser session */
+function toggleSaved(postId) {
+  const id = String(postId);
+
+  if (savedPosts.has(id)) {
+    savedPosts.delete(id);
+    showToast("Post removed from saved posts.");
+  } else {
+    savedPosts.add(id);
+    showToast("Post saved for this session.");
   }
 
+  renderFeed();
+}
 
-  const { error } =
-  await client
-  .from("posts")
-  .delete()
-  .eq(
-    "id",
-    postId
-  )
-  .eq(
-    "user_id",
-    currentUser.id
-  );
+/* DELETE */
+async function deletePost(post) {
+  if (!currentUser || post.user_id !== currentUser.id) return;
+  if (!confirm("Delete this post? This cannot be undone.")) return;
 
+  const { error } = await client.from("posts")
+    .delete()
+    .eq("id", post.id)
+    .eq("user_id", currentUser.id);
 
   if (error) {
-
-    alert(
-      error.message
-    );
-
+    showToast("Could not delete post: " + error.message);
     return;
   }
 
+  // Remove the associated object where possible.
+  if (post.image_url && !/^https?:\/\//i.test(post.image_url)) {
+    const { error: storageError } = await client.storage.from(BUCKET).remove([post.image_url]);
+    if (storageError) console.warn("Attachment cleanup failed:", storageError.message);
+  }
 
-  loadFeed();
-
+  showToast("Post deleted.");
+  await loadFeed();
 }
 
+/* SHARE */
+async function sharePost(post) {
+  const text = post.content || "A family moment on Opondo's Family";
 
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHTML(
-  text
-) {
-
-  const div =
-  document.createElement(
-    "div"
-  );
-
-
-  div.textContent =
-  text || "";
-
-
-  return div.innerHTML;
-
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "Opondo's Family", text });
+    } catch (error) {
+      if (error.name !== "AbortError") showToast("Sharing was cancelled or unavailable.");
+    }
+  } else if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("Post text copied. You can share it with family.");
+    } catch {
+      showToast("Your browser could not copy the post.");
+    }
+  } else {
+    showToast("Copy the post text to share it.");
+  }
 }
 
+/* ACTIVITY */
+function renderActivity() {
+  const container = $("activityList");
+  const recent = cachedPosts.slice(0, 4);
+
+  if (!recent.length) {
+    container.innerHTML = '<p class="muted small">No recent activity yet.</p>';
+    return;
+  }
+
+  container.innerHTML = "";
+
+  recent.forEach(post => {
+    const row = document.createElement("div");
+    row.className = "activity-row";
+    const text = document.createElement("div");
+    text.className = "activity-text";
+
+    const strong = document.createElement("strong");
+    strong.textContent = post.user_id === currentUser.id
+      ? "You"
+      : "A family member";
+
+    const desc = document.createElement("span");
+    desc.textContent = post.content
+      ? " shared a post: " + post.content.slice(0, 75)
+      : " shared a family moment.";
+
+    const time = document.createElement("div");
+    time.className = "post-time";
+    time.textContent = timeAgo(post.created_at);
+
+    text.append(strong, desc, time);
+
+    const icon = document.createElement("i");
+    icon.className = "fa-regular fa-heart activity-icon";
+
+    row.append(text, icon);
+    container.appendChild(row);
+  });
+}
+
+/* FAMILY MEMBERS */
+async function loadFamilyMembers() {
+  const container = $("membersList");
+
+  const { data, error } = await client.from("profiles")
+    .select("id,full_name,avatar_url")
+    .limit(8);
+
+  if (error) {
+    container.innerHTML = '<p class="muted small">Family member list is unavailable. Check profile permissions.</p>';
+    $("familyCount").textContent = "—";
+    $("followingCount").textContent = "—";
+    return;
+  }
+
+  const members = data || [];
+  $("familyCount").textContent = members.length;
+  $("followingCount").textContent = "—";
+
+  if (!members.length) {
+    container.innerHTML = '<p class="muted small">No family profiles found yet.</p>';
+    return;
+  }
+
+  container.innerHTML = "";
+
+  for (const member of members) {
+    const name = member.full_name || "Family Member";
+    const url = await getSignedUrl(member.avatar_url);
+    const row = document.createElement("div");
+    row.className = "person-row";
+    row.innerHTML = avatarHTML(url, name) +
+      '<div class="person-details"><strong>' + escapeHTML(name) +
+      '</strong><span>' + (member.id === currentUser.id ? "You" : "Family member") +
+      '</span></div>';
+
+    if (member.id === currentUser.id) {
+      const you = document.createElement("span");
+      you.className = "muted small";
+      you.textContent = "You";
+      row.appendChild(you);
+    }
+
+    container.appendChild(row);
+  }
+}
+
+/* SEARCH */
+$("searchInput").addEventListener("input", () => {
+  $("feed").dataset.mode = "all";
+  renderFeed();
+});
+
+/* NAVIGATION */
+function navigate(section) {
+  $("accountDropdown").classList.add("hidden");
+
+  document.querySelectorAll("[data-section]").forEach(button => {
+    button.classList.toggle("selected", button.dataset.section === section);
+    if (button.classList.contains("nav-action")) {
+      button.classList.toggle("active", button.dataset.section === section);
+    }
+  });
+
+  if (section === "create") {
+    $("composerCard").scrollIntoView({ behavior: "smooth", block: "center" });
+    $("postContent").focus();
+  } else if (section === "friends") {
+    $("friendsSection").scrollIntoView({ behavior: "smooth", block: "start" });
+  } else if (section === "saved") {
+    $("feed").dataset.mode = "saved";
+    $("feed").closest(".card").scrollIntoView({ behavior: "smooth", block: "start" });
+    renderFeed();
+  } else if (section === "settings") {
+    $("profileSection").scrollIntoView({ behavior: "smooth", block: "start" });
+    $("editProfilePanel").classList.remove("hidden");
+  } else if (section === "messages") {
+    showToast("Family messaging is not connected yet.");
+  } else if (section === "notifications") {
+    showToast("Your recent family activity is shown on the right.");
+    $("activitySection").scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    $("feed").dataset.mode = "all";
+    $("homeSection").scrollIntoView({ behavior: "smooth", block: "start" });
+    renderFeed();
+  }
+}
+
+document.querySelectorAll("[data-section]").forEach(button => {
+  button.addEventListener("click", () => navigate(button.dataset.section));
+});
+
+$("exploreButton").addEventListener("click", () => navigate("home"));
+
+$("inviteButton").addEventListener("click", async () => {
+  const inviteText = "Join our private Opondo's Family space!";
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: "Opondo's Family", text: inviteText });
+    } catch (error) {
+      if (error.name !== "AbortError") showToast("Unable to open sharing.");
+    }
+  } else {
+    showToast("Share your website link with family members to invite them.");
+  }
+});
+
+$("settingsButton").addEventListener("click", () => navigate("settings"));
+
+document.querySelectorAll("[data-info]").forEach(link => {
+  link.addEventListener("click", event => {
+    event.preventDefault();
+    showToast(link.dataset.info + ": Contact your family website administrator for details.");
+  });
+});
+
+document.querySelectorAll("[data-story]").forEach(button => {
+  button.addEventListener("click", () => {
+    $("postContent").value = button.dataset.story + " 🌿";
+    $("composerCard").scrollIntoView({ behavior: "smooth", block: "center" });
+    $("postContent").focus();
+  });
+});
+
+/* STARTUP */
+(async function start() {
+  $("feed").dataset.mode = "all";
+
+  try {
+    const { data, error } = await client.auth.getSession();
+    if (error) throw error;
+
+    if (data.session?.user) {
+      currentUser = data.session.user;
+      setAppVisible(true);
+      await initializeApp();
+    } else {
+      setAppVisible(false);
+    }
+  } catch (error) {
+    console.error("Session initialization failed:", error);
+    setAppVisible(false);
+    setMessage("loginMessage", "Unable to connect. Check your internet and refresh.", "error");
+  }
+})();
 </script>
 
 </body>
